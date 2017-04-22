@@ -12,18 +12,24 @@
         android:layout_weight="4"
         android:layout_width="match_parent"
         android:layout_height="0dp"></LinearLayout>
-    //Form 4
+    //Form 5
     <LinearLayout
         android:orientation="vertical"
-        android:weightSum="4"
+        android:weightSum="5"
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
-        android:layout_weight="4"
+        android:layout_weight="5"
         android:layout_width="match_parent"
         android:layout_height="0dp">
         <EditText
             android:id="@+id/edtemail_signup"
             android:hint="Email"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+        <EditText
+            android:id="@+id/edtusername_signup"
+            android:hint="UserName"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp" />
@@ -46,16 +52,16 @@
             android:layout_width="match_parent"
             android:layout_height="0dp" />
     </LinearLayout>
-    //Button 2
+    //Button 1
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
-        android:paddingBottom="50dp"
+        android:layout_weight="1"
+        android:paddingBottom="10dp"
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
-        android:paddingTop="30dp">
+        android:paddingTop="10dp">
 
         <Button
             android:id="@+id/btnsignup"

@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.win81version2.orderdrink">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -18,8 +25,22 @@
         </activity>
         <activity
             android:name=".Login.view.LoginActivity"
-            android:theme="@style/NoActionBar"></activity>
-        <activity android:name=".signup.view.SignupActivity"></activity>
+            android:theme="@style/NoActionBar" />
+        <activity android:name=".signup.view.SignupActivity" />
+        <activity android:name=".main.view.MainUserActivity" />
+        <activity android:name=".profile_store.view.CreateStoreActivity" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            tools:replace="android:theme" />
+        <activity android:name=".main.view.MainAdminActivity"></activity>
     </application>
 
 </manifest>

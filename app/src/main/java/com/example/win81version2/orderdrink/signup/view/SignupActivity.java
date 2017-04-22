@@ -10,12 +10,17 @@ import android.widget.EditText;
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
 import com.example.win81version2.orderdrink.signup.presenter.SignUpActivityPresenter;
+import com.example.win81version2.orderdrink.utility.Constain;
+
+import java.util.HashMap;
 
 public class SignupActivity extends BaseActivity {
 
-    private EditText edtEmail, edtPassword, edtConfirmPassword, edtPhoneNumber;
+    private EditText edtEmail, edtPassword, edtConfirmPassword, edtPhoneNumber, edtUserName;
     private Button btnSignup;
     private SignUpActivityPresenter presenter;
+    private double lo = 0.0;
+    private double la = 0.0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +45,14 @@ public class SignupActivity extends BaseActivity {
         String password = (edtPassword.getText().toString()).trim();
         String confirmPassword = (edtConfirmPassword.getText().toString()).trim();
         String phoneNumber = (edtPhoneNumber.getText().toString()).trim();
+        String userName = (edtUserName.getText().toString()).trim();
+        if (TextUtils.isEmpty(userName)){
+            isVail = false;
+            edtUserName.setError("Bắt Buộc");
+        }
+        else {
+            edtUserName.setError(null);
+        }
         if (TextUtils.isEmpty(email)){
             isVail = false;
             edtEmail.setError("Bắt Buộc");
@@ -76,7 +89,13 @@ public class SignupActivity extends BaseActivity {
         }
         if (isVail) {
             showProgressDialog();
-            presenter.signUpWithEmail(email, password);
+            HashMap<String, Object> favorite_drink = new HashMap<>();
+            HashMap<String , Object> location = new HashMap<>();
+            location.put(Constain.ADDRESS, "");
+            location.put(Constain.LO, lo);
+            location.put(Constain.LA, la);
+            presenter.signUpWithEmail(password, userName, email, phoneNumber, "", "", false, location, favorite_drink);
+            //presenter.signUp(email, password);
         }
     }
 
@@ -86,6 +105,7 @@ public class SignupActivity extends BaseActivity {
         edtPhoneNumber = (EditText) findViewById(R.id.edtphonenumber_signup);
         edtPassword = (EditText) findViewById(R.id.edtpassword_signup);
         edtConfirmPassword = (EditText) findViewById(R.id.edtconfirmpassword_signup);
+        edtUserName = (EditText) findViewById(R.id.edtusername_signup);
         //Button
         btnSignup = (Button) findViewById(R.id.btnsignup);
         //presenter

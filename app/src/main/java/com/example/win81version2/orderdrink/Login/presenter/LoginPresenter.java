@@ -17,7 +17,7 @@ public class LoginPresenter {
     public LoginPresenter(LoginActivity view) {
         this.view = view;
         mData = FirebaseDatabase.getInstance().getReference();
-        submitter = new LoginSubmitter(mData);
+        submitter = new LoginSubmitter(mData, view);
     }
     public void login (String email, String password){
         submitter.login(email, password);

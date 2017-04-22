@@ -1,5 +1,6 @@
 package com.example.win81version2.orderdrink.Login.view;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,9 +10,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.win81version2.orderdrink.Login.presenter.LoginFacebookPresenter;
 import com.example.win81version2.orderdrink.Login.presenter.LoginPresenter;
 import com.example.win81version2.orderdrink.R;
+import com.example.win81version2.orderdrink.main.view.MainActivity;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
+import com.example.win81version2.orderdrink.signup.view.SignupActivity;
+import com.facebook.CallbackManager;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
@@ -20,6 +26,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private Button btnLogin;
     private ImageView imgLoginFb, imgLoginGoogle;
     private LoginPresenter presenter;
+    private LoginFacebookPresenter fbPresenter;
+    private CallbackManager callbackManager;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +61,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         imgLoginGoogle = (ImageView) findViewById(R.id.imglogingoogle);
         //presenter
         presenter = new LoginPresenter(this);
+        mAuth = FirebaseAuth.getInstance();
+        fbPresenter = new LoginFacebookPresenter(this);
+        callbackManager = CallbackManager.Factory.create();
     }
 
     @Override
@@ -65,7 +77,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
         if (view == R.id.btnlogin) {
             logIn();
-
         }
         if (view == R.id.imgloginfb) {
             loginFb();
@@ -82,6 +93,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void loginFb() {
+        fbPresenter.loginFacebook(this, callbackManager);
     }
 
     private void logIn() {
@@ -110,5 +122,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void sign_Up() {
+        startActivity(new Intent(LoginActivity.this, SignupActivity.class));
+    }
+
+    public void moveToMainActivity (){
+        startActivity(new Intent(this, MainActivity.class));
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }

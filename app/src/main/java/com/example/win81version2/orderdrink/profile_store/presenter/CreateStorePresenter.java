@@ -1,0 +1,53 @@
+package com.example.win81version2.orderdrink.profile_store.presenter;
+
+import android.support.annotation.NonNull;
+
+import com.example.win81version2.orderdrink.profile_store.model.CreateStoreSubmitter;
+import com.example.win81version2.orderdrink.profile_store.view.CreateStoreActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Objects;
+
+/**
+ * Created by Win 8.1 Version 2 on 4/22/2017.
+ */
+
+public class CreateStorePresenter {
+    private DatabaseReference mData;
+    private CreateStoreSubmitter submitter;
+    private CreateStoreActivity view;
+    private FirebaseAuth mAuth;
+
+    public CreateStorePresenter(CreateStoreActivity view, FirebaseAuth mAuth) {
+        this.view = view;
+        this.mAuth = mAuth;
+        mData = FirebaseDatabase.getInstance().getReference();
+        submitter = new CreateStoreSubmitter(mData, view);
+    }
+    public void createNewStore (String email, String password, final String storeName, final String phoneNumber, String from, String to){
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(view, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    HashMap<String, Object> location = new HashMap<>();
+                    HashMap<String, Object> favoriteList = new HashMap<>();
+                    HashMap<String, Object> timeWork = new HashMap<>();
+                    HashMap<String, Object> products = new HashMap<>();
+                    HashMap<String, Object> orderSchedule = new HashMap<>();
+                    addNewStore(task.getResult().getUser().getUid().toString(), storeName, task.getResult().getUser().getEmail(), true, phoneNumber, "", 0, location,favoriteList, timeWork, products, orderSchedule);
+                    view.hideProgressDialog();
+                    view.showToast("Create new store successful");
+                }
+            }
+        });
+    }
+    public void addNewStore (String idStore, String storeName, String email, boolean isStore, String phoneNumber, String linkPhotoStore, int sumFavorite, HashMap<String, Object> location, HashMap<String, Object> favoriteList, HashMap<String, Object> timeWork, HashMap<String, Object> products, HashMap<String, Object> orderSchedule){
+        submitter.addNewStore(idStore, storeName, email, isStore, phoneNumber, linkPhotoStore, sumFavorite, location, favoriteList, timeWork, products, orderSchedule);
+    }
+}
