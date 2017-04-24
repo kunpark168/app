@@ -16,6 +16,7 @@ public class Store {
     private String phoneNumber;
     private String linkPhotoStore;
     private int sumFavorite;
+    private int sumShipped;
     private HashMap<String, Object> location;
     private HashMap<String, Object> favoriteList;
     private HashMap<String, Object> timeWork;
@@ -26,7 +27,7 @@ public class Store {
     public Store() {
     }
 
-    public Store(String idStore, String storeName, String email, boolean isStore, String phoneNumber, String linkPhotoStore, int sumFavorite, HashMap<String, Object> location, HashMap<String, Object> favorite_list, HashMap<String, Object> timeWork, HashMap<String, Object> products, HashMap<String, Object> orderSchedule) {
+    public Store(String idStore, String storeName, String email, boolean isStore, String phoneNumber, String linkPhotoStore, int sumFavorite, int sumShipped, HashMap<String, Object> location, HashMap<String, Object> favorite_list, HashMap<String, Object> timeWork, HashMap<String, Object> products, HashMap<String, Object> orderSchedule) {
         this.idStore = idStore;
         this.storeName = storeName;
         this.email = email;
@@ -34,6 +35,7 @@ public class Store {
         this.phoneNumber = phoneNumber;
         this.linkPhotoStore = linkPhotoStore;
         this.sumFavorite = sumFavorite;
+        this.sumShipped = sumShipped;
         this.location = location;
         this.favoriteList = favorite_list;
         this.timeWork = timeWork;
@@ -50,6 +52,7 @@ public class Store {
         myMap.put(Constain.PHONENUMBER, phoneNumber);
         myMap.put(Constain.LINKPHOTOSTORE, linkPhotoStore);
         myMap.put(Constain.SUMFAVORITE, sumFavorite);
+        myMap.put(Constain.SUM_SHIPPED, sumShipped);
         myMap.put(Constain.LOCATION, location);
         myMap.put(Constain.FAVORITE_LIST, favoriteList);
         myMap.put(Constain.TIME_WORK, timeWork);

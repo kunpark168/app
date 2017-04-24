@@ -37,7 +37,7 @@ public class SignUpActvitySubmitter {
                 if (task.isSuccessful()){
                     view.hideProgressDialog();
                     view.showToast("Đăng ký thành công");
-                    addUser(task.getResult().getUser().getUid(), userName, task.getResult().getUser().getEmail(), true,  phoneNumber, linkPhotoUser, birthDay, isStore, location, favorite_drink);
+                    addUser(task.getResult().getUser().getUid(), userName, task.getResult().getUser().getEmail(), true,  phoneNumber, linkPhotoUser, birthDay, isStore, 0, location, favorite_drink);
                     view.startActivity(new Intent(view, MainActivity.class));
                 }
                 else {
@@ -54,8 +54,8 @@ public class SignUpActvitySubmitter {
         });
     }
     //create new user on firebase
-    public void addUser (String idUser,  String userName, String email, boolean gender, String phoneNumber, String linkPhotoUser, String birthDay, boolean isStore, HashMap<String, Object>location, HashMap<String, Object> favorite_drink){
-        User user = new User(idUser, userName, email, gender, phoneNumber, linkPhotoUser, birthDay, false, location, favorite_drink);
+    public void addUser (String idUser,  String userName, String email, boolean gender, String phoneNumber, String linkPhotoUser, String birthDay, boolean isStore, int sumOrdered, HashMap<String, Object>location, HashMap<String, Object> favorite_drink){
+        User user = new User(idUser, userName, email, gender, phoneNumber, linkPhotoUser, birthDay, false, sumOrdered, location, favorite_drink);
         HashMap<String, Object> myMap = new HashMap<>();
         myMap = user.putMap();
         mData.child(Constain.USERS).child(idUser).setValue(myMap);

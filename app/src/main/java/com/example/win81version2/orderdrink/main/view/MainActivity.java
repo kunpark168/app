@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import com.example.win81version2.orderdrink.Login.view.LoginActivity;
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
+import com.example.win81version2.orderdrink.profile_store.model.Store;
 import com.example.win81version2.orderdrink.profile_user.model.User;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,6 +60,7 @@ public class MainActivity extends BaseActivity {
         int id = item.getItemId();
         if (id == R.id.logout){
             FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
@@ -78,9 +80,11 @@ public class MainActivity extends BaseActivity {
                                     try {
                                         User user = dataSnapshot.getValue(User.class);
                                         if (user != null) {
-                                            if (!user.getEmail().equals(Constain.EMAIL_ADMIN)){
+                                            if (!user.getUserName().equals(Constain.ADMIN)){
                                                 hideProgressDialog();
-                                                startActivity(new Intent(MainActivity.this, MainUserActivity.class));
+                                                Intent intent = new Intent(MainActivity.this, MainUserActivity.class);
+                                                intent.putExtra(Constain.ID_USER, idUser);
+                                                startActivity(intent);
                                             }
                                             else {
                                                 hideProgressDialog();
@@ -90,6 +94,7 @@ public class MainActivity extends BaseActivity {
                                         }
                                     } catch (Exception ex) {
                                         ex.printStackTrace();
+                                        hideProgressDialog();
                                     }
                                 }
                                 else {
@@ -99,6 +104,7 @@ public class MainActivity extends BaseActivity {
 
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
+                                hideProgressDialog();
 
                             }
                         });

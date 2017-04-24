@@ -82,7 +82,7 @@ public class LoginFacebookPresenter {
                     //creare new user on firebase
                     HashMap<String, Object> location = new HashMap<>();
                     HashMap<String, Object> favorite_drink = new HashMap<>();
-                    submitter.addUser(task.getResult().getUser().getUid(), task.getResult().getUser().getDisplayName(), task.getResult().getUser().getEmail(), true, "", task.getResult().getUser().getPhotoUrl().toString(), "", false, location,favorite_drink);
+                    submitter.addUser(task.getResult().getUser().getUid(), task.getResult().getUser().getDisplayName(), task.getResult().getUser().getEmail(), true, "", task.getResult().getUser().getPhotoUrl().toString(), "", location,favorite_drink);
                     view.moveToMainActivity();
                 }
                 else {

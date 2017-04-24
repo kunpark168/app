@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        card_view:cardElevation="4dp"
+        card_view:cardCornerRadius="5dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:background="@drawable/strokeimg"
+                    android:src="@drawable/store"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <LinearLayout
+                android:paddingLeft="5dp"
+                android:weightSum="4"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:weightSum="5"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+                    <TextView
+                        android:textColor="@color/black"
+                        android:gravity="center"
+                        android:text="Trà Sữa Zen"
+                        android:typeface="serif"
+                        android:textSize="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <LinearLayout
+                    android:background="@drawable/back_ground_edittext"
+                    android:weightSum="2"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
+                            android:text="168"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" />
+                        <ImageView
+                            android:src="@drawable/icon_heart"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:src="@drawable/icon_ship" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
+                            android:text="1906"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:weightSum="5"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+                    <TextView
+
+                        android:gravity="bottom"
+                        android:textColor="@color/black"
+                        android:typeface="serif"
+                        android:text="    Time work"
+                        android:layout_weight="3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+                    <TextView
+                        android:gravity="bottom|center_horizontal"
+                        android:textColor="@color/black"
+                        android:typeface="serif"
+                        android:text="7h - 22h"
+                        android:layout_weight="2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:weightSum="5"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:text="Address : "
+                        android:textColor="@color/black"
+                        android:typeface="serif" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="Dĩ An - Bình Dương"
+                        android:textColor="@color/black"
+                        android:typeface="serif" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        card_view:cardElevation="4dp"
+        card_view:cardCornerRadius="5dp">
+        <LinearLayout
+            android:weightSum="5"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_weight="4"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+            </LinearLayout>
+            <LinearLayout
+                android:background="@color/bgsignup"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+                <TextView
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:text="view orders"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

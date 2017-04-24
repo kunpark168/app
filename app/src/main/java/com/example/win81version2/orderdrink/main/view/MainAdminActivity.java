@@ -36,6 +36,7 @@ public class MainAdminActivity extends BaseActivity {
         int id = item.getItemId();
         if (id == R.id.logout){
             FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(MainAdminActivity.this, MainActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

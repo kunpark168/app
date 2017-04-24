@@ -1,9 +1,12 @@
 package com.example.win81version2.orderdrink.profile_store.presenter;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 
+import com.example.win81version2.orderdrink.main.view.MainAdminActivity;
 import com.example.win81version2.orderdrink.profile_store.model.CreateStoreSubmitter;
 import com.example.win81version2.orderdrink.profile_store.view.CreateStoreActivity;
+import com.example.win81version2.orderdrink.utility.Constain;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -30,19 +33,25 @@ public class CreateStorePresenter {
         mData = FirebaseDatabase.getInstance().getReference();
         submitter = new CreateStoreSubmitter(mData, view);
     }
-    public void createNewStore (String email, String password, final String storeName, final String phoneNumber, String from, String to){
+    public void createNewStore (String email, String password, final String storeName, final String phoneNumber, final String address, final String from, final String to){
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(view, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     HashMap<String, Object> location = new HashMap<>();
+                    location.put(Constain.ADDRESS, address);
+                    location.put(Constain.LO, 0);
+                    location.put(Constain.LA, 0);
                     HashMap<String, Object> favoriteList = new HashMap<>();
                     HashMap<String, Object> timeWork = new HashMap<>();
+                    timeWork.put(Constain.FROM, from);
+                    timeWork.put(Constain.TO, to);
                     HashMap<String, Object> products = new HashMap<>();
                     HashMap<String, Object> orderSchedule = new HashMap<>();
                     addNewStore(task.getResult().getUser().getUid().toString(), storeName, task.getResult().getUser().getEmail(), true, phoneNumber, "", 0, location,favoriteList, timeWork, products, orderSchedule);
                     view.hideProgressDialog();
                     view.showToast("Create new store successful");
+                    view.startActivity(new Intent(view, MainAdminActivity.class));
                 }
             }
         });

@@ -103,7 +103,7 @@ public class CreateStoreActivity extends BaseActivity implements View.OnClickLis
         if (isVaild){
             //Create new store
             showProgressDialog();
-            presenter.createNewStore(email, password, storeName, phoneNumber, from, to);
+            presenter.createNewStore(email, password, storeName, phoneNumber, adddress, from, to);
 
         }
     }
