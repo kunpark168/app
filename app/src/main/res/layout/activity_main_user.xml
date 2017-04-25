@@ -34,17 +34,17 @@
         </LinearLayout>
         //content_main
         <LinearLayout
-            android:layout_weight="8"
+            android:layout_weight="8.3"
             android:layout_width="match_parent"
             android:layout_height="0dp">
             <include
-                layout="@layout/content_main"
+                layout="@layout/content_main_user"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
         //Navigation bottom
         <LinearLayout
-            android:layout_weight="1"
+            android:layout_weight="0.7"
             android:layout_width="match_parent"
             android:layout_height="0dp">
             <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
@@ -54,14 +54,91 @@
             </com.aurelhubert.ahbottomnavigation.AHBottomNavigation>
         </LinearLayout>
     </LinearLayout>
-
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer" />
+        android:fitsSystemWindows="true">
+        <LinearLayout
+            android:weightSum="10"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            //4
+            <LinearLayout
+                android:paddingTop="30dp"
+                android:layout_weight="4"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@drawable/com_facebook_button_send_background"
+                android:weightSum="6"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="4.5"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/profile_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/avatar"
+                        app:civ_border_width="1dp"
+                        app:civ_border_color="@color/white"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.5"
+                    android:orientation="vertical"
+                    android:paddingTop="5dp"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:id="@+id/txtusername_mainuser"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Kun Park" />
+
+                    <TextView
+                        android:id="@+id/txtsumordered"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="168 Orders"
+                        android:typeface="serif" />
+                </LinearLayout>
+            </LinearLayout>
+            //5
+            <LinearLayout
+                android:layout_weight="5"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+            </LinearLayout>
+            //2
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/sign_up"
+                    android:layout_gravity="bottom"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

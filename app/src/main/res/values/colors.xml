@@ -13,4 +13,7 @@
     <color name="item_inactive">#650df4</color>
     <color name="bg_ahbottom">#b9d2d1</color>
 
+    //color bottom navigation
+    <color name="ahbottom">#060161</color>
+
 </resources>

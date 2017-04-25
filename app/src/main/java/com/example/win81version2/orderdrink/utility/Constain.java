@@ -27,7 +27,7 @@ public class Constain {
     //store
     public static final String STORES = "Stores";
     public static final String ID_STORE = "idStore";
-    public static final String STORE_NAME = " storeName";
+    public static final String STORE_NAME = "storeName";
     public static final String LINKPHOTOSTORE = "linkPhotoStore";
     public static final String SUMFAVORITE = "sumFavorite";
     public static final String SUM_SHIPPED = "sumShipped";
@@ -36,7 +36,7 @@ public class Constain {
     public static final String FROM = "from";
     public static final String TO = "to";
     public static final String ORDER_SCHEDULE = "orderSchedule";
-    //product
+    //Product
     public static final String PRODUCTS = "products";
     public static final String ID_CATEGORY = "idCategory";
     public static final String CATEGORY_NAME = "categoryName";

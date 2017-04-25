@@ -12,6 +12,8 @@ import android.widget.Button;
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
 import com.example.win81version2.orderdrink.profile_store.view.CreateStoreActivity;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainAdminActivity extends BaseActivity {
@@ -20,6 +22,7 @@ public class MainAdminActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(this);
         setContentView(R.layout.activity_main_admin);
         addControls ();
         addEvents ();
@@ -35,6 +38,7 @@ public class MainAdminActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.logout){
+            LoginManager.getInstance().logOut();
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(MainAdminActivity.this, MainActivity.class));
         }

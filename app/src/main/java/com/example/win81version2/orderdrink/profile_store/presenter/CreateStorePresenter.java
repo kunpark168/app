@@ -43,12 +43,10 @@ public class CreateStorePresenter {
                     location.put(Constain.LO, 0);
                     location.put(Constain.LA, 0);
                     HashMap<String, Object> favoriteList = new HashMap<>();
-                    HashMap<String, Object> timeWork = new HashMap<>();
-                    timeWork.put(Constain.FROM, from);
-                    timeWork.put(Constain.TO, to);
                     HashMap<String, Object> products = new HashMap<>();
                     HashMap<String, Object> orderSchedule = new HashMap<>();
-                    addNewStore(task.getResult().getUser().getUid().toString(), storeName, task.getResult().getUser().getEmail(), true, phoneNumber, "", 0, location,favoriteList, timeWork, products, orderSchedule);
+                    String timework = from + "-" + to;
+                    addNewStore(task.getResult().getUser().getUid().toString(), storeName, task.getResult().getUser().getEmail(), true, phoneNumber, "", 0, timework, location,favoriteList, products, orderSchedule);
                     view.hideProgressDialog();
                     view.showToast("Create new store successful");
                     view.startActivity(new Intent(view, MainAdminActivity.class));
@@ -56,7 +54,7 @@ public class CreateStorePresenter {
             }
         });
     }
-    public void addNewStore (String idStore, String storeName, String email, boolean isStore, String phoneNumber, String linkPhotoStore, int sumFavorite, HashMap<String, Object> location, HashMap<String, Object> favoriteList, HashMap<String, Object> timeWork, HashMap<String, Object> products, HashMap<String, Object> orderSchedule){
-        submitter.addNewStore(idStore, storeName, email, isStore, phoneNumber, linkPhotoStore, sumFavorite, location, favoriteList, timeWork, products, orderSchedule);
+    public void addNewStore (String idStore, String storeName, String email, boolean isStore, String phoneNumber, String linkPhotoStore, int sumFavorite, String timeWork, HashMap<String, Object>location, HashMap<String, Object> favoriteList, HashMap<String, Object> products, HashMap<String, Object> orderSchedule){
+        submitter.addNewStore(idStore, storeName, email, isStore, phoneNumber, linkPhotoStore, sumFavorite, timeWork, location, favoriteList, products, orderSchedule);
     }
 }

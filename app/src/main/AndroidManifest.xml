@@ -40,7 +40,9 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             tools:replace="android:theme" />
-        <activity android:name=".main.view.MainAdminActivity"></activity>
+        <activity android:name=".main.view.MainAdminActivity" />
+        <activity android:name=".main.view.MainStoreActivity" />
+        <activity android:name=".products.view.CreateCategoryActivity"></activity>
     </application>
 
 </manifest>

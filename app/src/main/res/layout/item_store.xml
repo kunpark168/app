@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:paddingBottom="10dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:paddingTop="10dp"
+    android:paddingBottom="5dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="5dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <android.support.v7.widget.CardView
+        android:id="@+id/displayStore"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        card_view:cardElevation="4dp"
+        card_view:cardElevation="7dp"
         card_view:cardCornerRadius="5dp">
         <LinearLayout
             android:orientation="horizontal"
@@ -21,6 +22,7 @@
                 android:layout_width="150dp"
                 android:layout_height="match_parent">
                 <ImageView
+                    android:id="@+id/imgPhotoStore"
                     android:background="@drawable/strokeimg"
                     android:src="@drawable/store"
                     android:layout_width="match_parent"
@@ -39,6 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp">
                     <TextView
+                        android:id="@+id/txtStoreName_itemstore"
                         android:textColor="@color/black"
                         android:gravity="center"
                         android:text="Trà Sữa Zen"
@@ -59,6 +62,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent">
                         <TextView
+                            android:id="@+id/txtSumFavorite_itemstore"
                             android:gravity="center"
                             android:textColor="@color/black"
                             android:textSize="15dp"
@@ -85,6 +89,7 @@
                             android:src="@drawable/icon_ship" />
 
                         <TextView
+                            android:id="@+id/txtSumShipped_itemstore"
                             android:gravity="center"
                             android:textColor="@color/black"
                             android:textSize="15dp"
@@ -112,6 +117,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent" />
                     <TextView
+                        android:id="@+id/txtTimeWork_itemstore"
                         android:gravity="bottom|center_horizontal"
                         android:textColor="@color/black"
                         android:typeface="serif"
@@ -139,7 +145,7 @@
                         android:typeface="serif" />
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/txtAddress_itemstore"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
@@ -155,6 +161,7 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
+        android:id="@+id/infoStore"
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="200dp"

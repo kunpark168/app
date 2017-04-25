@@ -108,8 +108,30 @@ public class MainActivity extends BaseActivity {
 
                             }
                         });
+                        mData.child(Constain.STORES).child(idUser).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.getValue() != null){
+                                    try {
+                                        Store store = dataSnapshot.getValue(Store.class);
+                                        if (store != null){
+                                            hideProgressDialog();
+                                            Intent intent = new Intent(MainActivity.this, MainStoreActivity.class);
+                                            intent.putExtra(Constain.ID_STORE, idUser);
+                                            startActivity(intent);
+                                        }
+                                    }
+                                    catch (Exception ex){
 
+                                    }
+                                }
+                            }
 
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                 } else {
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 }

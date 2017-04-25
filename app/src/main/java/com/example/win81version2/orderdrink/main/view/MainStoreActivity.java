@@ -1,10 +1,7 @@
 package com.example.win81version2.orderdrink.main.view;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -22,9 +19,12 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
+import com.example.win81version2.orderdrink.notification_store.view.Notification_Store_Fragment;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
 import com.example.win81version2.orderdrink.ordered_history.view.Ordered_History_Fragment;
-import com.example.win81version2.orderdrink.profile_user.model.User;
+import com.example.win81version2.orderdrink.product_list.view.Product_List_Fragment;
+import com.example.win81version2.orderdrink.profile_store.model.Store;
+import com.example.win81version2.orderdrink.profile_store.view.Profile_Store_Fragment;
 import com.example.win81version2.orderdrink.profile_user.view.ProfileUser_Fragment;
 import com.example.win81version2.orderdrink.store_list.view.Store_List_Fragment;
 import com.example.win81version2.orderdrink.utility.Constain;
@@ -35,97 +35,91 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainUserActivity extends BaseActivity implements AHBottomNavigation.OnTabSelectedListener{
+public class MainStoreActivity extends BaseActivity implements AHBottomNavigation.OnTabSelectedListener {
 
-    private ImageView imgAvata;
-    private TextView txtUserName, txtSumOrdered;
-    private DatabaseReference mData;
-    private String idUser, userName, linkPhotoUser;
-    private String sumOrdered;
     private AHBottomNavigation ahBottomNavigation;
+    private ImageView imgPhotoStore;
+    private TextView  txtStoreName, txtSumShipped;
+    private String idStore, linkPhotoStore = "";
+    private DatabaseReference mData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this);
-        setContentView(R.layout.activity_main_user);
-        addControls ();
-        initInfo ();
+        setContentView(R.layout.activity_main_store);
+        addControls();
+        innitInfo();
     }
-    private void initInfo() {
-        Store_List_Fragment storeListFragment = new Store_List_Fragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_id, storeListFragment).commit();
+
+    private void innitInfo() {
         Intent intent = getIntent();
-        idUser = intent.getStringExtra(Constain.ID_USER);
-        mData.child(Constain.USERS).child(idUser).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() != null){
-                    try
-                    {
-                        User user = dataSnapshot.getValue(User.class);
-                        userName = user.getUserName();
-                        linkPhotoUser = user.getLinkPhotoUser();
-                        sumOrdered = user.getSumOrdered() + " Ordered";
-                        if (!linkPhotoUser.equals("")) {
-                            Glide.with(MainUserActivity.this)
-                                    .load(linkPhotoUser)
-                                    .fitCenter()
-                                    .into(imgAvata);
+        idStore = intent.getStringExtra(Constain.ID_STORE);
+        try {
+            mData.child(Constain.STORES).child(idStore).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null){
+                        try {
+                            Store store = dataSnapshot.getValue(Store.class);
+                            txtStoreName.setText(store.getStoreName().toString());
+                            txtSumShipped.setText(store.getSumShipped());
+                            linkPhotoStore = store.getLinkPhotoStore();
+                            if (!linkPhotoStore.equals("")) {
+                                Glide.with(MainStoreActivity.this)
+                                        .load(linkPhotoStore)
+                                        .fitCenter()
+                                        .into(imgPhotoStore);
+                            }
                         }
-                        txtUserName.setText(userName);
-                        txtSumOrdered.setText(sumOrdered);
-                    }
-                    catch (Exception ex){
-                        ex.printStackTrace();
+                        catch (Exception ex){
+                            ex.printStackTrace();
+                        }
                     }
                 }
-                else {
-                    showToast("Lỗi không load được User!");
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
                 }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
+            });
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     private void addControls() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_store);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_store);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        //View
-        imgAvata = (ImageView) findViewById(R.id.profile_image);
-        txtUserName = (TextView) findViewById(R.id.txtusername_mainuser);
-        txtSumOrdered = (TextView) findViewById(R.id.txtsumordered);
         //Navigation Bottom
         ahBottomNavigation = (AHBottomNavigation) findViewById(R.id.navigation);
-        initItemNavigation ();
+        initItemNavigation();
         mData = FirebaseDatabase.getInstance().getReference();
+        txtStoreName = (TextView) findViewById(R.id.txtstorename_mainuser);
+        txtSumShipped = (TextView) findViewById(R.id.txtsumshipped_mainstore);
+        imgPhotoStore = (ImageView) findViewById(R.id.imgPhotoStore_mainstore);
 
 
     }
 
     private void initItemNavigation() {
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem("", R.drawable.ic_store);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem("", R.drawable.icon_shopping);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem("", R.drawable.icon_profile);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem("", R.drawable.ic_store, R.color.ahbottom);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem("", R.drawable.icon_shopping, R.color.ahbottom);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem("", R.drawable.icon_profile, R.color.ahbottom);
         ahBottomNavigation.addItem(item1);
         ahBottomNavigation.addItem(item2);
         ahBottomNavigation.addItem(item3);
         ahBottomNavigation.setOnTabSelectedListener(this);
-        ahBottomNavigation.setDefaultBackgroundColor(getResources().getColor(R.color.ahbottom));
         ahBottomNavigation.setCurrentItem(0);
     }
 
@@ -137,7 +131,7 @@ public class MainUserActivity extends BaseActivity implements AHBottomNavigation
             super.onBackPressed();
         }
     }
-    @SuppressWarnings("StatementWithEmptyBody")
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -148,7 +142,7 @@ public class MainUserActivity extends BaseActivity implements AHBottomNavigation
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.logout){
+        if (id == R.id.logout) {
             LoginManager.getInstance().logOut();
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(this, MainActivity.class));
@@ -159,14 +153,14 @@ public class MainUserActivity extends BaseActivity implements AHBottomNavigation
     @Override
     public void onTabSelected(int position, boolean wasSelected) {
         if (position == 0) {
-            Store_List_Fragment storeListFragment = new Store_List_Fragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, storeListFragment).commit();
+            Product_List_Fragment product_list_fragment = new Product_List_Fragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, product_list_fragment).commit();
         } else if (position == 1) {
-            Ordered_History_Fragment ordered_history_fragment = new Ordered_History_Fragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, ordered_history_fragment).commit();
+            Notification_Store_Fragment notification_store_fragment = new Notification_Store_Fragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, notification_store_fragment).commit();
         } else if (position == 2) {
-            ProfileUser_Fragment profileUser_fragment = new ProfileUser_Fragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, profileUser_fragment).commit();
+            Profile_Store_Fragment profile_store_fragment = new Profile_Store_Fragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, profile_store_fragment).commit();
 
         }
     }
