@@ -26,7 +26,10 @@
         <activity
             android:name=".Login.view.LoginActivity"
             android:theme="@style/NoActionBar" />
-        <activity android:name=".signup.view.SignupActivity" />
+        <activity
+            android:name=".signup.view.SignupActivity"
+            android:label="................................................................................"
+            android:theme="@style/DialogNoActionBar" />
         <activity android:name=".main.view.MainUserActivity" />
         <activity android:name=".profile_store.view.CreateStoreActivity" />
 
@@ -42,7 +45,11 @@
             tools:replace="android:theme" />
         <activity android:name=".main.view.MainAdminActivity" />
         <activity android:name=".main.view.MainStoreActivity" />
-        <activity android:name=".products.view.CreateCategoryActivity"></activity>
+        <activity android:name=".category.view.CategoryListActivity" />
+        <activity
+            android:name=".category.view.CreateCategory"
+            android:label="-------------------------------------------"
+            android:theme="@style/DialogNoActionBar"></activity>
     </application>
 
 </manifest>

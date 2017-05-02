@@ -3,16 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:background="@drawable/bg_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
-    <TextView
-        android:gravity="center"
-        android:textSize="40dp"
-        android:textColor="@color/white"
-        android:text="Order Drink"
-        android:background="@color/black"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 </LinearLayout>

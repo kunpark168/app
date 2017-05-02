@@ -1,4 +1,4 @@
-package com.example.win81version2.orderdrink.products.model;
+package com.example.win81version2.orderdrink.product.model;
 
 import com.example.win81version2.orderdrink.utility.Constain;
 

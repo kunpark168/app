@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingBottom="5dp"
     android:paddingLeft="10dp"
@@ -11,7 +12,6 @@
         android:id="@+id/displayStore"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         card_view:cardElevation="7dp"
         card_view:cardCornerRadius="5dp">
         <LinearLayout
@@ -51,7 +51,7 @@
                         android:layout_height="match_parent" />
                 </LinearLayout>
                 <LinearLayout
-                    android:background="@drawable/back_ground_edittext"
+                    android:background="@drawable/bg_edittext"
                     android:weightSum="2"
                     android:orientation="horizontal"
                     android:layout_weight="1"

@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -24,6 +26,11 @@ public class SignupActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //set up notitle
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //set up full screen
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_signup);
         addControls ();
         addEvents ();
@@ -80,6 +87,13 @@ public class SignupActivity extends BaseActivity {
             edtPassword.requestFocus();
             showToast("Mật khẩu phải ít nhất 6 ký tự");
         }
+        if (TextUtils.isEmpty(password)){
+            isVail = false;
+            edtPassword.setError("Bắt Buộc");
+        }
+        else {
+            edtPassword.setError(null);
+        }
         if (!confirmPassword.equals(password)){
             isVail = false;
             edtConfirmPassword.setError("Mật khẩu không khớp");
@@ -95,7 +109,6 @@ public class SignupActivity extends BaseActivity {
             location.put(Constain.LO, lo);
             location.put(Constain.LA, la);
             presenter.signUpWithEmail(password, userName, email, phoneNumber, "", "", false, location, favorite_drink);
-            //presenter.signUp(email, password);
         }
     }
 

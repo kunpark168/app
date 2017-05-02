@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#000315</color>
+    <color name="colorPrimaryDark">#2d9ded</color>
     <color name="colorAccent">#FF4081</color>
     //white
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="grey">#6c7078</color>
 
     //backgournd signup
     <color name="bgsignup">#7d5db1</color>
     <color name="item_Active">#af0104</color>
     <color name="item_inactive">#650df4</color>
     <color name="bg_ahbottom">#b9d2d1</color>
+    <color name="bg_stt">#009687</color>
 
     //color bottom navigation
     <color name="ahbottom">#060161</color>
+    <color name="stt2">#8cc24a</color>
+    <color name="stt1">#fcc00a</color>
 
 </resources>

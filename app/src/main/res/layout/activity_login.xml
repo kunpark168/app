@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:weightSum="10"
-    android:background="@drawable/flash"
+    android:background="@drawable/bg_login_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.win81version2.orderdrink.Login.view.LoginActivity">
     //Logo 4
-    <LinearLayout
+    <RelativeLayout
         android:layout_weight="3.6"
         android:layout_width="match_parent"
         android:layout_height="0dp">
-    </LinearLayout>
+
+    </RelativeLayout>
     //Form Op-int 2
 
     <LinearLayout
@@ -29,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@drawable/back_ground_edittext">
+        android:background="@drawable/bg_edittext">
 
         <EditText
             android:id="@+id/edtemail_login"
@@ -37,6 +38,8 @@
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
             android:hint="Email"
+            android:textSize="15dp"
+            android:inputType="textEmailAddress"
             android:textColor="@color/white"
             android:theme="@style/Theme.App.Base" />
     </LinearLayout>
@@ -44,16 +47,18 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@drawable/back_ground_edittext">
+            android:background="@drawable/bg_edittext">
 
             <EditText
                 android:id="@+id/edtpassword_login"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:inputType="textPassword"
                 android:background="@android:color/transparent"
                 android:hint="Password"
+                android:textSize="15dp"
                 android:textColor="@color/white"
-                android:theme="@style/Theme.App.Base" />
+             />
         </LinearLayout>
     </LinearLayout>
     //Text Sign-up and forgot password 1
@@ -84,7 +89,7 @@
     </LinearLayout>
     //Button Login 1
     <LinearLayout
-        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
         android:paddingRight="40dp"
         android:paddingLeft="40dp"
         android:layout_weight="1"
@@ -108,7 +113,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:text="OR"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -116,35 +121,41 @@
     <TextView
         android:gravity="center"
         android:textColor="@color/white"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:text="Login with"
         android:layout_weight="0.5"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
     //Image Login Facebook and Google
+
     <LinearLayout
-        android:weightSum="2"
-        android:paddingBottom="10dp"
-        android:orientation="horizontal"
-        android:paddingRight="40dp"
-        android:paddingLeft="40dp"
-        android:layout_weight="1.4"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:layout_weight="1.4"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:weightSum="2">
+
         <ImageView
             android:id="@+id/imgloginfb"
-            android:layout_marginLeft="50dp"
-            android:src="@drawable/fb_icon"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_weight="0.95"
+            android:src="@drawable/login_fb" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1" />
+
         <ImageView
             android:id="@+id/imglogingoogle"
-            android:layout_marginRight="50dp"
-            android:src="@drawable/google_icon"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_weight="0.95"
+            android:src="@drawable/login_google" />
     </LinearLayout>
 
 </LinearLayout>

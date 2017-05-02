@@ -1,18 +1,17 @@
 package com.example.win81version2.orderdrink.main.view;
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -21,12 +20,10 @@ import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.notification_store.view.Notification_Store_Fragment;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
-import com.example.win81version2.orderdrink.ordered_history.view.Ordered_History_Fragment;
 import com.example.win81version2.orderdrink.product_list.view.Product_List_Fragment;
+import com.example.win81version2.orderdrink.category.view.CategoryListActivity;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
 import com.example.win81version2.orderdrink.profile_store.view.Profile_Store_Fragment;
-import com.example.win81version2.orderdrink.profile_user.view.ProfileUser_Fragment;
-import com.example.win81version2.orderdrink.store_list.view.Store_List_Fragment;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
@@ -42,8 +39,10 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
     private AHBottomNavigation ahBottomNavigation;
     private ImageView imgPhotoStore;
     private TextView  txtStoreName, txtSumShipped;
+    private LinearLayout layout_MyCategory;
     private String idStore, linkPhotoStore = "";
     private DatabaseReference mData;
+    private Button btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +51,24 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         setContentView(R.layout.activity_main_store);
         addControls();
         innitInfo();
+        addEvents ();
+    }
+
+    private void addEvents() {
+        layout_MyCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainStoreActivity.this, CategoryListActivity.class);
+                intent.putExtra(Constain.ID_STORE, idStore);
+                startActivity(intent);
+            }
+        });
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logOut();
+            }
+        });
     }
 
     private void innitInfo() {
@@ -106,8 +123,10 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         initItemNavigation();
         mData = FirebaseDatabase.getInstance().getReference();
         txtStoreName = (TextView) findViewById(R.id.txtstorename_mainuser);
-        txtSumShipped = (TextView) findViewById(R.id.txtsumshipped_mainstore);
+        txtSumShipped = (TextView) findViewById(R.id.txtSumShipped_mainstore);
         imgPhotoStore = (ImageView) findViewById(R.id.imgPhotoStore_mainstore);
+        btnLogout = (Button) findViewById(R.id.btn_logout_store);
+        layout_MyCategory = (LinearLayout) findViewById(R.id.navigation_mycategory);
 
 
     }
@@ -133,24 +152,6 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.logout) {
-            LoginManager.getInstance().logOut();
-            FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(this, MainActivity.class));
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onTabSelected(int position, boolean wasSelected) {
         if (position == 0) {
             Product_List_Fragment product_list_fragment = new Product_List_Fragment();
@@ -163,5 +164,26 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
             getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, profile_store_fragment).commit();
 
         }
+    }
+
+    private void logOut() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(MainStoreActivity.this);
+        alert.setMessage("Do you want to logout?");
+        alert.setCancelable(false);
+        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                LoginManager.getInstance().logOut();
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(MainStoreActivity.this, MainActivity.class));
+            }
+        });
+        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alert.show();
     }
 }

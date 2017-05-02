@@ -40,6 +40,8 @@ public class Constain {
     public static final String PRODUCTS = "products";
     public static final String ID_CATEGORY = "idCategory";
     public static final String CATEGORY_NAME = "categoryName";
+    public static final String SUM_PRODUCT = "sumProduct";
+    public static final String TIME_CREATE_CATEGORY = "timeCreateCategory";
     public static final String ID_PRODUCT = "idProduct";
     public static final String PRODUCT_NAME = "productName";
     public static final String LINK_PHOTO_PRODUCT = "linkPhotoProduct";

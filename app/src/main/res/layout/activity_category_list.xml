@@ -2,7 +2,7 @@
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout_store"
+    android:id="@+id/drawer_layout_create_category"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -24,7 +24,7 @@
                 android:theme="@style/AppTheme.AppBarOverlay">
 
                 <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar_store"
+                    android:id="@+id/toolbar_createCategory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/colorPrimaryDark"
@@ -33,26 +33,24 @@
             </android.support.design.widget.AppBarLayout>
         </LinearLayout>
         //content_main
-        <LinearLayout
-            android:layout_weight="8.3"
+        <FrameLayout
+            android:layout_weight="9"
             android:layout_width="match_parent"
             android:layout_height="0dp">
-            <include
-                layout="@layout/content_main_store"
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/lvCategory"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-        //Navigation bottom
-        <LinearLayout
-            android:layout_weight="0.7"
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
-            <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
-                android:id="@+id/navigation"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </com.aurelhubert.ahbottomnavigation.AHBottomNavigation>
-        </LinearLayout>
+                android:layout_height="match_parent"
+                tools:listitem="@layout/item_category"></android.support.v7.widget.RecyclerView>
+            <ImageView
+                android:id="@+id/imgCreateCategory"
+                android:layout_width="70dp"
+                android:layout_gravity="bottom|right"
+                android:src="@drawable/img_add"
+                android:layout_height="70dp" />
+
+        </FrameLayout>
     </LinearLayout>
 
     <android.support.design.widget.NavigationView
@@ -85,7 +83,7 @@
                     android:id="@+id/linearLayout">
                     <de.hdodenhof.circleimageview.CircleImageView
                         xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/imgPhotoStore_mainstore"
+                        android:id="@+id/imgPhotoStore_createCategory"
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:src="@drawable/avatar"
@@ -103,7 +101,7 @@
                     android:weightSum="2">
 
                     <TextView
-                        android:id="@+id/txtstorename_mainuser"
+                        android:id="@+id/txtstorename_createCategory"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -115,7 +113,7 @@
                         android:typeface="serif" />
 
                     <TextView
-                        android:id="@+id/txtSumShipped_mainstore"
+                        android:id="@+id/txtSumShipped_createCategory"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -136,7 +134,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
                 <LinearLayout
-                    android:id="@+id/navigation_report"
+                    android:id="@+id/navigation_report_createCategory"
                     android:paddingRight="20dp"
                     android:paddingLeft="10dp"
                     android:weightSum="5"
@@ -169,7 +167,7 @@
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/navigation_mycategory"
+                    android:id="@+id/navigation_mycategory_createCategory"
                     android:paddingRight="20dp"
                     android:paddingLeft="10dp"
                     android:weightSum="5"
@@ -203,7 +201,7 @@
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/navigation_createproduct"
+                    android:id="@+id/navigation_createproduct_createCategory"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -238,7 +236,7 @@
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/navigation_status"
+                    android:id="@+id/navigation_status_createCategory"
                     android:paddingRight="20dp"
                     android:paddingLeft="10dp"
                     android:weightSum="5"
@@ -283,7 +281,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
                 <LinearLayout
-                    android:id="@+id/navigation_rateus_store"
+                    android:id="@+id/navigation_rateus_store_createCategory"
                     android:paddingRight="20dp"
                     android:paddingLeft="10dp"
                     android:weightSum="5"
@@ -316,7 +314,7 @@
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/navigation_share_store"
+                    android:id="@+id/navigation_share_store_createCategory"
                     android:paddingRight="20dp"
                     android:paddingLeft="10dp"
                     android:weightSum="5"
@@ -355,7 +353,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
                 <Button
-                    android:id="@+id/btn_logout_store"
+                    android:id="@+id/btn_logout_store__createCategory"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="40dp"
