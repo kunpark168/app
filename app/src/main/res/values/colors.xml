@@ -10,7 +10,7 @@
 
     //backgournd signup
     <color name="bgsignup">#7d5db1</color>
-    <color name="item_Active">#af0104</color>
+    <color name="item_Active">#df0509</color>
     <color name="item_inactive">#650df4</color>
     <color name="bg_ahbottom">#b9d2d1</color>
     <color name="bg_stt">#009687</color>
@@ -19,5 +19,9 @@
     <color name="ahbottom">#060161</color>
     <color name="stt2">#8cc24a</color>
     <color name="stt1">#fcc00a</color>
+
+    //color switchcompat
+    <color name="my_awesome_color">#2d9ded</color>
+
 
 </resources>

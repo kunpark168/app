@@ -1,199 +1,395 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:paddingBottom="5dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingTop="5dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    app:cardElevation="5dp"
+    android:layout_height="300dp"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
     <android.support.v7.widget.CardView
-        android:id="@+id/displayStore"
+        app:cardElevation="5dp"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        card_view:cardElevation="7dp"
-        card_view:cardCornerRadius="5dp">
+        android:layout_height="match_parent">
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="10">
+            //address 1
             <LinearLayout
-                android:layout_width="150dp"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:id="@+id/imgPhotoStore"
-                    android:background="@drawable/strokeimg"
-                    android:src="@drawable/store"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
-            <LinearLayout
-                android:paddingLeft="5dp"
-                android:weightSum="4"
-                android:orientation="vertical"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent">
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:weightSum="5"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp">
-                    <TextView
-                        android:id="@+id/txtStoreName_itemstore"
-                        android:textColor="@color/black"
-                        android:gravity="center"
-                        android:text="Trà Sữa Zen"
-                        android:typeface="serif"
-                        android:textSize="20dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
-                <LinearLayout
-                    android:background="@drawable/bg_edittext"
-                    android:weightSum="2"
-                    android:orientation="horizontal"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp">
-                    <LinearLayout
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent">
-                        <TextView
-                            android:id="@+id/txtSumFavorite_itemstore"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:textSize="15dp"
-                            android:text="168"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent" />
-                        <ImageView
-                            android:src="@drawable/icon_heart"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edittext"
+                android:orientation="horizontal"
+                android:weightSum="10">
 
-                        <ImageView
-                            android:id="@+id/imageView"
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:src="@drawable/location" />
+
+                <TextView
+                    android:id="@+id/txtAddress_itemstore"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="9"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Đông Hòa - Dĩ An - Bình Dương"
+                    android:textColor="@color/grey"
+                    android:textSize="15dp"
+                    android:typeface="serif" />
+            </LinearLayout>
+            //info 3
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="10">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/imgPhotoStore_itemStore"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:src="@drawable/icon_ship" />
+                            android:layout_gravity="left"
+                            android:layout_marginLeft="20dp"
+                            android:layout_weight="2"
+                            android:src="@drawable/store"
+                            app:civ_border_color="@color/colorPrimaryDark"
+                            app:civ_border_width="1dp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="8"
+                            android:orientation="vertical"
+                            android:weightSum="3">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:paddingLeft="20dp">
+
+                                <TextView
+                                    android:id="@+id/txtStoreName_itemstore"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center_vertical|bottom"
+                                    android:text="Sky - Coffee"
+                                    android:textColor="@color/item_Active" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_marginLeft="25dp"
+                                android:layout_weight="2"
+                                android:orientation="vertical"
+                                android:paddingBottom="15dp"
+                                android:weightSum="2">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="bottom"
+                                        android:maxLines="1"
+                                        android:text="Tổng cộng 121 sản phẩm"
+                                        android:textColor="@color/grey" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="bottom"
+                                        android:maxLines="1"
+                                        android:text="Giao hàng thành công 98 lần"
+                                        android:textColor="@color/grey" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            //info 5
+            <LinearLayout
+                android:id="@+id/layoutInfo"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+                    //decorate 2
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="2">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/img_muiten" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"
+                        android:orientation="vertical"
+                        android:weightSum="5">
+                        //info
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="3"
+                            android:orientation="horizontal"
+                            android:weightSum="8">
+                            //icon 1
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:weightSum="3">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_margin="5dp"
+                                    android:layout_weight="1"
+                                    android:src="@drawable/time" />
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_margin="5dp"
+                                    android:layout_weight="1"
+                                    android:src="@drawable/email" />
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_margin="5dp"
+                                    android:layout_weight="1"
+                                    android:src="@drawable/door" />
+                            </LinearLayout>
+
+                            //name 2.5
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="2.5"
+                                android:orientation="vertical"
+                                android:weightSum="3">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:text="Time work " />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:text="Email" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:text="Status" />
+                            </LinearLayout>
+
+                            //value 4.5
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="4.5"
+                                android:orientation="vertical"
+                                android:weightSum="3">
+
+                                <TextView
+                                    android:id="@+id/txtTimeWork_itemstore"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:text="10h - 22h"
+                                    android:textColor="@color/grey"
+                                    android:typeface="serif" />
+
+                                <TextView
+                                    android:id="@+id/txtEmail_itemStore"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:text="sky@gmail.com"
+                                    android:textColor="@color/grey"
+                                    android:typeface="serif" />
+
+                                <TextView
+                                    android:id="@+id/txtStatus_itemStore"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:text="Mở cửa"
+                                    android:textColor="@color/grey"
+                                    android:typeface="serif" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        //button
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="2"
+                            android:orientation="horizontal"
+                            android:weightSum="5">
+
+                            <Button
+                                android:id="@+id/btnCallNow"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_margin="15dp"
+                                android:layout_weight="2.3"
+                                android:background="@drawable/btn_call"
+                                android:textColor="@color/white" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.4" />
+
+                            <Button
+                                android:id="@+id/btnViewOrder"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_margin="15dp"
+                                android:layout_weight="2.3"
+                                android:background="@drawable/btn_view_order"
+                                android:textColor="@color/white" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            //heart and comment 1
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:cardElevation="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="2"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:id="@+id/imgHeart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/heart" />
+                    </LinearLayout>
+                    //2
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2">
+
+                        <TextView
+                            android:id="@+id/txtHeart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:lines="1"
+                            android:text="16"
+                            android:textSize="15dp" />
+                    </LinearLayout>
+                    //1
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/comment" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2">
 
                         <TextView
                             android:id="@+id/txtSumShipped_itemstore"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:textSize="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:lines="1"
                             android:text="1906"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent" />
-
+                            android:textSize="15dp" />
                     </LinearLayout>
-
                 </LinearLayout>
-                <LinearLayout
-                    android:weightSum="5"
-                    android:orientation="horizontal"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp">
-                    <TextView
-
-                        android:gravity="bottom"
-                        android:textColor="@color/black"
-                        android:typeface="serif"
-                        android:text="    Time work"
-                        android:layout_weight="3"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" />
-                    <TextView
-                        android:id="@+id/txtTimeWork_itemstore"
-                        android:gravity="bottom|center_horizontal"
-                        android:textColor="@color/black"
-                        android:typeface="serif"
-                        android:text="7h - 22h"
-                        android:layout_weight="2"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:weightSum="5"
-                    android:orientation="horizontal"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp">
-
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:text="Address : "
-                        android:textColor="@color/black"
-                        android:typeface="serif" />
-
-                    <TextView
-                        android:id="@+id/txtAddress_itemstore"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:text="Dĩ An - Bình Dương"
-                        android:textColor="@color/black"
-                        android:typeface="serif" />
-
-                </LinearLayout>
-            </LinearLayout>
+            </android.support.v7.widget.CardView>
         </LinearLayout>
     </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/infoStore"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="20dp"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        card_view:cardElevation="4dp"
-        card_view:cardCornerRadius="5dp">
-        <LinearLayout
-            android:weightSum="5"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_weight="4"
-                android:layout_width="match_parent"
-                android:layout_height="0dp">
-            </LinearLayout>
-            <LinearLayout
-                android:background="@color/bgsignup"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="0dp">
-                <TextView
-                    android:gravity="center"
-                    android:textSize="20sp"
-                    android:textColor="@color/white"
-                    android:text="view orders"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-
 </LinearLayout>

@@ -37,11 +37,14 @@ public class CategoryListAdapter extends RecyclerSwipeAdapter<CategoryListViewHo
         int stt = Integer.parseInt(category.getIdCategory()) + 1;
         if (stt %2 == 0 ){
             viewHolder.txtSTT.setBackgroundColor(activity.getResources().getColor(R.color.stt1));
+            viewHolder.txtSTTSwipe.setBackgroundColor(activity.getResources().getColor(R.color.stt1));
         }
         else {
             viewHolder.txtSTT.setBackgroundColor(activity.getResources().getColor(R.color.stt2));
+            viewHolder.txtSTTSwipe.setBackgroundColor(activity.getResources().getColor(R.color.stt2));
         }
         viewHolder.txtSTT.setText(String.valueOf(stt));
+        viewHolder.txtSTTSwipe.setText(String.valueOf(stt));
         viewHolder.txtCategoryName.setText(category.getCategoryName());
         viewHolder.txtSumProduct.setText(String.valueOf(category.getSumProduct()));
         viewHolder.txtTimeCreate.setText(category.getTimeCreateCategory());

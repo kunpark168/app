@@ -262,12 +262,13 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent">
 
-                        <TextView
-                            android:id="@+id/textView2"
+                        <android.support.v7.widget.SwitchCompat
+                            android:id="@+id/switchCompat_Status"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:gravity="center_vertical"
                             android:text="Status"
+                            app:theme="@style/ColorSwitchStyle"
+                            android:checked="true"
                             android:textColor="@color/grey"
                             android:textSize="18dp"
                             android:typeface="serif" />

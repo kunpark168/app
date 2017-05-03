@@ -45,10 +45,9 @@
             tools:replace="android:theme" />
         <activity android:name=".main.view.MainAdminActivity" />
         <activity android:name=".main.view.MainStoreActivity" />
-        <activity android:name=".category.view.CategoryListActivity" />
         <activity
             android:name=".category.view.CreateCategory"
-            android:label="-------------------------------------------"
+            android:label="----------------------------------------"
             android:theme="@style/DialogNoActionBar"></activity>
     </application>
 

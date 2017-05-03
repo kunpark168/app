@@ -18,11 +18,13 @@ public class CreateStoreSubmitter {
         this.mData = mData;
         this.view = view;
     }
-    public void addNewStore (String idStore, String storeName, String email, boolean isStore, String phoneNumber, String linkPhotoStore, int sumFavorite, String timeWork, HashMap<String, Object>location, HashMap<String, Object> favoriteList, HashMap<String, Object> products, HashMap<String, Object> orderSchedule){
-        Store store = new Store(idStore, storeName, email, isStore, phoneNumber, linkPhotoStore, sumFavorite, 0, timeWork, location, favoriteList, products, orderSchedule);
+    public void addNewStore (String idStore, String storeName, String email, boolean isStore, boolean isOpen, String phoneNumber, String linkPhotoStore, String timeWork, HashMap<String, Object>sumFavorite, HashMap<String, Object>location, HashMap<String, Object> favoriteList, HashMap<String, Object> products, HashMap<String, Object> orderSchedule){
+        Store store = new Store(idStore, storeName, email, isStore, isOpen, phoneNumber, linkPhotoStore, 0, timeWork, sumFavorite, location, favoriteList, products, orderSchedule);
         HashMap<String, Object> myMap = new HashMap<>();
         myMap = store.putMap();
         mData.child(Constain.STORES).child(idStore).setValue(myMap);
-
+    }
+    public void updateStatus (String idStore, boolean isOpen){
+        mData.child(Constain.STORES).child(idStore).child(Constain.IS_OPEN).setValue(isOpen);
     }
 }

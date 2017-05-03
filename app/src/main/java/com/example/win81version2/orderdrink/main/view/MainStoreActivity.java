@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -18,11 +19,13 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
+import com.example.win81version2.orderdrink.category.view.CategoryListFragment;
 import com.example.win81version2.orderdrink.notification_store.view.Notification_Store_Fragment;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
 import com.example.win81version2.orderdrink.product_list.view.Product_List_Fragment;
-import com.example.win81version2.orderdrink.category.view.CategoryListActivity;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
+import com.example.win81version2.orderdrink.profile_store.presenter.CreateStorePresenter;
+import com.example.win81version2.orderdrink.profile_store.view.CreateStoreActivity;
 import com.example.win81version2.orderdrink.profile_store.view.Profile_Store_Fragment;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.facebook.FacebookSdk;
@@ -43,6 +46,11 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
     private String idStore, linkPhotoStore = "";
     private DatabaseReference mData;
     private Button btnLogout;
+    private SwitchCompat switchCompatStatus;
+    private boolean isOpen = true;
+    private FirebaseAuth mAuth;
+    private CreateStorePresenter presenter;
+    private CreateStoreActivity view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +66,10 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         layout_MyCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainStoreActivity.this, CategoryListActivity.class);
-                intent.putExtra(Constain.ID_STORE, idStore);
-                startActivity(intent);
+                onBackPressed();
+                setTitle("My Category");
+                CategoryListFragment categoryListFragment = new CategoryListFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, categoryListFragment).commit();
             }
         });
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -69,39 +78,56 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
                 logOut();
             }
         });
+        switchCompatStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (switchCompatStatus.isChecked() == true ){
+                    isOpen = true;
+                    presenter.updateStatus(idStore, isOpen);
+                    showToast("Mở Cửa");
+                }
+                else {
+                    isOpen = false;
+                    presenter.updateStatus(idStore, isOpen);
+                    showToast("Đóng Cửa");
+                }
+            }
+        });
     }
 
     private void innitInfo() {
         Intent intent = getIntent();
         idStore = intent.getStringExtra(Constain.ID_STORE);
         try {
-            mData.child(Constain.STORES).child(idStore).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.getValue() != null){
-                        try {
-                            Store store = dataSnapshot.getValue(Store.class);
-                            txtStoreName.setText(store.getStoreName().toString());
-                            txtSumShipped.setText(store.getSumShipped());
-                            linkPhotoStore = store.getLinkPhotoStore();
-                            if (!linkPhotoStore.equals("")) {
-                                Glide.with(MainStoreActivity.this)
-                                        .load(linkPhotoStore)
-                                        .fitCenter()
-                                        .into(imgPhotoStore);
-                            }
-                        }
-                        catch (Exception ex){
-                            ex.printStackTrace();
-                        }
-                    }
-                }
+          mData.child(Constain.STORES).child(idStore).addListenerForSingleValueEvent(new ValueEventListener() {
+              @Override
+              public void onDataChange(DataSnapshot dataSnapshot) {
+                  if (dataSnapshot.getValue() != null){
+                      try {
+                          Store store = dataSnapshot.getValue(Store.class);
+                          txtStoreName.setText(store.getStoreName().toString());
+                          txtSumShipped.setText(String.valueOf(store.getSumShipped()) + " Shipped");
+                          linkPhotoStore = store.getLinkPhotoStore().toString();
+                          isOpen = store.isOpen();
+                          switchCompatStatus.setChecked(isOpen);
+                          if (!linkPhotoStore.equals("")) {
+                              Glide.with(MainStoreActivity.this)
+                                      .load(linkPhotoStore)
+                                      .fitCenter()
+                                      .into(imgPhotoStore);
+                          }
+                      }
+                      catch (Exception ex){
+                          ex.printStackTrace();
+                      }
+                  }
+              }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+              @Override
+              public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
+              }
+          });
         }
         catch (Exception ex){
             ex.printStackTrace();
@@ -127,8 +153,10 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         imgPhotoStore = (ImageView) findViewById(R.id.imgPhotoStore_mainstore);
         btnLogout = (Button) findViewById(R.id.btn_logout_store);
         layout_MyCategory = (LinearLayout) findViewById(R.id.navigation_mycategory);
-
-
+        switchCompatStatus = (SwitchCompat) findViewById(R.id.switchCompat_Status);
+        mAuth = FirebaseAuth.getInstance();
+        view = new CreateStoreActivity();
+        presenter = new CreateStorePresenter(view, mAuth);
     }
 
     private void initItemNavigation() {
@@ -143,7 +171,7 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
     }
 
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_store);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {

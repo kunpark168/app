@@ -33,9 +33,8 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder> 
     private Context context;
     private String idStore;
     private DatabaseReference mData;
-    private String linkPhotoStore, timeWork = "", from = "", to = "";
+    private String linkPhotoStore, timeWork = "";
     private Store_List_Fragment store_list_fragment;
-    private boolean isVisibility = true;
 
     public StoreListAdapter(ArrayList<Store> arrStore, Store_List_Fragment store_list_fragment) {
         this.arrStore = arrStore;
@@ -53,16 +52,11 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder> 
     public void onBindViewHolder(final StoreListViewHolder holder, int position) {
         Store store = arrStore.get(position);
         idStore = store.getIdStore();
-        sumFavorite = String.valueOf(store.getSumFavorite());
         sumShipped = String.valueOf(store.getSumShipped());
-        if (sumFavorite.length() == 1){
-            sumFavorite = "0" + sumFavorite;
-        }
         if (sumShipped.length() == 1){
             sumShipped = "0" + sumShipped;
         }
         holder.txtStoreName.setText(store.getStoreName());
-        holder.txtSumfavorite.setText(sumFavorite);
         holder.txtSumShipped.setText(sumShipped);
         //set Adress for ViewHolder
         try {
@@ -107,21 +101,31 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder> 
         catch (Exception ex){
             ex.printStackTrace();
         }
-        //Display InfoStore Event
-        holder.displayInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isVisibility == true){
-                    isVisibility = false;
-                    holder.infoStore.setVisibility(View.VISIBLE);
-                }
-                else if (isVisibility == false){
-                    isVisibility = true;
-                    holder.infoStore.setVisibility(View.GONE);
+        //get sumFavorite
+        try {
+            mData.child(Constain.STORES).child(idStore).child(Constain.SUMFAVORITE).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                   if (dataSnapshot.getValue() == null){
+                       sumFavorite = "0";
+                       holder.txtSumfavorite.setText(sumFavorite);
+                   }
+                   else {
+                       sumFavorite = String.valueOf(dataSnapshot.getChildrenCount());
+                       holder.txtSumfavorite.setText(sumFavorite);
+                   }
                 }
 
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
+
 
 
 

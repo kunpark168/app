@@ -16,4 +16,7 @@ public class CategoryPresenter {
         mData = FirebaseDatabase.getInstance().getReference();
         submitter = new CategorySubmitter(mData);
     }
+    public void addCategoryOnData (String idStore, String idCategory, String categoryName, int sumProduct, String timeCreate){
+        submitter.addCategoryOnData(idStore, idCategory, categoryName, sumProduct, timeCreate);
+    }
 }

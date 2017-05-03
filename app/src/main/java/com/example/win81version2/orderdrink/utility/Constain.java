@@ -35,6 +35,7 @@ public class Constain {
     public static final String TIME_WORK = "timeWork";
     public static final String FROM = "from";
     public static final String TO = "to";
+    public static final String IS_OPEN = "isOpen";
     public static final String ORDER_SCHEDULE = "orderSchedule";
     //Product
     public static final String PRODUCTS = "products";

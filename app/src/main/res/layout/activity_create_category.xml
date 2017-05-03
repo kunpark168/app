@@ -26,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp">
         <EditText
+            android:id="@+id/edtCategoryName_createCategory"
             android:gravity="center"
             android:hint="Enter category name"
             android:layout_width="match_parent"
@@ -45,6 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp">
         <Button
+            android:id="@+id/btnCancelCreateCategory"
             android:textColor="@color/white"
             android:text="Cancel"
             android:layout_weight="2"
@@ -56,6 +58,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent" />
         <Button
+            android:id="@+id/btnOkCreateCategory"
             android:textColor="@color/white"
             android:text="Ok"
             android:layout_weight="2"
