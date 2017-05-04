@@ -17,7 +17,8 @@ public class StoreListViewHolder extends RecyclerView.ViewHolder {
 
     public TextView txtStoreName, txtSumfavorite, txtSumShipped, txtAddress, txtTimeWork;
     public ImageView imgHeart, imgPhotoStore;
-    public LinearLayout layoutInfo;
+    public LinearLayout linearLayout;
+    public CardView cardView;
 
     public StoreListViewHolder(View itemView) {
         super(itemView);
@@ -26,9 +27,10 @@ public class StoreListViewHolder extends RecyclerView.ViewHolder {
         txtSumShipped = (TextView) itemView.findViewById(R.id.txtSumShipped_itemstore);
         txtAddress = (TextView) itemView.findViewById(R.id.txtAddress_itemstore);
         txtTimeWork = (TextView) itemView.findViewById(R.id.txtTimeWork_itemstore);
+        linearLayout = (LinearLayout) itemView.findViewById(R.id.layoutInfo);
+        cardView = (CardView) itemView.findViewById(R.id.cardView);
 
         imgHeart = (ImageView) itemView.findViewById(R.id.imgHeart);
         imgPhotoStore = (ImageView) itemView.findViewById(R.id.imgPhotoStore_itemStore);
-        layoutInfo = (LinearLayout) itemView.findViewById(R.id.layoutInfo);
     }
 }

@@ -5,52 +5,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     app:cardElevation="5dp"
-    android:layout_height="300dp"
-    android:layout_margin="10dp"
+    android:layout_height="wrap_content"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
     android:orientation="vertical">
-    <android.support.v7.widget.CardView
-        app:cardElevation="5dp"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="10">
+        android:layout_height="wrap_content">
             //address 1
-            <LinearLayout
+            <android.support.v7.widget.CardView
+                app:cardCornerRadius="1dp"
+                app:cardElevation="1.3dp"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_edittext"
-                android:orientation="horizontal"
-                android:weightSum="10">
-
-                <ImageView
-                    android:layout_width="0dp"
+                android:layout_height="30dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:src="@drawable/location" />
+                    android:orientation="horizontal"
+                    android:weightSum="10">
 
-                <TextView
-                    android:id="@+id/txtAddress_itemstore"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="9"
-                    android:gravity="center_vertical"
-                    android:maxLines="1"
-                    android:text="Đông Hòa - Dĩ An - Bình Dương"
-                    android:textColor="@color/grey"
-                    android:textSize="15dp"
-                    android:typeface="serif" />
-            </LinearLayout>
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:src="@drawable/location" />
+                    <TextView
+                        android:id="@+id/txtAddress_itemstore"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="7"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:text="Đông Hòa - Dĩ An - Bình Dương"
+                        android:textColor="@color/grey"
+                        android:textSize="12dp"
+                        android:typeface="serif" />
+                    <TextView
+                        android:maxLines="1"
+                        android:gravity="center"
+                        android:textSize="12dp"
+                        android:text="12342 km"
+                        android:layout_weight="2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
             //info 3
             <android.support.v7.widget.CardView
+                android:id="@+id/cardView"
+                app:cardCornerRadius="1dp"
+                app:cardElevation="1dp"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3">
+                android:layout_height="90dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -141,12 +152,11 @@
             //info 5
             <LinearLayout
                 android:id="@+id/layoutInfo"
+                android:visibility="gone"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="5"
+                android:layout_height="150dp"
                 android:orientation="vertical"
                 android:weightSum="10">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -321,16 +331,15 @@
             //heart and comment 1
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                app:cardElevation="10dp">
-
+                android:layout_height="30dp"
+                app:cardCornerRadius="1dp"
+                app:cardElevation="5dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:weightSum="10">
-
+                    //2
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -342,10 +351,9 @@
                             android:id="@+id/imgHeart"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:src="@drawable/heart" />
+                            android:src="@drawable/non_heart" />
                     </LinearLayout>
                     //2
-
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -357,11 +365,10 @@
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
                             android:lines="1"
-                            android:text="16"
-                            android:textSize="15dp" />
+                            android:text="0"
+                            android:textSize="12dp" />
                     </LinearLayout>
                     //1
-
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -373,7 +380,7 @@
                             android:layout_height="match_parent"
                             android:src="@drawable/comment" />
                     </LinearLayout>
-
+                    //2
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -386,10 +393,10 @@
                             android:gravity="center_vertical"
                             android:lines="1"
                             android:text="1906"
-                            android:textSize="15dp" />
+                            android:textSize="12dp" />
                     </LinearLayout>
+                    //3
                 </LinearLayout>
             </android.support.v7.widget.CardView>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </LinearLayout>
 </LinearLayout>

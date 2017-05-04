@@ -96,6 +96,7 @@ public class CreateStoreActivity extends BaseActivity implements View.OnClickLis
             edtPassword.setError(null);
         }
         if (password.length() < 6 && password.length() > 0){
+            isVaild = false;
             showToast("Mật khẩu phải lớn hơn 6 ký tự!");
             edtPassword.setText("");
             edtPassword.requestFocus();

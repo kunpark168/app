@@ -18,7 +18,6 @@ public class Store {
     private String linkPhotoStore;
     private int sumShipped;
     private String timeWork;
-    private HashMap<String, Object> sumFavorite;
     private HashMap<String, Object> location;
     private HashMap<String, Object> favoriteList;
     private HashMap<String, Object> products;
@@ -28,7 +27,7 @@ public class Store {
     public Store() {
     }
 
-    public Store(String idStore, String storeName, String email, boolean isStore, boolean isOpen, String phoneNumber, String linkPhotoStore, int sumShipped, String timeWork, HashMap<String, Object> sumFavorite, HashMap<String, Object> location, HashMap<String, Object> favorite_list, HashMap<String, Object> products, HashMap<String, Object> orderSchedule) {
+    public Store(String idStore, String storeName, String email, boolean isStore, boolean isOpen, String phoneNumber, String linkPhotoStore, int sumShipped, String timeWork, HashMap<String, Object> location, HashMap<String, Object> favorite_list, HashMap<String, Object> products, HashMap<String, Object> orderSchedule) {
         this.idStore = idStore;
         this.storeName = storeName;
         this.email = email;
@@ -38,7 +37,6 @@ public class Store {
         this.linkPhotoStore = linkPhotoStore;
         this.sumShipped = sumShipped;
         this.timeWork = timeWork;
-        this.sumFavorite = sumFavorite;
         this.location = location;
         this.favoriteList = favorite_list;
         this.products = products;
@@ -56,7 +54,6 @@ public class Store {
         myMap.put(Constain.LINKPHOTOSTORE, linkPhotoStore);
         myMap.put(Constain.SUM_SHIPPED, sumShipped);
         myMap.put(Constain.TIME_WORK, timeWork);
-        myMap.put(Constain.SUMFAVORITE, sumFavorite);
         myMap.put(Constain.LOCATION, location);
         myMap.put(Constain.FAVORITE_LIST, favoriteList);
         myMap.put(Constain.PRODUCTS, products);
@@ -135,14 +132,6 @@ public class Store {
 
     public void setTimeWork(String timeWork) {
         this.timeWork = timeWork;
-    }
-
-    public HashMap<String, Object> getSumFavorite() {
-        return sumFavorite;
-    }
-
-    public void setSumFavorite(HashMap<String, Object> sumFavorite) {
-        this.sumFavorite = sumFavorite;
     }
 
     public HashMap<String, Object> getLocation() {

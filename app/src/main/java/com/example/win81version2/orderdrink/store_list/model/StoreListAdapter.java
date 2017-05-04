@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.main.view.MainUserActivity;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
+import com.example.win81version2.orderdrink.store_list.presenter.StoreListPresenter;
 import com.example.win81version2.orderdrink.store_list.view.Store_List_Fragment;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.google.firebase.database.DataSnapshot;
@@ -29,16 +30,23 @@ import java.util.Objects;
 public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder> {
 
     private ArrayList<Store> arrStore;
-    private String sumFavorite, sumShipped;
+    private String sumShipped;
+    private long sumFavorite;
     private Context context;
     private String idStore;
+    private String idUser;
+    private String emailUser;
     private DatabaseReference mData;
     private String linkPhotoStore, timeWork = "";
     private Store_List_Fragment store_list_fragment;
+    private boolean flagVisibility = false;
+    private StoreListPresenter presenter;
 
-    public StoreListAdapter(ArrayList<Store> arrStore, Store_List_Fragment store_list_fragment) {
+    public StoreListAdapter(ArrayList<Store> arrStore, Store_List_Fragment store_list_fragment, String idUser) {
         this.arrStore = arrStore;
         this.store_list_fragment = store_list_fragment;
+        this.idUser = idUser;
+        presenter = new StoreListPresenter();
         mData = FirebaseDatabase.getInstance().getReference();
     }
 
@@ -49,18 +57,23 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(final StoreListViewHolder holder, int position) {
-        Store store = arrStore.get(position);
+    public void onBindViewHolder(final StoreListViewHolder holder, final int position) {
+        final Store store = arrStore.get(position);
         idStore = store.getIdStore();
         sumShipped = String.valueOf(store.getSumShipped());
-        if (sumShipped.length() == 1){
-            sumShipped = "0" + sumShipped;
-        }
         holder.txtStoreName.setText(store.getStoreName());
         holder.txtSumShipped.setText(sumShipped);
-        //set Adress for ViewHolder
+        //get LinkPhotoStore and Opent with Glide
+        linkPhotoStore = store.getLinkPhotoStore();
+        if (!linkPhotoStore.equals("")) {
+            Glide.with(store_list_fragment.getActivity())
+                    .load(linkPhotoStore)
+                    .fitCenter()
+                    .into(holder.imgPhotoStore);
+        }
         try {
-            mData.child(Constain.STORES).child(idStore).child(Constain.LOCATION).child(Constain.ADDRESS).addValueEventListener(new ValueEventListener() {
+            //get Address Store
+            mData.child(Constain.STORES).child(idStore).child(Constain.LOCATION).child(Constain.ADDRESS).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     holder.txtAddress.setText(dataSnapshot.getValue().toString());
@@ -71,21 +84,8 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder> 
 
                 }
             });
-        }
-        catch (Exception ex){
-            ex.printStackTrace();
-        }
-        //get LinkPhotoStore and Opent with Glide
-        linkPhotoStore = store.getLinkPhotoStore();
-        if (!linkPhotoStore.equals("")) {
-            Glide.with(store_list_fragment.getActivity())
-                    .load(linkPhotoStore)
-                    .fitCenter()
-                    .into(holder.imgPhotoStore);
-        }
-        //Get Time Work from "From" and "To"
-        try {
-            mData.child(Constain.STORES).child(idStore).child(Constain.TIME_WORK).addValueEventListener(new ValueEventListener() {
+            //get Timework
+            mData.child(Constain.STORES).child(idStore).child(Constain.TIME_WORK).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     timeWork = dataSnapshot.getValue().toString();
@@ -97,23 +97,19 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder> 
 
                 }
             });
-        }
-        catch (Exception ex){
-            ex.printStackTrace();
-        }
-        //get sumFavorite
-        try {
-            mData.child(Constain.STORES).child(idStore).child(Constain.SUMFAVORITE).addValueEventListener(new ValueEventListener() {
+            //get sumFavorite
+            mData.child(Constain.STORES).child(idStore).child(Constain.FAVORITE_LIST).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                   if (dataSnapshot.getValue() == null){
-                       sumFavorite = "0";
-                       holder.txtSumfavorite.setText(sumFavorite);
-                   }
-                   else {
-                       sumFavorite = String.valueOf(dataSnapshot.getChildrenCount());
-                       holder.txtSumfavorite.setText(sumFavorite);
-                   }
+                    if (dataSnapshot.getValue() != null) {
+                        sumFavorite = dataSnapshot.getChildrenCount();
+                        holder.txtSumfavorite.setText(String.valueOf(sumFavorite));
+                        for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                            if (idUser.equals(dt.getKey().toString())) {
+                                holder.imgHeart.setImageResource(R.drawable.heart);
+                            }
+                        }
+                    }
                 }
 
                 @Override
@@ -125,15 +121,80 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder> 
         catch (Exception ex){
             ex.printStackTrace();
         }
+        //set Item click
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (flagVisibility == true){
+                    holder.linearLayout.setVisibility(View.VISIBLE);
+                    flagVisibility = false;
+                }
+                else {
+                    holder.linearLayout.setVisibility(View.GONE);
+                    flagVisibility = true;
+                }
+            }
+        });
+        //heart
+        holder.imgHeart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Store store1 = arrStore.get(position);
+                    final String idStore1 = store1.getIdStore();
+                    mData.child(Constain.STORES).child(idStore1).child(Constain.FAVORITE_LIST).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getValue() != null){
+                                boolean flag = true;
+                                for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                                    if (idUser.equals(dt.getKey())) {
+                                        flag = false;
+                                    }
+                                }
+                                    if (!flag){
+                                        //remove and change img
+                                        presenter.removeHeart(idStore1, idUser);
+                                        sumFavorite = dataSnapshot.getChildrenCount() - 1;
+                                        holder.txtSumfavorite.setText(String.valueOf(sumFavorite));
+                                        holder.imgHeart.setImageResource(R.drawable.non_heart);
+                                    }
+                                    else {
+                                        //add and change img
+                                        presenter.addHeart(idStore1, idUser, emailUser);
+                                        holder.imgHeart.setImageResource(R.drawable.heart);
+                                        sumFavorite = dataSnapshot.getChildrenCount() + 1;
+                                        holder.txtSumfavorite.setText(String.valueOf(sumFavorite));
+                                    }
+                            }
+                            else {
+                                presenter.addHeart(idStore1, idUser, emailUser);
+                                holder.imgHeart.setImageResource(R.drawable.heart);
+                                holder.txtSumfavorite.setText("1");
+                            }
+                        }
 
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
+                        }
+                    });
+                }
+                catch (Exception ex){
 
-
-
+                }
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return arrStore.size();
+    }
+
+    //set UserName
+
+    public void setEmailUser (String emailUser) {
+        this.emailUser = emailUser;
     }
 }

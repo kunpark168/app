@@ -48,5 +48,7 @@ public class Constain {
     public static final String LINK_PHOTO_PRODUCT = "linkPhotoProduct";
     public static final String RATING = "rating";
     public static final String STATUS_PRODUCT = "status";
+    //CODE
+    public static final int REQUEST_CODE_GPS = 3;
 
 }

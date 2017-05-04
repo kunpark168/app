@@ -46,9 +46,8 @@ public class CreateStorePresenter {
                     HashMap<String, Object> favoriteList = new HashMap<>();
                     HashMap<String, Object> products = new HashMap<>();
                     HashMap<String, Object> orderSchedule = new HashMap<>();
-                    HashMap<String, Object> sumFavorite = new HashMap<>();
                     String timework = from + "-" + to;
-                    addNewStore(task.getResult().getUser().getUid().toString(), storeName, task.getResult().getUser().getEmail(), true, true, phoneNumber, "", timework, sumFavorite, location, favoriteList, products, orderSchedule);
+                    addNewStore(task.getResult().getUser().getUid().toString(), storeName, task.getResult().getUser().getEmail(), true, true, phoneNumber, "", timework, location, favoriteList, products, orderSchedule);
                     view.hideProgressDialog();
                     view.showToast("Create new store successful");
                     view.startActivity(new Intent(view, MainAdminActivity.class));
@@ -57,8 +56,8 @@ public class CreateStorePresenter {
         });
     }
 
-    public void addNewStore(String idStore, String storeName, String email, boolean isStore, boolean isOpen, String phoneNumber, String linkPhotoStore, String timeWork, HashMap<String, Object>sumFavorite, HashMap<String, Object>location, HashMap<String, Object> favoriteList, HashMap<String, Object> products, HashMap<String, Object> orderSchedule) {
-        submitter.addNewStore(idStore, storeName, email, isStore, isOpen, phoneNumber, linkPhotoStore, timeWork, sumFavorite,location, favoriteList, products, orderSchedule);
+    public void addNewStore(String idStore, String storeName, String email, boolean isStore, boolean isOpen, String phoneNumber, String linkPhotoStore, String timeWork, HashMap<String, Object>location, HashMap<String, Object> favoriteList, HashMap<String, Object> products, HashMap<String, Object> orderSchedule) {
+        submitter.addNewStore(idStore, storeName, email, isStore, isOpen, phoneNumber, linkPhotoStore, timeWork,location, favoriteList, products, orderSchedule);
     }
     public void updateStatus (String idStore, boolean isOpen){
         submitter.updateStatus(idStore, isOpen);

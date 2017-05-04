@@ -25,12 +25,14 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
+import com.example.win81version2.orderdrink.main.presenter.UserPresenter;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
 import com.example.win81version2.orderdrink.ordered_history.view.Ordered_History_Fragment;
 import com.example.win81version2.orderdrink.profile_user.model.User;
 import com.example.win81version2.orderdrink.profile_user.view.ProfileUser_Fragment;
 import com.example.win81version2.orderdrink.store_list.view.Store_List_Fragment;
 import com.example.win81version2.orderdrink.utility.Constain;
+import com.example.win81version2.orderdrink.utility.GPSTracker;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,21 +43,38 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 public class MainUserActivity extends BaseActivity implements View.OnClickListener{
 
     private ImageView imgAvata;
     private TextView txtUserName, txtSumOrdered;
     private DatabaseReference mData;
-    private String idUser, userName, linkPhotoUser, sumOrdered;
+    private String idUser, userName, linkPhotoUser, sumOrdered, addressUser = "";
     private Button btnLogout;
+    private GPSTracker gps;
+    private UserPresenter presenter;
+    private HashMap<String, Object> location;
+    private double lo = 0, la = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this);
         setContentView(R.layout.activity_main_user);
         addControls ();
+        checkGPS ();
         initInfo ();
         addEvvents ();
+    }
+
+    private void checkGPS() {
+        if (gps.canGetLocation()){
+            lo = gps.getLongitude();
+            la = gps.getLatitude();
+        }
+        else {
+            gps.showSettingsAlert();
+        }
     }
 
     private void addEvvents() {
@@ -73,6 +92,11 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
                     {
                         User user = dataSnapshot.getValue(User.class);
                         userName = user.getUserName();
+                       if (user.getLocation() != null){
+                            HashMap<String, Object> flag = new HashMap<>();
+                            flag = user.getLocation();
+                            addressUser = String.valueOf(flag.get(Constain.ADDRESS));
+                        }
                         linkPhotoUser = user.getLinkPhotoUser();
                         sumOrdered = user.getSumOrdered() + " Ordered";
                         if (!linkPhotoUser.equals("")) {
@@ -116,7 +140,10 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
         txtUserName = (TextView) findViewById(R.id.txtusername_mainuser);
         txtSumOrdered = (TextView) findViewById(R.id.txtSumOreders_mainuser);
         btnLogout = (Button) findViewById(R.id.btn_logout_user);
+        location = new HashMap<>();
         mData = FirebaseDatabase.getInstance().getReference();
+        presenter = new UserPresenter();
+        gps = new GPSTracker(this);
         Store_List_Fragment storeListFragment = new Store_List_Fragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user, storeListFragment).commit();
 
@@ -158,5 +185,21 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
             }
         });
         alert.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constain.REQUEST_CODE_GPS){
+            gps.getLocation();
+            lo = gps.getLongitude();
+            la = gps.getLatitude();
+            if (lo != 0 && la != 0) {
+                location.put(Constain.LO, lo);
+                location.put(Constain.LA, la);
+                location.put(Constain.ADDRESS, addressUser);
+                presenter.updateLocation(idUser, location);
+            }
+        }
     }
 }

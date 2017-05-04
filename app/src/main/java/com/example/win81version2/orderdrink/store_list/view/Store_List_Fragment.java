@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.win81version2.orderdrink.R;
+import com.example.win81version2.orderdrink.oop.BaseFragment;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
 import com.example.win81version2.orderdrink.store_list.model.StoreListAdapter;
 import com.example.win81version2.orderdrink.utility.Constain;
@@ -26,26 +27,31 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 
-public class Store_List_Fragment extends Fragment {
+public class Store_List_Fragment extends BaseFragment {
 
     private RecyclerView recyclerView;
     private DatabaseReference mData;
     private ArrayList<Store> arrStore;
     private StoreListAdapter adapter;
     private LinearLayoutManager mManager;
+    private String idUser, emailUser;
 
     public Store_List_Fragment() {
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        idUser = getIdUser();
+        emailUser = getEmailUser();
         addControls ();
     }
 
     private void addControls() {
         mData = FirebaseDatabase.getInstance().getReference();
         arrStore = new ArrayList<>();
-        adapter = new StoreListAdapter(arrStore, this);
+        adapter = new StoreListAdapter(arrStore, this, idUser);
+        adapter.setEmailUser(emailUser);
+
     }
 
     @Nullable
@@ -62,7 +68,7 @@ public class Store_List_Fragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         try {
-            mData.child(Constain.STORES).addValueEventListener(new ValueEventListener() {
+            mData.child(Constain.STORES).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.getValue() != null) {
