@@ -15,7 +15,7 @@ import com.example.win81version2.orderdrink.R;
 
 public class StoreListViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView txtStoreName, txtSumfavorite, txtSumShipped, txtAddress, txtTimeWork;
+    public TextView txtStoreName, txtSumfavorite, txtSumShipped, txtAddress, txtTimeWork, txtDistance;
     public ImageView imgHeart, imgPhotoStore;
     public LinearLayout linearLayout;
     public CardView cardView;
@@ -27,6 +27,7 @@ public class StoreListViewHolder extends RecyclerView.ViewHolder {
         txtSumShipped = (TextView) itemView.findViewById(R.id.txtSumShipped_itemstore);
         txtAddress = (TextView) itemView.findViewById(R.id.txtAddress_itemstore);
         txtTimeWork = (TextView) itemView.findViewById(R.id.txtTimeWork_itemstore);
+        txtDistance = (TextView) itemView.findViewById(R.id.txtDistance);
         linearLayout = (LinearLayout) itemView.findViewById(R.id.layoutInfo);
         cardView = (CardView) itemView.findViewById(R.id.cardView);
 

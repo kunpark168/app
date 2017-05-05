@@ -2,6 +2,7 @@ package com.example.win81version2.orderdrink.store_list.model;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
@@ -41,6 +43,7 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder> 
     private Store_List_Fragment store_list_fragment;
     private boolean flagVisibility = false;
     private StoreListPresenter presenter;
+    private double loUser, laUser, loStore, laStore, distance;
 
     public StoreListAdapter(ArrayList<Store> arrStore, Store_List_Fragment store_list_fragment, String idUser) {
         this.arrStore = arrStore;
@@ -108,6 +111,53 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder> 
                             if (idUser.equals(dt.getKey().toString())) {
                                 holder.imgHeart.setImageResource(R.drawable.heart);
                             }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+            //get Lo and la User
+            mData.child(Constain.USERS).child(idUser).child(Constain.LOCATION).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null){
+                        try {
+                            HashMap<String, Object> location = new HashMap<String, Object>();
+                            location = (HashMap<String, Object>) dataSnapshot.getValue();
+                            loUser = (double) location.get(Constain.LO);
+                            laUser = (double) location.get(Constain.LA);
+                        }
+                        catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+            //get Longtitude and Latitude store and Caculator Distance
+            mData.child(Constain.STORES).child(idStore).child(Constain.LOCATION).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null){
+                        try {
+                            HashMap<String, Object> location = new HashMap<>();
+                            location = (HashMap<String, Object>) dataSnapshot.getValue();
+                            loStore = (double) location.get(Constain.LO);
+                            laStore = (double) location.get(Constain.LA);
+                            distance = calculationByDistance(laUser, loUser, laStore, loStore);
+                            distance = Math.round(distance);
+                            holder.txtDistance.setText(String.valueOf(distance)+ " Km");
+                        }
+                        catch (Exception ex){
+                            ex.printStackTrace();
                         }
                     }
                 }
@@ -185,6 +235,7 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder> 
                 }
             }
         });
+
     }
 
     @Override
@@ -196,5 +247,27 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder> 
 
     public void setEmailUser (String emailUser) {
         this.emailUser = emailUser;
+    }
+
+    //Caculator Distance
+    public final double calculationByDistance(double lat1, double lon1, double lat2, double lon2) {
+        int Radius = 6371;// radius of earth in Km
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(lat1))
+                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
+                * Math.sin(dLon / 2);
+        double c = 2 * Math.asin(Math.sqrt(a));
+        double valueResult = Radius * c;
+        double km = valueResult / 1;
+        DecimalFormat newFormat = new DecimalFormat("####");
+        int kmInDec = Integer.valueOf(newFormat.format(km));
+        double meter = valueResult % 1000;
+        int meterInDec = Integer.valueOf(newFormat.format(meter));
+        Log.i("Radius Value", "" + valueResult + "   KM  " + kmInDec
+                + " Meter   " + meterInDec);
+
+        return Radius * c;
     }
 }

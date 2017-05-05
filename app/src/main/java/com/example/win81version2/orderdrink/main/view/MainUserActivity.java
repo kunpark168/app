@@ -96,6 +96,12 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
                             HashMap<String, Object> flag = new HashMap<>();
                             flag = user.getLocation();
                             addressUser = String.valueOf(flag.get(Constain.ADDRESS));
+                           if (lo != 0 && la != 0) {
+                               location.put(Constain.LO, lo);
+                               location.put(Constain.LA, la);
+                               location.put(Constain.ADDRESS, addressUser);
+                               presenter.updateLocation(idUser, location);
+                           }
                         }
                         linkPhotoUser = user.getLinkPhotoUser();
                         sumOrdered = user.getSumOrdered() + " Ordered";
