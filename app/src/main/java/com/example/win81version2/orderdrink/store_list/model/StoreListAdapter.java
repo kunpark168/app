@@ -185,7 +185,7 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder> 
                 }
             }
         });
-        //heart
+        //imgHeart Click
         holder.imgHeart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,23 +204,73 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder> 
                                 }
                                     if (!flag){
                                         //remove and change img
-                                        presenter.removeHeart(idStore1, idUser);
                                         sumFavorite = dataSnapshot.getChildrenCount() - 1;
                                         holder.txtSumfavorite.setText(String.valueOf(sumFavorite));
                                         holder.imgHeart.setImageResource(R.drawable.non_heart);
+                                        presenter.removeHeart(idStore1, idUser);
                                     }
                                     else {
                                         //add and change img
-                                        presenter.addHeart(idStore1, idUser, emailUser);
                                         holder.imgHeart.setImageResource(R.drawable.heart);
                                         sumFavorite = dataSnapshot.getChildrenCount() + 1;
                                         holder.txtSumfavorite.setText(String.valueOf(sumFavorite));
+                                        presenter.addHeart(idStore1, idUser, emailUser);
                                     }
                             }
                             else {
-                                presenter.addHeart(idStore1, idUser, emailUser);
                                 holder.imgHeart.setImageResource(R.drawable.heart);
                                 holder.txtSumfavorite.setText("1");
+                                presenter.addHeart(idStore1, idUser, emailUser);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+                catch (Exception ex){
+
+                }
+            }
+        });
+        // txtHeart Click
+        holder.txtSumfavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Store store1 = arrStore.get(position);
+                    final String idStore1 = store1.getIdStore();
+                    mData.child(Constain.STORES).child(idStore1).child(Constain.FAVORITE_LIST).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getValue() != null){
+                                boolean flag = true;
+                                for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                                    if (idUser.equals(dt.getKey())) {
+                                        flag = false;
+                                    }
+                                }
+                                if (!flag){
+                                    //remove and change img
+                                    sumFavorite = dataSnapshot.getChildrenCount() - 1;
+                                    holder.txtSumfavorite.setText(String.valueOf(sumFavorite));
+                                    holder.imgHeart.setImageResource(R.drawable.non_heart);
+                                    presenter.removeHeart(idStore1, idUser);
+                                }
+                                else {
+                                    //add and change img
+                                    holder.imgHeart.setImageResource(R.drawable.heart);
+                                    sumFavorite = dataSnapshot.getChildrenCount() + 1;
+                                    holder.txtSumfavorite.setText(String.valueOf(sumFavorite));
+                                    presenter.addHeart(idStore1, idUser, emailUser);
+                                }
+                            }
+                            else {
+                                holder.imgHeart.setImageResource(R.drawable.heart);
+                                holder.txtSumfavorite.setText("1");
+                                presenter.addHeart(idStore1, idUser, emailUser);
                             }
                         }
 

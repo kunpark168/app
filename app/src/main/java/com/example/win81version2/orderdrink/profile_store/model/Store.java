@@ -1,5 +1,8 @@
 package com.example.win81version2.orderdrink.profile_store.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.example.win81version2.orderdrink.utility.Constain;
 
 import java.util.HashMap;
@@ -17,6 +20,7 @@ public class Store {
     private String phoneNumber;
     private String linkPhotoStore;
     private int sumShipped;
+    private int sumProduct;
     private String timeWork;
     private HashMap<String, Object> location;
     private HashMap<String, Object> favoriteList;
@@ -27,7 +31,7 @@ public class Store {
     public Store() {
     }
 
-    public Store(String idStore, String storeName, String email, boolean isStore, boolean isOpen, String phoneNumber, String linkPhotoStore, int sumShipped, String timeWork, HashMap<String, Object> location, HashMap<String, Object> favorite_list, HashMap<String, Object> products, HashMap<String, Object> orderSchedule) {
+    public Store(String idStore, String storeName, String email, boolean isStore, boolean isOpen, String phoneNumber, String linkPhotoStore, int sumShipped, int sumProduct, String timeWork, HashMap<String, Object> location, HashMap<String, Object> favorite_list, HashMap<String, Object> products, HashMap<String, Object> orderSchedule) {
         this.idStore = idStore;
         this.storeName = storeName;
         this.email = email;
@@ -36,6 +40,7 @@ public class Store {
         this.phoneNumber = phoneNumber;
         this.linkPhotoStore = linkPhotoStore;
         this.sumShipped = sumShipped;
+        this.sumProduct = sumProduct;
         this.timeWork = timeWork;
         this.location = location;
         this.favoriteList = favorite_list;
@@ -53,6 +58,7 @@ public class Store {
         myMap.put(Constain.PHONENUMBER, phoneNumber);
         myMap.put(Constain.LINKPHOTOSTORE, linkPhotoStore);
         myMap.put(Constain.SUM_SHIPPED, sumShipped);
+        myMap.put(Constain.SUM_PRODUCT, sumProduct);
         myMap.put(Constain.TIME_WORK, timeWork);
         myMap.put(Constain.LOCATION, location);
         myMap.put(Constain.FAVORITE_LIST, favoriteList);
@@ -124,6 +130,14 @@ public class Store {
 
     public void setSumShipped(int sumShipped) {
         this.sumShipped = sumShipped;
+    }
+
+    public int getSumProduct() {
+        return sumProduct;
+    }
+
+    public void setSumProduct(int sumProduct) {
+        this.sumProduct = sumProduct;
     }
 
     public String getTimeWork() {

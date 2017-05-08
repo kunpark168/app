@@ -94,7 +94,6 @@ public class MainActivity extends BaseActivity {
                                         }
                                     } catch (Exception ex) {
                                         ex.printStackTrace();
-                                        hideProgressDialog();
                                     }
                                 }
                                 else {
@@ -104,8 +103,6 @@ public class MainActivity extends BaseActivity {
 
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
-                                hideProgressDialog();
-
                             }
                         });
                         mData.child(Constain.STORES).child(idUser).addValueEventListener(new ValueEventListener() {

@@ -64,6 +64,10 @@ public class Store_List_Fragment extends BaseFragment {
         return view;
     }
 
+    public ArrayList<Store> getArrStore() {
+        return arrStore;
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

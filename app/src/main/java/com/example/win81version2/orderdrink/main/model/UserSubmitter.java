@@ -1,6 +1,12 @@
 package com.example.win81version2.orderdrink.main.model;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+
 import com.example.win81version2.orderdrink.utility.Constain;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.HashMap;
@@ -16,6 +22,22 @@ public class UserSubmitter {
         this.mData = mData;
     }
     public void updateLocation (String idUser, HashMap<String, Object> location){
-        mData.child(Constain.USERS).child(idUser).child(Constain.LOCATION).setValue(location);
+        mData.child(Constain.USERS).child(idUser).child(Constain.LOCATION).setValue(location).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Log.d("D", "SUCCESS");
+                }
+                else {
+                    Log.d("D", "UNSUCCESS");
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("D", e.getMessage());
+
+            }
+        });
     }
 }

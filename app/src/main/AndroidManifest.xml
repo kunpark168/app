@@ -48,7 +48,11 @@
         <activity
             android:name=".category.view.CreateCategory"
             android:label="----------------------------------------"
-            android:theme="@style/DialogNoActionBar"></activity>
+            android:theme="@style/DialogNoActionBar" />
+        <activity
+            android:windowSoftInputMode="adjustPan"
+            android:name=".search_user.view.SearchStoreActivity">
+        </activity>
     </application>
 
 </manifest>

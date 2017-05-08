@@ -20,15 +20,49 @@
             android:layout_height="0dp">
             <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:theme="@style/AppTheme.AppBarOverlay">
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="?attr/colorPrimaryDark"
-                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+                    app:popupTheme="@style/AppTheme.PopupOverlay" >
+                    <LinearLayout
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <LinearLayout
+                            android:id="@+id/layoutSearch"
+                            android:background="@drawable/bg_edittext"
+                            android:weightSum="10"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:id="@+id/imgSearchLabel"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginBottom="15dp"
+                                android:layout_marginTop="15dp"
+                                android:src="@drawable/search"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent" />
+                            <TextView
+                                android:id="@+id/txtSearch"
+                                android:gravity="center_vertical"
+                                android:textSize="15dp"
+                                android:layout_weight="9"
+                                android:hint="Tìm kiếm"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.Toolbar>
 
             </android.support.design.widget.AppBarLayout>
         </LinearLayout>
@@ -359,5 +393,4 @@
 
         </LinearLayout>
     </android.support.design.widget.NavigationView>
-
 </android.support.v4.widget.DrawerLayout>
