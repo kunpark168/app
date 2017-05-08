@@ -121,10 +121,9 @@ public class CreateCategory extends BaseActivity {
                             }
                             if (flag) {
                                 presenter.addCategoryOnData(idStore, idCategory, categoryName, 0, timeCreate);
-                                setTitle("My Category");
-                                CategoryListFragment categoryListFragment = new CategoryListFragment();
-                                getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, categoryListFragment).commit();
                                 Toast.makeText(CreateCategory.this, "Tạo Thư Mục Thành Công!", Toast.LENGTH_SHORT).show();
+                                edtCategoryName.setText("");
+                                edtCategoryName.requestFocus();
                             }
                         }
                         else {

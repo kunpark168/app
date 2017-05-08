@@ -35,6 +35,7 @@ public class CategoryListFragment extends Fragment {
     private DatabaseReference mData;
     private String idStore;
     private ImageView imgCreate;
+    //Contructor
     public CategoryListFragment() {
     }
     @Override
@@ -57,7 +58,7 @@ public class CategoryListFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         idStore = intent.getStringExtra(Constain.ID_STORE);
         try {
-            mData.child(Constain.STORES).child(idStore).child(Constain.PRODUCTS).addListenerForSingleValueEvent( new ValueEventListener() {
+            mData.child(Constain.STORES).child(idStore).child(Constain.PRODUCTS).addValueEventListener( new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.getValue() != null) {

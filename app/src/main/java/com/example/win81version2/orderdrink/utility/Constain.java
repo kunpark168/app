@@ -52,5 +52,7 @@ public class Constain {
     public static final String PRICE = "price";
     //CODE
     public static final int REQUEST_CODE_GPS = 3;
+    public static final int REQUEST_CODE_LOAD_IMAGE = 4;
+    public static final int REQUEST_CODE_LOAD_CAMERA = 5;
 
 }

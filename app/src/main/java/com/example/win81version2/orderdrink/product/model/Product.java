@@ -15,10 +15,12 @@ public class Product {
     private int rating;
     private float price;
     private String infoProduct;
-
     private boolean status;
     //Contructor
 
+
+    public Product() {
+    }
 
     public Product(String idProduct, String productName, String linkPhotoProduct, int rating, float price, String infoProduct, boolean status) {
         this.idProduct = idProduct;

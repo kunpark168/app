@@ -42,6 +42,7 @@
         android:inputType="textMultiLine" />
     //1
     <EditText
+        android:inputType="number"
         android:id="@+id/edtPrice"
         android:layout_weight="1"
         android:hint="15.000 vnd  (Nhập 15)"

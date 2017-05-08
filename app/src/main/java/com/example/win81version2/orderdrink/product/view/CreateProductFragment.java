@@ -1,8 +1,14 @@
 package com.example.win81version2.orderdrink.product.view;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -20,9 +26,11 @@ import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.category.model.Category;
 import com.example.win81version2.orderdrink.category.view.CategoryListFragment;
 import com.example.win81version2.orderdrink.category.view.CreateCategory;
+import com.example.win81version2.orderdrink.main.view.MainStoreActivity;
 import com.example.win81version2.orderdrink.oop.BaseFragment;
 import com.example.win81version2.orderdrink.product.model.Product;
 import com.example.win81version2.orderdrink.product.model.SpinnerAdapter;
+import com.example.win81version2.orderdrink.product.presenter.ProductPresenter;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,32 +38,29 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class CreateProductFragment extends BaseFragment implements View.OnClickListener {
 
     private EditText edtProductName, edtDescribeProduct, edtPrice;
     private Button btnChooseimg, btnCreateProduct;
-    private ImageView imgProduct;
+    public ImageView imgProduct;
     private Spinner spinnerCategory;
+    private ProductPresenter presenter;
 
     private SpinnerAdapter adapter;
     private ArrayList<Category> arrCategory;
     private DatabaseReference mData;
     private String idStore, idCategory, idProduct;
+    private Bitmap bitmap = null;
 
     public CreateProductFragment() {
         // Required empty public constructor
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        addControl();
-        initInfo();
-        addEvent();
-
     }
 
     private void initInfo() {
@@ -90,13 +95,17 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
     private void addEvent() {
         btnChooseimg.setOnClickListener(this);
         btnCreateProduct.setOnClickListener(this);
-        spinnerCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 idCategory = String.valueOf(position);
-                if (idCategory.length() == 1) {
-                    idCategory = "0" + idCategory;
+                if (idCategory.length() == 1){
+                    idCategory = "0" +idCategory;
                 }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }
@@ -110,6 +119,7 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
         imgProduct = (ImageView) getActivity().findViewById(R.id.imgProduct);
         spinnerCategory = (Spinner) getActivity().findViewById(R.id.spinnerCategory);
         mData = FirebaseDatabase.getInstance().getReference();
+        presenter = new ProductPresenter();
         idStore = getActivity().getIntent().getStringExtra(Constain.ID_STORE);
         arrCategory = new ArrayList<>();
         adapter = new SpinnerAdapter(arrCategory, getActivity());
@@ -117,12 +127,18 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_create__product_, container, false);
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        addControl();
+        initInfo();
+        addEvent();
+    }
     @Override
     public void onClick(View v) {
         int view = v.getId();
@@ -136,7 +152,8 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
 
     private void createProduct() {
         String flag_nameProduct = edtProductName.getText().toString();
-        String flag_price = edtPrice.getText().toString();
+        final String price = edtPrice.getText().toString();
+        final String describeProduct = edtDescribeProduct.getText().toString();
         boolean isVail = true;
         if (TextUtils.isEmpty(flag_nameProduct)) {
             isVail = false;
@@ -144,15 +161,18 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
         } else {
             edtProductName.setError(null);
         }
-        if (TextUtils.isEmpty(flag_price)) {
+        if (TextUtils.isEmpty(price)) {
             isVail = false;
             edtPrice.setError("Bắt Buộc");
         } else {
             edtPrice.setError(null);
         }
-
-
+        if (bitmap == null){
+            isVail = false;
+            showToast("Bạn chưa chọn hình!");
+        }
         if (isVail) {
+            showProgressDialog();
             String[] tu = flag_nameProduct.trim().split(" ");
             String flag_nameProduct2 = "";
             for (int i = 0; i < tu.length; i++) {
@@ -176,14 +196,30 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
                                     if (productName.equals(product.getProductName())) {
                                         isVail = false;
                                         showToast("Tên sản phẩm đã có,vui lòng thử lại");
+                                        hideProgressDialog();
                                         edtProductName.requestFocus();
                                     }
                                 }
                                 if (isVail) {
-
+                                    presenter.createProduct(bitmap, idStore, idCategory, idProduct, productName, describeProduct, Float.parseFloat(price));
+                                    hideProgressDialog();
+                                    showToast("Tạo sản phẩm thành công!");
+                                    edtProductName.setText("");
+                                    edtPrice.setText("");
+                                    edtDescribeProduct.setText("");
+                                    bitmap = null;
+                                    imgProduct.setImageResource(R.drawable.store);
                                 }
                             } else {
                                 idProduct = "00";
+                                presenter.createProduct(bitmap, idStore, idCategory, idProduct, productName, describeProduct, Float.parseFloat(price));
+                                hideProgressDialog();
+                                showToast("Tạo sản phẩm thành công!");
+                                edtProductName.setText("");
+                                edtPrice.setText("");
+                                edtDescribeProduct.setText("");
+                                bitmap = null;
+                                imgProduct.setImageResource(R.drawable.store);
                             }
                         } catch (Exception ex) {
                             ex.printStackTrace();
@@ -202,6 +238,49 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
     }
 
     private void showImage() {
-
+        Intent pickIntent = new Intent();
+        pickIntent.setType("image/*");
+        pickIntent.setAction(Intent.ACTION_PICK);
+        Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        String pickTitle = "Take or select a photo";
+        Intent chooserIntent = Intent.createChooser(pickIntent, pickTitle);
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] { takePhotoIntent });
+        startActivityForResult(chooserIntent, Constain.REQUEST_CODE_LOAD_IMAGE);
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constain.REQUEST_CODE_LOAD_IMAGE && resultCode == getActivity().RESULT_OK ){
+            if (data.getAction() != null){
+                bitmap = (Bitmap) data.getExtras().get("data");
+                bitmap = cropImage(bitmap);
+                imgProduct.setImageBitmap(bitmap);
+            }
+            else {
+                Uri filePath = data.getData();
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
+                    bitmap = cropImage(bitmap);
+                    imgProduct.setImageBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+    }
+
+    public Bitmap cropImage (Bitmap dstBmp) {
+        Bitmap srcBmp = null;
+        if (dstBmp.getWidth() >= dstBmp.getHeight()) {
+
+            srcBmp = Bitmap.createBitmap(dstBmp, dstBmp.getWidth() / 2 - dstBmp.getHeight() / 2, 0, dstBmp.getHeight(), dstBmp.getHeight()
+            );
+        } else {
+            srcBmp = Bitmap.createBitmap(dstBmp, 0, dstBmp.getHeight() / 2 - dstBmp.getWidth() / 2, dstBmp.getWidth(), dstBmp.getWidth()
+            );
+        }
+        return  srcBmp;
+    }
+
 }

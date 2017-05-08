@@ -28,7 +28,6 @@ public class CreateStorePresenter {
     private FirebaseAuth mAuth;
 
     public CreateStorePresenter(CreateStoreActivity view, FirebaseAuth mAuth) {
-        this.view = view;
         this.mAuth = mAuth;
         mData = FirebaseDatabase.getInstance().getReference();
         submitter = new CreateStoreSubmitter(mData, view);
@@ -58,8 +57,5 @@ public class CreateStorePresenter {
 
     public void addNewStore(String idStore, String storeName, String email, boolean isStore, boolean isOpen, String phoneNumber, String linkPhotoStore, String timeWork, HashMap<String, Object>location, HashMap<String, Object> favoriteList, HashMap<String, Object> products, HashMap<String, Object> orderSchedule) {
         submitter.addNewStore(idStore, storeName, email, isStore, isOpen, phoneNumber, linkPhotoStore, timeWork,location, favoriteList, products, orderSchedule);
-    }
-    public void updateStatus (String idStore, boolean isOpen){
-        submitter.updateStatus(idStore, isOpen);
     }
 }

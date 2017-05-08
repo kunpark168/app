@@ -2,6 +2,9 @@ package com.example.win81version2.orderdrink.main.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -22,9 +25,11 @@ import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.category.view.CategoryListFragment;
 import com.example.win81version2.orderdrink.notification_store.view.Notification_Store_Fragment;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
+import com.example.win81version2.orderdrink.product.view.CreateProductFragment;
 import com.example.win81version2.orderdrink.product_list.view.Product_List_Fragment;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
 import com.example.win81version2.orderdrink.profile_store.presenter.CreateStorePresenter;
+import com.example.win81version2.orderdrink.profile_store.presenter.UpdateStorePresenter;
 import com.example.win81version2.orderdrink.profile_store.view.CreateStoreActivity;
 import com.example.win81version2.orderdrink.profile_store.view.Profile_Store_Fragment;
 import com.example.win81version2.orderdrink.utility.Constain;
@@ -37,20 +42,25 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
+
 public class MainStoreActivity extends BaseActivity implements AHBottomNavigation.OnTabSelectedListener {
 
     private AHBottomNavigation ahBottomNavigation;
     private ImageView imgPhotoStore;
     private TextView  txtStoreName, txtSumShipped;
-    private LinearLayout layout_MyCategory;
+    private LinearLayout layoutMyCategory, layoutReport, layoutCreateProduct, layoutRateUs, layoutShare;
     private String idStore, linkPhotoStore = "";
     private DatabaseReference mData;
     private Button btnLogout;
     private SwitchCompat switchCompatStatus;
     private boolean isOpen = true;
-    private FirebaseAuth mAuth;
-    private CreateStorePresenter presenter;
-    private CreateStoreActivity view;
+    private Bitmap bitmap = null;
+    private CreateProductFragment createProductFragment;
+    private UpdateStorePresenter presenter;
+
+    public MainStoreActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +73,8 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
     }
 
     private void addEvents() {
-        layout_MyCategory.setOnClickListener(new View.OnClickListener() {
+        //My Category
+        layoutMyCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -72,27 +83,38 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, categoryListFragment).commit();
             }
         });
+        //Logout
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 logOut();
             }
         });
+        //Opent - Close Store
         switchCompatStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (switchCompatStatus.isChecked() == true ){
                     isOpen = true;
-                    presenter.updateStatus(idStore, isOpen);
-                    showToast("Mở Cửa");
+                    presenter.updateStatusStore(idStore, isOpen);
                 }
                 else {
                     isOpen = false;
-                    presenter.updateStatus(idStore, isOpen);
-                    showToast("Đóng Cửa");
+                    presenter.updateStatusStore(idStore, isOpen);
                 }
             }
         });
+        //Create Product
+        layoutCreateProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                setTitle("Create Product");
+                createProductFragment = new CreateProductFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, createProductFragment).commit();
+            }
+        });
+
     }
 
     private void innitInfo() {
@@ -152,11 +174,14 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         txtSumShipped = (TextView) findViewById(R.id.txtSumShipped_mainstore);
         imgPhotoStore = (ImageView) findViewById(R.id.imgPhotoStore_mainstore);
         btnLogout = (Button) findViewById(R.id.btn_logout_store);
-        layout_MyCategory = (LinearLayout) findViewById(R.id.navigation_mycategory);
+        layoutMyCategory = (LinearLayout) findViewById(R.id.navigation_mycategory);
+        layoutCreateProduct = (LinearLayout) findViewById(R.id.navigation_createproduct);
+        layoutReport = (LinearLayout) findViewById(R.id.navigation_report);
+        layoutRateUs = (LinearLayout) findViewById(R.id.navigation_rateus_store);
+        layoutShare = (LinearLayout) findViewById(R.id.navigation_share_store);
         switchCompatStatus = (SwitchCompat) findViewById(R.id.switchCompat_Status);
-        mAuth = FirebaseAuth.getInstance();
-        view = new CreateStoreActivity();
-        presenter = new CreateStorePresenter(view, mAuth);
+        //Presenter
+        presenter = new UpdateStorePresenter(this);
     }
 
     private void initItemNavigation() {
@@ -214,4 +239,6 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         });
         alert.show();
     }
+
+
 }
