@@ -55,7 +55,7 @@ public class ProductListFragment extends Fragment {
                    if (dataSnapshot.getValue() != null){
                        try {
                            for (DataSnapshot dt : dataSnapshot.getChildren()){
-                               mData.child(Constain.STORES).child(idStore).child(Constain.PRODUCTS).child(dt.getKey()).child(Constain.PRODUCTS).addListenerForSingleValueEvent(new ValueEventListener() {
+                               mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).child(dt.getKey()).child(Constain.PRODUCTS).addListenerForSingleValueEvent(new ValueEventListener() {
                                    @Override
                                    public void onDataChange(DataSnapshot dataSnapshot) {
                                        if (dataSnapshot.getValue() != null){
