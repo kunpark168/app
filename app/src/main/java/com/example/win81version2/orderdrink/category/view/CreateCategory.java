@@ -98,7 +98,7 @@ public class CreateCategory extends BaseActivity {
             }
             final String categoryName = flag_Category2.trim();
             try {
-                mData.child(Constain.STORES).child(idStore).child(Constain.PRODUCTS).addListenerForSingleValueEvent(new ValueEventListener() {
+                mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.getValue() != null) {

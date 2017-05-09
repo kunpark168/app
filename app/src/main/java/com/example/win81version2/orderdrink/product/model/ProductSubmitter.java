@@ -33,7 +33,7 @@ public class ProductSubmitter {
         uploadPhotoProduct(bitmap, idStore, idCategory, idProduct);
         Product product = new Product(idProduct, productName, linkPhotoProduct, 0, price, describeProduct, true);
         HashMap<String, Object> myMap = product.myMap();
-        mData.child(Constain.STORES).child(idStore).child(Constain.PRODUCTS).child(idCategory).child(Constain.PRODUCTS).child(idProduct).setValue(myMap);
+        mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).child(idCategory).child(Constain.PRODUCTS).child(idProduct).setValue(myMap);
     }
     public void uploadPhotoProduct (Bitmap bitmap, String idStore, String idCategory, String idProduct){
         StorageReference mountainsRef = mStorage.child(Constain.STORES).child(idStore).child(idCategory).child(idProduct);

@@ -65,7 +65,7 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
 
     private void initInfo() {
         try {
-            mData.child(Constain.STORES).child(idStore).child(Constain.PRODUCTS).addListenerForSingleValueEvent(new ValueEventListener() {
+            mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.getValue() != null) {
@@ -181,7 +181,7 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
             }
             final String productName = flag_nameProduct2.trim();
             try {
-                mData.child(Constain.STORES).child(idStore).child(Constain.PRODUCTS).child(idCategory).child(Constain.PRODUCTS).addListenerForSingleValueEvent(new ValueEventListener() {
+                mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).child(idCategory).child(Constain.PRODUCTS).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         try {

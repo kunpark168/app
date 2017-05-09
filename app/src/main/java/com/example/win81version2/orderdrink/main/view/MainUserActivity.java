@@ -2,6 +2,7 @@ package com.example.win81version2.orderdrink.main.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.main.presenter.UserPresenter;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
+import com.example.win81version2.orderdrink.product_list.view.ProductListFragment;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
 import com.example.win81version2.orderdrink.profile_user.model.User;
 import com.example.win81version2.orderdrink.search_user.model.SearchStore;
@@ -211,6 +213,17 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
         intent.putExtra(Constain.LO, lo);
         intent.putExtra(Constain.LA, la);
         startActivity(intent);
+    }
+
+    public void replaceFragment(String idStore) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constain.ID_STORE, idStore);
+        ProductListFragment newFragment = new ProductListFragment();
+        newFragment.setArguments(bundle);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_id_user, newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     private void logOut() {

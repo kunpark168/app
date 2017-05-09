@@ -53,7 +53,6 @@
         <activity
             android:name=".search_user.view.SearchStoreActivity"
             android:windowSoftInputMode="adjustPan"></activity>
-        <activity android:name=".product_list.view.ProductListActivity"></activity>
     </application>
 
 </manifest>

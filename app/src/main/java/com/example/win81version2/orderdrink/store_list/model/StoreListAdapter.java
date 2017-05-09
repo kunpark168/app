@@ -1,7 +1,6 @@
 package com.example.win81version2.orderdrink.store_list.model;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.main.view.MainUserActivity;
-import com.example.win81version2.orderdrink.product_list.view.ProductListActivity;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
 import com.example.win81version2.orderdrink.store_list.presenter.StoreListPresenter;
 import com.example.win81version2.orderdrink.store_list.view.Store_List_Fragment;
@@ -25,7 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
 /**
  * Created by Win 8.1 Version 2 on 4/24/2017.
@@ -301,9 +298,8 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder>{
         holder.btnViewOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              /*  Intent intent = new Intent(mContext, ProductListActivity.class);
-                intent.putExtra(idStore, 0);
-                mContext.startActivity(intent);*/
+                Store store2 = arrStore.get(position);
+                ( (MainUserActivity) mContext).replaceFragment(store2.getIdStore());
 
             }
         });
