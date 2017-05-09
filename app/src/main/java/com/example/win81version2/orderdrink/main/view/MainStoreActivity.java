@@ -3,8 +3,6 @@ package com.example.win81version2.orderdrink.main.view;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -26,11 +24,8 @@ import com.example.win81version2.orderdrink.category.view.CategoryListFragment;
 import com.example.win81version2.orderdrink.notification_store.view.Notification_Store_Fragment;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
 import com.example.win81version2.orderdrink.product.view.CreateProductFragment;
-import com.example.win81version2.orderdrink.product_list.view.Product_List_Fragment;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
-import com.example.win81version2.orderdrink.profile_store.presenter.CreateStorePresenter;
 import com.example.win81version2.orderdrink.profile_store.presenter.UpdateStorePresenter;
-import com.example.win81version2.orderdrink.profile_store.view.CreateStoreActivity;
 import com.example.win81version2.orderdrink.profile_store.view.Profile_Store_Fragment;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.facebook.FacebookSdk;
@@ -41,8 +36,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.io.IOException;
 
 public class MainStoreActivity extends BaseActivity implements AHBottomNavigation.OnTabSelectedListener {
 
@@ -200,15 +193,31 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            AlertDialog.Builder aler = new AlertDialog.Builder(this);
+            aler.setMessage("Bạn có muốn thoát app ?");
+            aler.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    moveTaskToBack(true);
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                    System.exit(1);
+                }
+            });
+            aler.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            aler.show();
         }
     }
 
     @Override
     public void onTabSelected(int position, boolean wasSelected) {
         if (position == 0) {
-            Product_List_Fragment product_list_fragment = new Product_List_Fragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, product_list_fragment).commit();
+           // ProductListActivity product_list_fragment = new ProductListActivity();
+           // getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, product_list_fragment).commit();
         } else if (position == 1) {
             Notification_Store_Fragment notification_store_fragment = new Notification_Store_Fragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, notification_store_fragment).commit();

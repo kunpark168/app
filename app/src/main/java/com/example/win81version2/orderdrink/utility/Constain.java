@@ -39,6 +39,7 @@ public class Constain {
     public static final String ORDER_SCHEDULE = "orderSchedule";
     //Product
     public static final String PRODUCTS = "products";
+    public static final String CATEGORY = "Categories";
     public static final String ID_CATEGORY = "idCategory";
     public static final String CATEGORY_NAME = "categoryName";
     public static final String SUM_PRODUCT = "sumProduct";

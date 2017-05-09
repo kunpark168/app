@@ -3,6 +3,7 @@ package com.example.win81version2.orderdrink.store_list.model;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ public class StoreListViewHolder extends RecyclerView.ViewHolder {
     public ImageView imgHeart, imgPhotoStore;
     public LinearLayout linearLayout;
     public CardView cardView;
+    public Button btnCallnow, btnViewOrder;
 
     public StoreListViewHolder(View itemView) {
         super(itemView);
@@ -30,6 +32,8 @@ public class StoreListViewHolder extends RecyclerView.ViewHolder {
         txtDistance = (TextView) itemView.findViewById(R.id.txtDistance);
         linearLayout = (LinearLayout) itemView.findViewById(R.id.layoutInfo);
         cardView = (CardView) itemView.findViewById(R.id.cardView);
+        btnCallnow = (Button) itemView.findViewById(R.id.btnCallNow);
+        btnViewOrder = (Button) itemView.findViewById(R.id.btnViewOrder);
 
         imgHeart = (ImageView) itemView.findViewById(R.id.imgHeart);
         imgPhotoStore = (ImageView) itemView.findViewById(R.id.imgPhotoStore_itemStore);

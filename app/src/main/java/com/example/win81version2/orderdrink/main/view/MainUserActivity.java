@@ -91,6 +91,8 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
                             HashMap<String, Object> flag = new HashMap<>();
                             flag = user.getLocation();
                             addressUser = String.valueOf(flag.get(Constain.ADDRESS));
+                            lo = (double) flag.get(Constain.LO);
+                            la = (double) flag.get(Constain.LA);
                             if (lo != 0 && la != 0) {
                                 location.put(Constain.LO, lo);
                                 location.put(Constain.LA, la);
@@ -194,11 +196,20 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
         ArrayList<Store> arrStore = storeListFragment.getArrStore();
         ArrayList<SearchStore> arrSearch = new ArrayList<>();
         for (int i = 0; i < arrStore.size() - 1; i++) {
-            SearchStore search = new SearchStore(arrStore.get(i).getLinkPhotoStore(), arrStore.get(i).getStoreName(), arrStore.get(i).getSumProduct());
-            arrSearch.add(search);
+            try {
+                double lo = (double) arrStore.get(i).getLocation().get(Constain.LO);
+                double la = (double) arrStore.get(i).getLocation().get(Constain.LA);
+                SearchStore search = new SearchStore(arrStore.get(i).getLinkPhotoStore(), arrStore.get(i).getStoreName(), lo, la);
+                arrSearch.add(search);
+            }
+            catch (Exception ex){
+                ex.printStackTrace();
+            }
         }
         Intent intent = new Intent(this,SearchStoreActivity.class);
         intent.putExtra("search" , arrSearch);
+        intent.putExtra(Constain.LO, lo);
+        intent.putExtra(Constain.LA, la);
         startActivity(intent);
     }
 

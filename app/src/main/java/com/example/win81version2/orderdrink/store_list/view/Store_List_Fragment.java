@@ -49,7 +49,7 @@ public class Store_List_Fragment extends BaseFragment {
     private void addControls() {
         mData = FirebaseDatabase.getInstance().getReference();
         arrStore = new ArrayList<>();
-        adapter = new StoreListAdapter(arrStore, this, idUser);
+        adapter = new StoreListAdapter(arrStore, this, idUser, getContext());
         adapter.setEmailUser(emailUser);
 
     }

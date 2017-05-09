@@ -1,6 +1,7 @@
 package com.example.win81version2.orderdrink.store_list.model;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.main.view.MainUserActivity;
+import com.example.win81version2.orderdrink.product_list.view.ProductListActivity;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
 import com.example.win81version2.orderdrink.store_list.presenter.StoreListPresenter;
 import com.example.win81version2.orderdrink.store_list.view.Store_List_Fragment;
@@ -29,26 +31,27 @@ import java.util.Objects;
  * Created by Win 8.1 Version 2 on 4/24/2017.
  */
 
-public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder> {
+public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder>{
 
     private ArrayList<Store> arrStore;
     private String sumShipped;
     private long sumFavorite;
-    private Context context;
     private String idStore;
     private String idUser;
     private String emailUser;
+    private Context mContext;
     private DatabaseReference mData;
     private String linkPhotoStore, timeWork = "";
     private Store_List_Fragment store_list_fragment;
     private boolean flagVisibility = false;
     private StoreListPresenter presenter;
-    private double loUser, laUser, loStore, laStore, distance;
+    private double loUser = 0, laUser = 0, loStore = 0, laStore = 0, distance;
 
-    public StoreListAdapter(ArrayList<Store> arrStore, Store_List_Fragment store_list_fragment, String idUser) {
+    public StoreListAdapter(ArrayList<Store> arrStore, Store_List_Fragment store_list_fragment, String idUser, Context mContext) {
         this.arrStore = arrStore;
         this.store_list_fragment = store_list_fragment;
         this.idUser = idUser;
+        this.mContext = mContext;
         presenter = new StoreListPresenter();
         mData = FirebaseDatabase.getInstance().getReference();
     }
@@ -152,9 +155,11 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder> 
                             location = (HashMap<String, Object>) dataSnapshot.getValue();
                             loStore = (double) location.get(Constain.LO);
                             laStore = (double) location.get(Constain.LA);
-                            distance = calculationByDistance(laUser, loUser, laStore, loStore);
-                            distance = Math.round(distance);
-                            holder.txtDistance.setText(String.valueOf(distance)+ " Km");
+                            if (loUser != 0 && laUser != 0 && loStore != 0 && laStore != 0) {
+                                distance = calculationByDistance(laUser, loUser, laStore, loStore);
+                                distance = Math.round(distance);
+                                holder.txtDistance.setText(String.valueOf(distance) + " Km");
+                            }
                         }
                         catch (Exception ex){
                             ex.printStackTrace();
@@ -285,7 +290,23 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder> 
                 }
             }
         });
+        //btn Callnow click
+        holder.btnCallnow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
+       //btnView Order click
+        holder.btnViewOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              /*  Intent intent = new Intent(mContext, ProductListActivity.class);
+                intent.putExtra(idStore, 0);
+                mContext.startActivity(intent);*/
+
+            }
+        });
     }
 
     @Override
@@ -320,4 +341,5 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder> 
 
         return Radius * c;
     }
+
 }

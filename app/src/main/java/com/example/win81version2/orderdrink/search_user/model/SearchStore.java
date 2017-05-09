@@ -10,24 +10,34 @@ import android.os.Parcelable;
 public class SearchStore implements Parcelable {
     String linkPhoto;
     String name;
-    int sumProduct;
+    double lo;
+    double la;
 
     public SearchStore(){
         super();
     }
 
-    public SearchStore(String linkPhoto, String name, int sumProduct) {
+    public SearchStore(String linkPhoto, String name, double lo, double la) {
         this.linkPhoto = linkPhoto;
         this.name = name;
-        this.sumProduct = sumProduct;
+        this.lo = lo;
+        this.la = la;
     }
 
-    public int getSumProduct() {
-        return sumProduct;
+    public double getLo() {
+        return lo;
     }
 
-    public void setSumProduct(int sumProduct) {
-        this.sumProduct = sumProduct;
+    public void setLo(double lo) {
+        this.lo = lo;
+    }
+
+    public double getLa() {
+        return la;
+    }
+
+    public void setLa(double la) {
+        this.la = la;
     }
 
     public String getLinkPhoto() {
@@ -50,7 +60,8 @@ public class SearchStore implements Parcelable {
     public SearchStore(Parcel parcel) {
         this.linkPhoto = parcel.readString();
         this.name = parcel.readString();
-        this.sumProduct = parcel.readInt();
+        this.lo = parcel.readDouble();
+        this.la = parcel.readDouble();
     }
 
     @Override
@@ -62,7 +73,8 @@ public class SearchStore implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(linkPhoto);
         dest.writeString(name);
-        dest.writeInt(sumProduct);
+        dest.writeDouble(lo);
+        dest.writeDouble(la);
 
     }
 

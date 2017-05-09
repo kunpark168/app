@@ -19,6 +19,6 @@ public class CategorySubmitter  {
         Category category = new Category(idCategory, categoryName, sumProduct, timeCreate);
         HashMap<String, Object> myMap = new HashMap<>();
         myMap = category.putMap();
-        mData.child(Constain.STORES).child(idStore).child(Constain.PRODUCTS).child(idCategory).setValue(myMap);
+        mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).child(idCategory).setValue(myMap);
     }
 }
