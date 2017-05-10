@@ -55,7 +55,7 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
     private String idStore, idCategory, idProduct;
     private Bitmap bitmap = null;
 
-    public CreateProductFragment() {
+    public  CreateProductFragment() {
         // Required empty public constructor
     }
     @Override

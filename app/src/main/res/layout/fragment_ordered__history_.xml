@@ -4,12 +4,10 @@
     android:layout_height="match_parent"
     tools:context="com.example.win81version2.orderdrink.ordered_history.view.Ordered_History_Fragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:textSize="40dp"
-        android:gravity="center"
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Fragment History Ordered" />
+        tools:listitem="@layout/item_order_history">
+    </android.support.v7.widget.RecyclerView>
 
 </FrameLayout>

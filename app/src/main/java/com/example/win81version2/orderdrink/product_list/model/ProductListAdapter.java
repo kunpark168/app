@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
+import com.example.win81version2.orderdrink.category.model.CategoryListViewHolder;
 import com.example.win81version2.orderdrink.product.model.Product;
 
 import java.util.ArrayList;
@@ -22,60 +23,44 @@ import java.util.List;
  * Created by Nhan on 5/8/2017.
  */
 
-public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
-    private List<Product> listProducts;
+public class ProductListAdapter extends RecyclerView.Adapter<ProductViewHolder> {
 
+
+    private ArrayList<Product> arrProducts;
     private Context mContext;
+    private String linkPhotoProduct = "";
 
-    public ProductListAdapter(Context context, ArrayList<Product> listProducts) {
-        this.listProducts = listProducts;
-        this.mContext = context;
+    public ProductListAdapter(ArrayList<Product> arrProducts, Context mContext) {
+        this.arrProducts = arrProducts;
+        this.mContext = mContext;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.cardview_product, parent, false));
+    public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.
+                from(parent.getContext()).
+                inflate(R.layout.cardview_product, parent, false);
+        return new ProductViewHolder(itemView);
     }
 
-
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Product product = listProducts.get(position);
+    public void onBindViewHolder(ProductViewHolder holder, int position) {
+
+        Product product = arrProducts.get(position);
         holder.txtName.setText(product.getProductName());
         holder.txtPrice.setText(String.valueOf(product.getPrice()));
-        String linkPhotoStore = product.getLinkPhotoProduct();
-        if (!linkPhotoStore.equals("")) {
+        linkPhotoProduct = product.getLinkPhotoProduct();
+        if (!linkPhotoProduct.equals(" ")){
             Glide.with(mContext)
-                    .load(linkPhotoStore)
+                    .load(linkPhotoProduct)
                     .fitCenter()
                     .into(holder.img);
         }
-
-    }
-
-    private void setAnimation(FrameLayout container, int position) {
-        Animation animation = AnimationUtils.loadAnimation(mContext, android.R.anim.slide_in_left);
-        container.startAnimation(animation);
     }
 
     @Override
     public int getItemCount() {
-        return (null != listProducts ? listProducts.size() : 0 );
-    }
-
-    class ViewHolder extends RecyclerView.ViewHolder {
-
-        ImageView img;
-        TextView txtName;
-        TextView txtPrice;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            img = (ImageView) itemView.findViewById(R.id.img);
-            txtName = (TextView) itemView.findViewById(R.id.txtName);
-            txtPrice = (TextView) itemView.findViewById(R.id.txtPrice);
-        }
+        return arrProducts.size();
     }
 }
 

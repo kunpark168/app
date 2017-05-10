@@ -52,7 +52,8 @@
             android:theme="@style/DialogNoActionBar" />
         <activity
             android:name=".search_user.view.SearchStoreActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".profile_user.view.ProfileUserActivity"></activity>
     </application>
 
 </manifest>

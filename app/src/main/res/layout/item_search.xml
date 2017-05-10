@@ -40,18 +40,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp" >
                 <TextView
-                    android:text="Cách đây : "
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
-                <TextView
                     android:id="@+id/txtDistance_itemsearch"
                     android:maxLines="1"
-                    android:text="165"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
-                <TextView
-                    android:text=" Km"
-                    android:layout_width="wrap_content"
+                    android:text="Cách đây 143 Km"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </LinearLayout>
         </LinearLayout>

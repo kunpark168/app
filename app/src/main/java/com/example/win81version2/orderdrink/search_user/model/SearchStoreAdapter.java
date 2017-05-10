@@ -55,7 +55,7 @@ public class SearchStoreAdapter extends ArrayAdapter<SearchStore> {
                 double laStore = search.getLa();
                 if (loUser != 0 && laUser != 0 && loStore != 0 && laStore != 0){
                     distance = calculationByDistance(laUser, loUser, loStore, laStore);
-                    txtDistance.setText(String.valueOf(distance));
+                    txtDistance.setText("Cách đây " + String.valueOf(distance) + "Km");
                 }
             }
             catch (Exception ex){

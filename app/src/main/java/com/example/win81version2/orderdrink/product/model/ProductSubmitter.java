@@ -4,6 +4,9 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
+import com.example.win81version2.orderdrink.main.view.MainStoreActivity;
+import com.example.win81version2.orderdrink.main.view.MainUserActivity;
+import com.example.win81version2.orderdrink.product.view.CreateProductFragment;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,17 +26,25 @@ public class ProductSubmitter {
     private DatabaseReference mData;
     private StorageReference mStorage;
     private String linkPhotoProduct = "";
+    private MainStoreActivity view;
+    private CreateProductFragment createProductFragment;
 
     public ProductSubmitter(DatabaseReference mData, StorageReference mStorage) {
         this.mData = mData;
         this.mStorage = mStorage;
+        createProductFragment = new CreateProductFragment();
     }
 
     public void createProduct (Bitmap bitmap, String idStore, String idCategory, String idProduct, String productName, String describeProduct, float price){
         uploadPhotoProduct(bitmap, idStore, idCategory, idProduct);
         Product product = new Product(idProduct, productName, linkPhotoProduct, 0, price, describeProduct, true);
-        HashMap<String, Object> myMap = product.myMap();
-        mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).child(idCategory).child(Constain.PRODUCTS).child(idProduct).setValue(myMap);
+        if (!linkPhotoProduct.equals("")) {
+            HashMap<String, Object> myMap = product.myMap();
+            mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).child(idCategory).child(Constain.PRODUCTS).child(idProduct).setValue(myMap);
+        }
+        else {
+
+        }
     }
     public void uploadPhotoProduct (Bitmap bitmap, String idStore, String idCategory, String idProduct){
         StorageReference mountainsRef = mStorage.child(Constain.STORES).child(idStore).child(idCategory).child(idProduct);

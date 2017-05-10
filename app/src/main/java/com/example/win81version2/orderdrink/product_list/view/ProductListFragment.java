@@ -3,10 +3,12 @@ package com.example.win81version2.orderdrink.product_list.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.product.model.Product;
@@ -25,14 +27,12 @@ public class ProductListFragment extends Fragment {
     private ArrayList<Product> arrProduct;
     private ProductListAdapter adapter;
     private RecyclerView recyclerProduct;
+    private LinearLayoutManager mManager;
     private DatabaseReference mData;
     private String idStore;
     public ProductListFragment() {
         // Required empty public constructor
     }
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -87,6 +87,8 @@ public class ProductListFragment extends Fragment {
 
                }
            });
+            recyclerProduct.setLayoutManager(mManager);
+            recyclerProduct.setHasFixedSize(true);
         }
         catch (Exception ex){
             ex.printStackTrace();
@@ -95,8 +97,10 @@ public class ProductListFragment extends Fragment {
 
     private void addControls() {
         arrProduct = new ArrayList<>();
+        mManager = new LinearLayoutManager(getActivity(), LinearLayout.HORIZONTAL, false);
         recyclerProduct = (RecyclerView) getActivity().findViewById(R.id.recyclerProducts);
-        adapter = new ProductListAdapter(getActivity(), arrProduct);
+        adapter = new ProductListAdapter(arrProduct, getContext());
+        recyclerProduct.setAdapter(adapter);
         mData = FirebaseDatabase.getInstance().getReference();
     }
 }

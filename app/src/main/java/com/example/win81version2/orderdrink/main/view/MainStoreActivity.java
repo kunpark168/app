@@ -1,20 +1,30 @@
 package com.example.win81version2.orderdrink.main.view;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -24,6 +34,7 @@ import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.category.view.CategoryListFragment;
 import com.example.win81version2.orderdrink.notification_store.view.Notification_Store_Fragment;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
+import com.example.win81version2.orderdrink.ordered_history.model.OrderList;
 import com.example.win81version2.orderdrink.product.view.CreateProductFragment;
 import com.example.win81version2.orderdrink.product_list.view.ProductListFragment;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
@@ -33,6 +44,7 @@ import com.example.win81version2.orderdrink.utility.Constain;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,10 +61,14 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
     private DatabaseReference mData;
     private Button btnLogout;
     private SwitchCompat switchCompatStatus;
-    private boolean isOpen = true;
+    private boolean isOpen = true, flagNotify = false;
     private Bitmap bitmap = null;
     private CreateProductFragment createProductFragment;
     private UpdateStorePresenter presenter;
+    //Notification
+    private NotificationCompat.Builder notBuilder;
+    private static final int MY_NOTIFICATION_ID = 12345;
+    private static final int MY_REQUEST_CODE = 100;
 
     public MainStoreActivity() {
     }
@@ -64,7 +80,36 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         setContentView(R.layout.activity_main_store);
         addControls();
         innitInfo();
+        checkNotify();
+        notiButtonClicked("Kun");
+        CustomNotification("KunKa", "Click ", "Có thoogn báo");
         addEvents ();
+    }
+
+    private void checkNotify() {
+        try {
+            mData.child(Constain.STORES).child(idStore).child(Constain.ORDER_LIST).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                  if (dataSnapshot.getValue() != null){
+                      for (DataSnapshot dt : dataSnapshot.getChildren()){
+                          OrderList orderList = dt.getValue(OrderList.class);
+                          if (orderList.getStatusOrder() == 0){
+                              notiButtonClicked(orderList.getUserName());
+                          }
+                      }
+                  }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     private void addEvents() {
@@ -113,8 +158,6 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
     }
 
     private void innitInfo() {
-        Intent intent = getIntent();
-        idStore = intent.getStringExtra(Constain.ID_STORE);
         try {
           mData.child(Constain.STORES).child(idStore).addListenerForSingleValueEvent(new ValueEventListener() {
               @Override
@@ -177,6 +220,13 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         switchCompatStatus = (SwitchCompat) findViewById(R.id.switchCompat_Status);
         //Presenter
         presenter = new UpdateStorePresenter(this);
+        //get IdStore
+        Intent intent = getIntent();
+        idStore = intent.getStringExtra(Constain.ID_STORE);
+        //Notification
+        notBuilder = new NotificationCompat.Builder(this);
+        // Thông báo sẽ tự động bị hủy khi người dùng click vào Panel
+        notBuilder.setAutoCancel(true);
     }
 
     private void initItemNavigation() {
@@ -249,6 +299,63 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
             }
         });
         alert.show();
+    }
+
+    public void notiButtonClicked(String userName) {
+
+        notBuilder.setSmallIcon(R.drawable.store);
+        notBuilder.setTicker("Có thông báo!");
+
+        // Sét đặt thời điểm sự kiện xẩy ra.
+        // Các thông báo trên Panel được sắp xếp bởi thời gian này.
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        notBuilder.setSound(alarmSound);
+        notBuilder.setWhen(System.currentTimeMillis() + 10 * 1000);
+        notBuilder.setContentTitle(userName + " đã đặt hàng của bạn").setColor(Color.GREEN);
+        notBuilder.setContentText("Click để xem chi tiết!");
+
+        // Tạo một Intent
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, MY_REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        notBuilder.setContentIntent(pendingIntent);
+        NotificationManager notificationService = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification notification = notBuilder.build();
+        notificationService.notify(MY_NOTIFICATION_ID, notification);
+    }
+
+    //custom Notify
+    public void CustomNotification(String customnotificationtitle, String customnotificationtext, String customnotificationticker) {
+        RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.item_notify);
+        String strtitle = customnotificationtitle;
+        String strtext = customnotificationtext;
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("title", strtitle);
+        intent.putExtra("text", strtext);
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+                // Set Icon
+                .setSmallIcon(R.drawable.store)
+                .setContentText("Click để xem chi tiết!")
+                // Set Ticker Message
+                .setTicker(customnotificationticker)
+                // Dismiss Notification
+                .setAutoCancel(true)
+                // Set PendingIntent into Notification
+                .setContentIntent(pIntent)
+                // Set RemoteViews into Notification
+                .setContent(remoteViews);
+
+        // Locate and set the Image into customnotificationtext.xml ImageViews
+        remoteViews.setImageViewResource(R.id.imgAvataUser_itemNotify,R.drawable.avatar);
+
+        // Locate and set the Text into customnotificationtext.xml TextViews
+        remoteViews.setTextViewText(R.id.txtUserName_itemNotify, customnotificationtitle);
+
+        // Create Notification Manager
+        NotificationManager notificationmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        // Build Notification with Notification Manager
+        notificationmanager.notify(0, builder.build());
+
     }
 
 

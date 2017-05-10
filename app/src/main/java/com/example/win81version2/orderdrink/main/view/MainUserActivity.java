@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.main.presenter.UserPresenter;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
+import com.example.win81version2.orderdrink.product.model.Product;
 import com.example.win81version2.orderdrink.product_list.view.ProductListFragment;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
 import com.example.win81version2.orderdrink.profile_user.model.User;
@@ -50,8 +51,9 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
     private GPSTracker gps;
     private UserPresenter presenter;
     private HashMap<String, Object> location;
+    private ArrayList<Product> arrAllProduct;
     private double lo = 0, la = 0;
-    private LinearLayout layoutSearch;
+    private LinearLayout layoutSearch, layoutHome, layoutMyfavorite, layoutOrderHistory, layoutRate, layoutShare;
     private Store_List_Fragment storeListFragment;
 
     @Override
@@ -82,49 +84,54 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
     private void initInfo() {
         Intent intent = getIntent();
         idUser = intent.getStringExtra(Constain.ID_USER);
-        mData.child(Constain.USERS).child(idUser).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() != null) {
-                    try {
-                        User user = dataSnapshot.getValue(User.class);
-                        userName = user.getUserName();
-                        if (user.getLocation() != null) {
-                            HashMap<String, Object> flag = new HashMap<>();
-                            flag = user.getLocation();
-                            addressUser = String.valueOf(flag.get(Constain.ADDRESS));
-                            lo = (double) flag.get(Constain.LO);
-                            la = (double) flag.get(Constain.LA);
-                            if (lo != 0 && la != 0) {
-                                location.put(Constain.LO, lo);
-                                location.put(Constain.LA, la);
-                                location.put(Constain.ADDRESS, addressUser);
-                                presenter.updateLocation(idUser, location);
+        try {
+            mData.child(Constain.USERS).child(idUser).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null) {
+                        try {
+                            User user = dataSnapshot.getValue(User.class);
+                            userName = user.getUserName();
+                            if (user.getLocation() != null) {
+                                HashMap<String, Object> flag = new HashMap<>();
+                                flag = user.getLocation();
+                                addressUser = String.valueOf(flag.get(Constain.ADDRESS));
+                                lo = (double) flag.get(Constain.LO);
+                                la = (double) flag.get(Constain.LA);
+                                if (lo != 0 && la != 0) {
+                                    location.put(Constain.LO, lo);
+                                    location.put(Constain.LA, la);
+                                    location.put(Constain.ADDRESS, addressUser);
+                                    presenter.updateLocation(idUser, location);
+                                }
                             }
+                            linkPhotoUser = user.getLinkPhotoUser();
+                            sumOrdered = user.getSumOrdered() + " Ordered";
+                            if (!linkPhotoUser.equals("")) {
+                                Glide.with(MainUserActivity.this)
+                                        .load(linkPhotoUser)
+                                        .fitCenter()
+                                        .into(imgAvata);
+                            }
+                            txtUserName.setText(userName);
+                            txtSumOrdered.setText(sumOrdered);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
                         }
-                        linkPhotoUser = user.getLinkPhotoUser();
-                        sumOrdered = user.getSumOrdered() + " Ordered";
-                        if (!linkPhotoUser.equals("")) {
-                            Glide.with(MainUserActivity.this)
-                                    .load(linkPhotoUser)
-                                    .fitCenter()
-                                    .into(imgAvata);
-                        }
-                        txtUserName.setText(userName);
-                        txtSumOrdered.setText(sumOrdered);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
+                    } else {
+                        showToast("Lỗi không load được User!");
                     }
-                } else {
-                    showToast("Lỗi không load được User!");
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
+        catch (Exception ex){
+
+        }
 
     }
 
@@ -146,10 +153,16 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
         txtSumOrdered = (TextView) findViewById(R.id.txtSumOreders_mainuser);
         btnLogout = (Button) findViewById(R.id.btn_logout_user);
         layoutSearch = (LinearLayout) findViewById(R.id.layoutSearch);
+        layoutHome = (LinearLayout) findViewById(R.id.navigation_homeUser);
+        layoutMyfavorite = (LinearLayout) findViewById(R.id.navigation_myfavorite);
+        layoutOrderHistory = (LinearLayout) findViewById(R.id.navigation_historyorder);
+        layoutRate = (LinearLayout) findViewById(R.id.navigation_rateus_user);
+        layoutShare = (LinearLayout) findViewById(R.id.navigation_share_user);
         location = new HashMap<>();
         mData = FirebaseDatabase.getInstance().getReference();
         presenter = new UserPresenter();
         gps = new GPSTracker(this);
+        arrAllProduct = new ArrayList<>();
         storeListFragment = new Store_List_Fragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user, storeListFragment).commit();
 
@@ -160,7 +173,7 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        } else if (getSupportFragmentManager().getFragments() == storeListFragment){
             AlertDialog.Builder aler = new AlertDialog.Builder(this);
             aler.setMessage("Bạn có muốn thoát app ?");
             aler.setPositiveButton("Có", new DialogInterface.OnClickListener() {
@@ -191,6 +204,10 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
             txtSearch.setEnabled(true);
             imgSearch.setEnabled(true);
             moveToSearchAcitvity();
+        }
+        if (view == R.id.navigation_homeUser){
+            storeListFragment = new Store_List_Fragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user, storeListFragment).commit();
         }
     }
 
