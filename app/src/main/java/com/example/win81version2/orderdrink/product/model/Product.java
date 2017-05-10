@@ -1,5 +1,8 @@
 package com.example.win81version2.orderdrink.product.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.example.win81version2.orderdrink.utility.Constain;
 
 import java.util.HashMap;
@@ -8,7 +11,7 @@ import java.util.HashMap;
  * Created by Win 8.1 Version 2 on 4/21/2017.
  */
 
-public class Product {
+public class Product implements Parcelable{
     private String idProduct;
     private String productName;
     private String linkPhotoProduct;
@@ -101,4 +104,41 @@ public class Product {
     public void setStatus(boolean status) {
         this.status = status;
     }
+
+    /////Parcelable
+    protected Product (Parcel parcel){
+        idProduct = parcel.readString();
+        productName= parcel.readString();
+        linkPhotoProduct= parcel.readString();
+        rating = parcel.readInt();
+        price = parcel.readFloat();
+        infoProduct= parcel.readString();
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(idProduct);
+        parcel.writeString(productName);
+        parcel.writeString(linkPhotoProduct);
+        parcel.writeString(infoProduct);
+        parcel.writeInt(rating);
+        parcel.writeFloat(price);
+    }
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel parcel) {
+            return new Product(parcel);
+        }
+
+        @Override
+        public Product[] newArray(int i) {
+            return new Product[i];
+        }
+    };
 }

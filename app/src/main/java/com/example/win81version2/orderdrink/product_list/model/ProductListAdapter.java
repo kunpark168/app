@@ -1,6 +1,9 @@
 package com.example.win81version2.orderdrink.product_list.model;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +14,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import com.bignerdranch.expandablerecyclerview.ChildViewHolder;
+import com.bignerdranch.expandablerecyclerview.ExpandableRecyclerAdapter;
+import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
+import com.bignerdranch.expandablerecyclerview.model.Parent;
 import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.product.model.Product;
@@ -22,60 +30,48 @@ import java.util.List;
  * Created by Nhan on 5/8/2017.
  */
 
-public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
-    private List<Product> listProducts;
+public class ProductListAdapter extends ExpandableRecyclerAdapter<GroupProduct , Product ,GroupProductViewHolder , ViewHolders> {
 
     private Context mContext;
+    private LayoutInflater inflater;
 
-    public ProductListAdapter(Context context, ArrayList<Product> listProducts) {
-        this.listProducts = listProducts;
+    public ProductListAdapter(Context context , @NonNull List<GroupProduct> parentList) {
+        super(parentList);
         this.mContext = context;
+        inflater = LayoutInflater.from(context);
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.cardview_product, parent, false));
+    public GroupProductViewHolder onCreateParentViewHolder(@NonNull ViewGroup parentViewGroup, int viewType) {
+        View recipeView = inflater.inflate(R.layout.category_product, parentViewGroup, false);
+        return new GroupProductViewHolder(recipeView);
     }
 
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Product product = listProducts.get(position);
-        holder.txtName.setText(product.getProductName());
-        holder.txtPrice.setText(String.valueOf(product.getPrice()));
-        String linkPhotoStore = product.getLinkPhotoProduct();
-        if (!linkPhotoStore.equals("")) {
-            Glide.with(mContext)
-                    .load(linkPhotoStore)
-                    .fitCenter()
-                    .into(holder.img);
-        }
-
-    }
-
-    private void setAnimation(FrameLayout container, int position) {
-        Animation animation = AnimationUtils.loadAnimation(mContext, android.R.anim.slide_in_left);
-        container.startAnimation(animation);
+    public ViewHolders onCreateChildViewHolder(@NonNull ViewGroup childViewGroup, int viewType) {
+        View recipeView = inflater.inflate(R.layout.cardview_product, childViewGroup, false);
+        return new ViewHolders(recipeView);
     }
 
     @Override
-    public int getItemCount() {
-        return (null != listProducts ? listProducts.size() : 0 );
+    public void onBindParentViewHolder(@NonNull GroupProductViewHolder parentViewHolder, int parentPosition, @NonNull GroupProduct parent) {
+
+        parentViewHolder.setTxtCategoryProductName(parent.getTitle());
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public void onBindChildViewHolder(@NonNull ViewHolders childViewHolder, int parentPosition, int childPosition, @NonNull Product child) {
 
-        ImageView img;
-        TextView txtName;
-        TextView txtPrice;
+        childViewHolder.setTxtPriceName(child.getProductName());
+        childViewHolder.setTxtNameName(String.valueOf(child.getPrice()));
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-            img = (ImageView) itemView.findViewById(R.id.img);
-            txtName = (TextView) itemView.findViewById(R.id.txtName);
-            txtPrice = (TextView) itemView.findViewById(R.id.txtPrice);
+        String linkPhoto = child.getLinkPhotoProduct();
+        if(linkPhoto.equals("")){
+            Glide.with(mContext).load(linkPhoto).into(childViewHolder.getImg());
         }
     }
+
 }
+
 

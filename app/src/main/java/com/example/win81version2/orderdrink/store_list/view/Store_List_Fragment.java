@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.oop.BaseFragment;
+import com.example.win81version2.orderdrink.product_list.model.GroupProduct;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
 import com.example.win81version2.orderdrink.store_list.model.StoreListAdapter;
 import com.example.win81version2.orderdrink.utility.Constain;
@@ -25,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Store_List_Fragment extends BaseFragment {

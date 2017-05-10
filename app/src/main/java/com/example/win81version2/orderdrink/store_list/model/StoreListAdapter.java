@@ -9,7 +9,10 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
+import com.example.win81version2.orderdrink.category.model.Category;
 import com.example.win81version2.orderdrink.main.view.MainUserActivity;
+import com.example.win81version2.orderdrink.product.model.Product;
+import com.example.win81version2.orderdrink.product_list.model.GroupProduct;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
 import com.example.win81version2.orderdrink.store_list.presenter.StoreListPresenter;
 import com.example.win81version2.orderdrink.store_list.view.Store_List_Fragment;
@@ -23,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Win 8.1 Version 2 on 4/24/2017.
@@ -31,6 +35,7 @@ import java.util.HashMap;
 public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder>{
 
     private ArrayList<Store> arrStore;
+    private List<GroupProduct> categoryList;
     private String sumShipped;
     private long sumFavorite;
     private String idStore;
@@ -49,6 +54,7 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder>{
         this.store_list_fragment = store_list_fragment;
         this.idUser = idUser;
         this.mContext = mContext;
+        categoryList = new ArrayList<>();
         presenter = new StoreListPresenter();
         mData = FirebaseDatabase.getInstance().getReference();
     }
@@ -298,9 +304,8 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder>{
         holder.btnViewOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Store store2 = arrStore.get(position);
+                  final Store store2 = arrStore.get(position);
                 ( (MainUserActivity) mContext).replaceFragment(store2.getIdStore());
-
             }
         });
     }

@@ -17,8 +17,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
+import com.example.win81version2.orderdrink.category.model.Category;
 import com.example.win81version2.orderdrink.main.presenter.UserPresenter;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
+import com.example.win81version2.orderdrink.product.model.Product;
+import com.example.win81version2.orderdrink.product_list.model.GroupProduct;
+import com.example.win81version2.orderdrink.product_list.model.ProductListAdapter;
 import com.example.win81version2.orderdrink.product_list.view.ProductListFragment;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
 import com.example.win81version2.orderdrink.profile_user.model.User;
@@ -39,6 +43,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MainUserActivity extends BaseActivity implements View.OnClickListener, Serializable {
 
@@ -61,10 +66,10 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.activity_main_user);
         addControls();
         checkGPS();
+        getCategoryList ();
         initInfo();
         addEvvents();
     }
-
     private void checkGPS() {
         if (gps.canGetLocation()) {
             lo = gps.getLongitude();
@@ -261,6 +266,10 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
                 presenter.updateLocation(idUser, location);
             }
         }
+    }
+
+    private void getCategoryList(){
+
     }
 
 }
