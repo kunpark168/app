@@ -324,7 +324,7 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         ProductListFragment newFragment = new ProductListFragment();
         newFragment.setArguments(bundle);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content_id_user, newFragment);
+        transaction.replace(R.id.content_id_store, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

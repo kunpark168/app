@@ -36,9 +36,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:weightSum="3"
                     android:layout_weight="0.3">
 
                     <TextView
+                        android:id="@+id/txtStoreName_listproduct"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Trà sữa DingTea"
@@ -47,14 +49,18 @@
                         android:textStyle="bold"
                         />
                     <TextView
+                        android:id="@+id/txtAddressStore_listproduct"
                         android:layout_width="match_parent"
+                        android:maxLines="1"
                         android:layout_height="wrap_content"
                         android:text="62 Trần Phú, Quận Thủ Đức, HCM"
                         android:textStyle="italic"
                         android:textSize="12sp"/>
                     <TextView
+                        android:id="@+id/txtTimeWork_listproduct"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:maxLines="1"
                         android:text="Opening: 7 am -> 9 pm"
                         android:textSize="12sp"/>
 
