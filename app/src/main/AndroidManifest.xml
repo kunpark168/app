@@ -52,7 +52,10 @@
             android:theme="@style/DialogNoActionBar" />
         <activity
             android:name=".search_user.view.SearchStoreActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".display_product.DisplayProduct"
+            android:label=""
+            android:theme="@style/DialogNoActionBar"></activity>
     </application>
 
 </manifest>

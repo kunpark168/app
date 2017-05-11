@@ -1,0 +1,602 @@
+[
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_main.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\bg_main.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\flash.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\flash.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_store.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\ic_store.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\com_facebook_button_login_silver_background.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\383cf36007cbb72022f1d3c1476780b0b4202400\\output\\res\\drawable\\com_facebook_button_login_silver_background.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\email.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\email.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\search.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\search.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\non_heart.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\non_heart.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_text_dark_focused.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\5eecabb1bf2f654c4d78e11784c08291e5157c9a\\output\\res\\drawable\\common_google_signin_btn_text_dark_focused.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_voice_search_api_material.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_ic_voice_search_api_material.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\test_bg_buttton.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\test_bg_buttton.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_radio_material.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_search_material.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_textfield_search_material.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\feedback.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\feedback.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\com_facebook_button_login_background.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\383cf36007cbb72022f1d3c1476780b0b4202400\\output\\res\\drawable\\com_facebook_button_login_background.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\com_facebook_favicon_blue.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\383cf36007cbb72022f1d3c1476780b0b4202400\\output\\res\\drawable\\com_facebook_favicon_blue.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\img_muiten.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\img_muiten.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_material.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_ratingbar_material.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_indicator_material.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_ratingbar_indicator_material.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\status.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\status.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_icon_light_focused.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\5eecabb1bf2f654c4d78e11784c08291e5157c9a\\output\\res\\drawable\\common_google_signin_btn_icon_light_focused.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\profile.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\profile.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\icon_heart.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\icon_heart.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_icon_dark_focused.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\5eecabb1bf2f654c4d78e11784c08291e5157c9a\\output\\res\\drawable\\common_google_signin_btn_icon_dark_focused.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\com_facebook_button_like_background.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\383cf36007cbb72022f1d3c1476780b0b4202400\\output\\res\\drawable\\com_facebook_button_like_background.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\time.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\time.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\product_store.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\product_store.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\com_facebook_auth_dialog_header_background.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\383cf36007cbb72022f1d3c1476780b0b4202400\\output\\res\\drawable\\com_facebook_auth_dialog_header_background.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\avatar.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\avatar.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_login.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\btn_login.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\back.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\back.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\about_us.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\about_us.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\share.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\share.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_icon_dark.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\5eecabb1bf2f654c4d78e11784c08291e5157c9a\\output\\res\\drawable\\common_google_signin_btn_icon_dark.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\search_black.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\search_black.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\test_bg_create_product.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\test_bg_create_product.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_textfield_background_material.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_spinner_textfield_background_material.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\history.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\history.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\location.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\location.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\com_facebook_button_send_background.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\383cf36007cbb72022f1d3c1476780b0b4202400\\output\\res\\drawable\\com_facebook_button_send_background.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_dialog_material_background.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\icon_ship.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\icon_ship.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_home_black_24dp.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\ic_home_black_24dp.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\rate.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\rate.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\side_nav_bar.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\side_nav_bar.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_ab_back_material.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_ic_ab_back_material.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_tick_mark_material.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_seekbar_tick_mark_material.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_dashboard_black_24dp.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\ic_dashboard_black_24dp.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\call.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\call.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_thumb_material.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_seekbar_thumb_material.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_user.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\ic_user.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\test_gradient_spinner.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\test_gradient_spinner.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_search_api_material.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_ic_search_api_material.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\btntesst.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\btntesst.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\test_bg_edittext.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\test_bg_edittext.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\design_snackbar_background.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\4de101aac6701362c8806a63cd91db106a9b6065\\output\\res\\drawable\\design_snackbar_background.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\test_bg_btn.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\test_bg_btn.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_switch_thumb_material.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\product.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\product.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\sign_up.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\sign_up.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\strokeimg.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\strokeimg.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\delete.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\delete.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_edittext.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\bg_edittext.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_menu_overflow_material.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_ic_menu_overflow_material.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\product_btnmore.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\product_btnmore.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\login_google.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\login_google.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_item_background_holo_dark.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_track_material.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_seekbar_track_material.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_internal_bg.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\com_facebook_button_login_logo.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\383cf36007cbb72022f1d3c1476780b0b4202400\\output\\res\\drawable\\com_facebook_button_login_logo.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_light.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\camera_icon.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\camera_icon.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\test_spinner_border.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\test_spinner_border.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_login_activity.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\bg_login_activity.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\door.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\door.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\turn.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\turn.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_default_mtrl_shape.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_background.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\f90dc882ce50ee639e6f7437a190e95ca17ffc44\\output\\res\\drawable\\notification_background.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\store.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\store.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_bg.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\notification_bg.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\com_facebook_auth_dialog_cancel_background.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\383cf36007cbb72022f1d3c1476780b0b4202400\\output\\res\\drawable\\com_facebook_auth_dialog_cancel_background.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\com_facebook_send_button_icon.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\383cf36007cbb72022f1d3c1476780b0b4202400\\output\\res\\drawable\\com_facebook_send_button_icon.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\report.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\report.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_top_material.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_cab_background_top_material.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_bg_low.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\notification_bg_low.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\jo.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\jo.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_menu_send.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\ic_menu_send.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\favorite.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\favorite.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_menu_manage.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\ic_menu_manage.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\comment.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\comment.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_small_material.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_ratingbar_small_material.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\com_facebook_button_background.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\383cf36007cbb72022f1d3c1476780b0b4202400\\output\\res\\drawable\\com_facebook_button_background.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\icon_profile.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\icon_profile.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_view_order.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\btn_view_order.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\hi.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\hi.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\store_profile.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\store_profile.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_icon_background.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\notification_icon_background.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_text_light_focused.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\5eecabb1bf2f654c4d78e11784c08291e5157c9a\\output\\res\\drawable\\common_google_signin_btn_text_light_focused.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\design_fab_background.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\4de101aac6701362c8806a63cd91db106a9b6065\\output\\res\\drawable\\design_fab_background.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\img_add.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\img_add.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_borderless_material.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_btn_borderless_material.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\navigation_empty_icon.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\4de101aac6701362c8806a63cd91db106a9b6065\\output\\res\\drawable\\navigation_empty_icon.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_signup.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\bg_signup.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_notifications_black_24dp.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\ic_notifications_black_24dp.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\drop_icon.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\drop_icon.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_tile_bg.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\notification_tile_bg.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\messenger_button_white_bg_round.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\383cf36007cbb72022f1d3c1476780b0b4202400\\output\\res\\drawable\\messenger_button_white_bg_round.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\apple.jpg",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\apple.jpg"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_vector_test.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_vector_test.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\login_fb.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\login_fb.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_menu_camera.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\ic_menu_camera.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_menu_share.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\ic_menu_share.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_slidingmenu.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\bg_slidingmenu.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\home.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_text_light.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\5eecabb1bf2f654c4d78e11784c08291e5157c9a\\output\\res\\drawable\\common_google_signin_btn_text_light.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\messenger_button_blue_bg_selector.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\383cf36007cbb72022f1d3c1476780b0b4202400\\output\\res\\drawable\\messenger_button_blue_bg_selector.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_delete_category.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\btn_delete_category.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_menu_gallery.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\ic_menu_gallery.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_logout.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\btn_logout.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_menu_slideshow.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\ic_menu_slideshow.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\icon_shopping.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\icon_shopping.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\product_dingtea.jpg",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\product_dingtea.jpg"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_text_dark.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\5eecabb1bf2f654c4d78e11784c08291e5157c9a\\output\\res\\drawable\\common_google_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_call.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\btn_call.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\com_facebook_button_icon.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\383cf36007cbb72022f1d3c1476780b0b4202400\\output\\res\\drawable\\com_facebook_button_icon.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\messenger_button_white_bg_selector.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\383cf36007cbb72022f1d3c1476780b0b4202400\\output\\res\\drawable\\messenger_button_white_bg_selector.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_icon_light.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\5eecabb1bf2f654c4d78e11784c08291e5157c9a\\output\\res\\drawable\\common_google_signin_btn_icon_light.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\messenger_button_blue_bg_round.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\383cf36007cbb72022f1d3c1476780b0b4202400\\output\\res\\drawable\\messenger_button_blue_bg_round.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_material.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_text_cursor_material.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_text_cursor_material.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_go_search_api_material.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_ic_go_search_api_material.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\heart.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\heart.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\blur_view_avatar.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\blur_view_avatar.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\line_or.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\line_or.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mdtp_done_background_color_dark.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\a5995c40713a85e4361f569acad92f265d93e839\\output\\res\\drawable\\mdtp_done_background_color_dark.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\add.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\add.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_vieworder.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\btn_vieworder.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_shopping.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\ic_shopping.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\com_facebook_auth_dialog_background.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\383cf36007cbb72022f1d3c1476780b0b4202400\\output\\res\\drawable\\com_facebook_auth_dialog_background.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\category.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\category.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_material.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_ic_clear_material.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shop_dingteashop.jpg",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\shop_dingteashop.jpg"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\btndelete.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\btndelete.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\muiten.png",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\muiten.png"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_textview.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\drawable\\bg_textview.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",
+        "source": "C:\\Users\\Nhan\\.android\\build-cache\\92e69f466796a70c908813be7a28f9afc89d1d9d\\output\\res\\drawable\\abc_btn_check_material.xml"
+    }
+]

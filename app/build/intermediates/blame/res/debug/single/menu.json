@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\menu\\navigation.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\menu\\navigation.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_main.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\menu\\menu_main.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\menu\\item_search.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\menu\\item_search.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\menu\\activity_main_drawer_store.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\menu\\activity_main_drawer_store.xml"
+    },
+    {
+        "merged": "H:\\Do an\\android\\Order App\\app\\app\\build\\intermediates\\res\\merged\\debug\\menu\\activity_main_drawer_user.xml",
+        "source": "H:\\Do an\\android\\Order App\\app\\app\\src\\main\\res\\menu\\activity_main_drawer_user.xml"
+    }
+]

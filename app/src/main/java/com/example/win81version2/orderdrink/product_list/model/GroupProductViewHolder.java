@@ -16,7 +16,7 @@ public class GroupProductViewHolder extends ParentViewHolder {
     private TextView txtCategoryProduct;
     public GroupProductViewHolder(View itemView) {
         super(itemView);
-        txtCategoryProduct = (TextView) itemView.findViewById(R.id.txtGroupProduct);
+        txtCategoryProduct = (TextView) itemView.findViewById(R.id.categoryTitle);
     }
 
     public void setTxtCategoryProductName(String name){

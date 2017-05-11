@@ -1,0 +1,371 @@
+-- Merging decision tree log ---
+manifest
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:2:1-61:12
+	package
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:4:5-51
+		INJECTED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml
+		INJECTED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml
+		INJECTED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml
+	xmlns:tools
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:3:5-51
+	xmlns:android
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml
+		INJECTED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml
+uses-permission#android.permission.CAMERA
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:6:5-65
+	android:name
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:6:22-62
+uses-permission#android.permission.INTERNET
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:7:5-67
+MERGED from [com.google.firebase:firebase-analytics:10.0.1] C:\Users\Nhan\.android\build-cache\c02771ace37b8d02c25f1ac13a5471e2dedfc252\output\AndroidManifest.xml:20:5-66
+MERGED from [com.google.firebase:firebase-analytics-impl:10.0.1] C:\Users\Nhan\.android\build-cache\4acc770bc32b23de96850dade872e09fcdb59ef3\output\AndroidManifest.xml:20:5-66
+MERGED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:20:5-66
+	android:name
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:7:22-64
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:8:5-79
+	android:name
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:8:22-76
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:9:5-81
+	android:name
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:9:22-78
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:10:5-80
+	android:name
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:10:22-77
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:11:5-81
+	android:name
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:11:22-78
+application
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:13:5-59:19
+MERGED from [com.android.support.constraint:constraint-layout:1.0.1] C:\Users\Nhan\.android\build-cache\6bf026e450c79aaab2d6223fb41d82a680ab2046\output\AndroidManifest.xml:9:5-20
+MERGED from [com.google.firebase:firebase-auth:10.0.1] C:\Users\Nhan\.android\build-cache\8d79f088de166c96950c0940afc40f860157d449\output\AndroidManifest.xml:19:5-20:19
+MERGED from [com.google.android.gms:play-services-base:10.0.1] C:\Users\Nhan\.android\build-cache\5eecabb1bf2f654c4d78e11784c08291e5157c9a\output\AndroidManifest.xml:18:5-20:19
+MERGED from [com.wdullaer:materialdatetimepicker:3.1.3] C:\Users\Nhan\.android\build-cache\a5995c40713a85e4361f569acad92f265d93e839\output\AndroidManifest.xml:28:5-20
+MERGED from [com.android.support:support-v13:25.2.0] C:\Users\Nhan\.android\build-cache\120223cdfee5ae898d12d3515d1d53c18d24552c\output\AndroidManifest.xml:25:5-20
+MERGED from [com.aurelhubert:ahbottomnavigation:1.1.8] C:\Users\Nhan\.android\build-cache\f90dc882ce50ee639e6f7437a190e95ca17ffc44\output\AndroidManifest.xml:11:5-20
+MERGED from [com.facebook.android:facebook-android-sdk:4.22.0] C:\Users\Nhan\.android\build-cache\383cf36007cbb72022f1d3c1476780b0b4202400\output\AndroidManifest.xml:28:5-48:19
+MERGED from [com.android.support:cardview-v7:25.0.0] C:\Users\Nhan\.android\build-cache\6578fcedfdb7ed5dc9f2ee1e887cb21d40ba9ef2\output\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:customtabs:25.0.0] C:\Users\Nhan\.android\build-cache\76bcc2021933e2bce6bc4e18563fa04b45d47b88\output\AndroidManifest.xml:22:5-20
+MERGED from [de.hdodenhof:circleimageview:2.1.0] C:\Users\Nhan\.android\build-cache\1a67b09d6e0795051c958f40c4f280bba00177b3\output\AndroidManifest.xml:9:5-20
+MERGED from [com.infstory:switch-preference-compat:1.0.0] C:\Users\Nhan\.android\build-cache\b6867097ac3f207f7db69e63c978647a13d306fe\output\AndroidManifest.xml:11:5-20
+MERGED from [com.android.support:design:25.2.0] C:\Users\Nhan\.android\build-cache\4de101aac6701362c8806a63cd91db106a9b6065\output\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:appcompat-v7:25.2.0] C:\Users\Nhan\.android\build-cache\92e69f466796a70c908813be7a28f9afc89d1d9d\output\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.2.0] C:\Users\Nhan\.android\build-cache\1c62998adb9ffb09a49a1de71a47d5120881e76d\output\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-vector-drawable:25.2.0] C:\Users\Nhan\.android\build-cache\b5994aaeb255724d7d3c1eba506029856c9df66d\output\AndroidManifest.xml:23:5-20
+MERGED from [com.android.support:transition:25.2.0] C:\Users\Nhan\.android\build-cache\18a7cf21a1317564c6657ceba811ca65f631d09d\output\AndroidManifest.xml:22:5-20
+MERGED from [com.google.firebase:firebase-core:10.0.1] C:\Users\Nhan\.android\build-cache\6e2be73042b788de13e0221574605d949120282a\output\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-analytics:10.0.1] C:\Users\Nhan\.android\build-cache\c02771ace37b8d02c25f1ac13a5471e2dedfc252\output\AndroidManifest.xml:24:5-33:19
+MERGED from [com.google.firebase:firebase-analytics-impl:10.0.1] C:\Users\Nhan\.android\build-cache\4acc770bc32b23de96850dade872e09fcdb59ef3\output\AndroidManifest.xml:24:5-28:19
+MERGED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:28:5-50:19
+MERGED from [com.google.firebase:firebase-common:10.0.1] C:\Users\Nhan\.android\build-cache\9739740c4d2164a706941e590cee9c88c6ef36ca\output\AndroidManifest.xml:4:5-7:19
+MERGED from [com.google.android.gms:play-services-tasks:10.0.1] C:\Users\Nhan\.android\build-cache\1379f1385849c55de6db400dd8f1733236e69a3d\output\AndroidManifest.xml:4:5-19
+MERGED from [com.google.android.gms:play-services-basement:10.0.1] C:\Users\Nhan\.android\build-cache\940492ecf5d9ae1ab26ce64a73166fe6c5350375\output\AndroidManifest.xml:19:5-21:19
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\Nhan\.android\build-cache\2de72c3e90f7a6562d10b65ea9df4c3b17829bc1\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\Nhan\.android\build-cache\0e751c3e9acf0696a9bf5d9fbce925e35e7959bc\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\Nhan\.android\build-cache\eec034a0ba16c0927ef70a2219cd1e412624d90c\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\Nhan\.android\build-cache\dd3ea4e6bf1956b5c9611fd7ba195726c5d8ca47\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\Nhan\.android\build-cache\cf16d51804459326a8b69267b9a4cb5d4b7ebe41\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\Nhan\.android\build-cache\24a3a60e24db741062c711190672125333fb864a\output\AndroidManifest.xml:29:5-20
+	android:label
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:16:9-41
+	android:supportsRtl
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:18:9-35
+	android:roundIcon
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:17:9-54
+	android:allowBackup
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:14:9-35
+	android:icon
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:15:9-43
+	android:theme
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:19:9-40
+activity#com.example.win81version2.orderdrink.main.view.MainActivity
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:20:9-26:20
+	android:name
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:20:19-57
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:21:13-25:29
+action#android.intent.action.MAIN
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:22:17-69
+	android:name
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:22:25-66
+category#android.intent.category.LAUNCHER
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:24:17-77
+	android:name
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:24:27-74
+activity#com.example.win81version2.orderdrink.Login.view.LoginActivity
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:27:9-29:50
+	android:theme
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:29:13-47
+	android:name
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:28:13-53
+activity#com.example.win81version2.orderdrink.signup.view.SignupActivity
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:30:9-33:56
+	android:label
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:32:13-109
+	android:theme
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:33:13-53
+	android:name
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:31:13-55
+activity#com.example.win81version2.orderdrink.main.view.MainUserActivity
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:34:9-64
+	android:name
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:34:19-61
+activity#com.example.win81version2.orderdrink.profile_store.view.CreateStoreActivity
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:35:9-76
+	android:name
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:35:19-73
+meta-data#com.facebook.sdk.ApplicationId
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:37:9-39:55
+	android:value
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:39:13-52
+	android:name
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:38:13-58
+activity#com.facebook.FacebookActivity
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:41:9-46:45
+MERGED from [com.facebook.android:facebook-android-sdk:4.22.0] C:\Users\Nhan\.android\build-cache\383cf36007cbb72022f1d3c1476780b0b4202400\output\AndroidManifest.xml:29:9-32:66
+	android:label
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:44:13-45
+	android:configChanges
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:43:13-96
+	android:theme
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:45:13-72
+		REJECTED from [com.facebook.android:facebook-android-sdk:4.22.0] C:\Users\Nhan\.android\build-cache\383cf36007cbb72022f1d3c1476780b0b4202400\output\AndroidManifest.xml:32:13-63
+	tools:replace
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:46:13-42
+	android:name
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:42:13-57
+activity#com.example.win81version2.orderdrink.main.view.MainAdminActivity
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:47:9-65
+	android:name
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:47:19-62
+activity#com.example.win81version2.orderdrink.main.view.MainStoreActivity
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:48:9-65
+	android:name
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:48:19-62
+activity#com.example.win81version2.orderdrink.category.view.CreateCategory
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:49:9-52:56
+	android:label
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:51:13-69
+	android:theme
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:52:13-53
+	android:name
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:50:13-57
+activity#com.example.win81version2.orderdrink.search_user.view.SearchStoreActivity
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:53:9-55:55
+	android:windowSoftInputMode
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:55:13-52
+	android:name
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:54:13-65
+activity#com.example.win81version2.orderdrink.display_product.DisplayProduct
+ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:56:9-58:65
+	android:label
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:57:13-29
+	android:theme
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:58:13-53
+	android:name
+		ADDED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml:56:19-65
+uses-sdk
+INJECTED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support.constraint:constraint-layout:1.0.1] C:\Users\Nhan\.android\build-cache\6bf026e450c79aaab2d6223fb41d82a680ab2046\output\AndroidManifest.xml:5:5-7:41
+MERGED from [com.bignerdranch.android:expandablerecyclerview:3.0.0-RC1] C:\Users\Nhan\.android\build-cache\79ed46622d7109b0f3521198ff85d4162875d883\output\AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.firebase:firebase-auth:10.0.1] C:\Users\Nhan\.android\build-cache\8d79f088de166c96950c0940afc40f860157d449\output\AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-base:10.0.1] C:\Users\Nhan\.android\build-cache\5eecabb1bf2f654c4d78e11784c08291e5157c9a\output\AndroidManifest.xml:17:5-42
+MERGED from [com.google.firebase:firebase-database:10.0.1] C:\Users\Nhan\.android\build-cache\8481c49302600364777c1e205581ebf2cae2d442\output\AndroidManifest.xml:3:5-42
+MERGED from [com.google.firebase:firebase-database-connection:10.0.1] C:\Users\Nhan\.android\build-cache\968a03f3aadcdc9f622660759add3a461e8d36c1\output\AndroidManifest.xml:3:5-42
+MERGED from [com.google.firebase:firebase-storage:10.0.1] C:\Users\Nhan\.android\build-cache\d0441cc1bbabaf721befaeab73f60f96f791420b\output\AndroidManifest.xml:3:5-42
+MERGED from [com.google.firebase:firebase-storage-common:10.0.1] C:\Users\Nhan\.android\build-cache\dc0739951b7b843e52ee70849b9fc55c955155d5\output\AndroidManifest.xml:3:5-42
+MERGED from [com.wdullaer:materialdatetimepicker:3.1.3] C:\Users\Nhan\.android\build-cache\a5995c40713a85e4361f569acad92f265d93e839\output\AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.support:support-v13:25.2.0] C:\Users\Nhan\.android\build-cache\120223cdfee5ae898d12d3515d1d53c18d24552c\output\AndroidManifest.xml:21:5-23:55
+MERGED from [com.aurelhubert:ahbottomnavigation:1.1.8] C:\Users\Nhan\.android\build-cache\f90dc882ce50ee639e6f7437a190e95ca17ffc44\output\AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.android:facebook-android-sdk:4.22.0] C:\Users\Nhan\.android\build-cache\383cf36007cbb72022f1d3c1476780b0b4202400\output\AndroidManifest.xml:24:5-26:41
+MERGED from [com.android.support:cardview-v7:25.0.0] C:\Users\Nhan\.android\build-cache\6578fcedfdb7ed5dc9f2ee1e887cb21d40ba9ef2\output\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:customtabs:25.0.0] C:\Users\Nhan\.android\build-cache\76bcc2021933e2bce6bc4e18563fa04b45d47b88\output\AndroidManifest.xml:20:5-44
+MERGED from [de.hdodenhof:circleimageview:2.1.0] C:\Users\Nhan\.android\build-cache\1a67b09d6e0795051c958f40c4f280bba00177b3\output\AndroidManifest.xml:5:5-7:41
+MERGED from [com.infstory:switch-preference-compat:1.0.0] C:\Users\Nhan\.android\build-cache\b6867097ac3f207f7db69e63c978647a13d306fe\output\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:design:25.2.0] C:\Users\Nhan\.android\build-cache\4de101aac6701362c8806a63cd91db106a9b6065\output\AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:appcompat-v7:25.2.0] C:\Users\Nhan\.android\build-cache\92e69f466796a70c908813be7a28f9afc89d1d9d\output\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:animated-vector-drawable:25.2.0] C:\Users\Nhan\.android\build-cache\1c62998adb9ffb09a49a1de71a47d5120881e76d\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:25.2.0] C:\Users\Nhan\.android\build-cache\b5994aaeb255724d7d3c1eba506029856c9df66d\output\AndroidManifest.xml:21:5-43
+MERGED from [com.android.support:recyclerview-v7:25.3.1] C:\Users\Nhan\.android\build-cache\819d4552617894eb43cc52390ce4dacea44d4784\output\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:transition:25.2.0] C:\Users\Nhan\.android\build-cache\18a7cf21a1317564c6657ceba811ca65f631d09d\output\AndroidManifest.xml:20:5-44
+MERGED from [com.daimajia.swipelayout:library:1.2.0] C:\Users\Nhan\.android\build-cache\fe9f722c8cd0449ee54227cc0e284d2d286a6bcc\output\AndroidManifest.xml:6:5-8:41
+MERGED from [com.google.firebase:firebase-core:10.0.1] C:\Users\Nhan\.android\build-cache\6e2be73042b788de13e0221574605d949120282a\output\AndroidManifest.xml:4:5-42
+MERGED from [com.google.firebase:firebase-analytics:10.0.1] C:\Users\Nhan\.android\build-cache\c02771ace37b8d02c25f1ac13a5471e2dedfc252\output\AndroidManifest.xml:17:5-42
+MERGED from [com.google.firebase:firebase-analytics-impl:10.0.1] C:\Users\Nhan\.android\build-cache\4acc770bc32b23de96850dade872e09fcdb59ef3\output\AndroidManifest.xml:17:5-42
+MERGED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:17:5-42
+MERGED from [com.google.firebase:firebase-common:10.0.1] C:\Users\Nhan\.android\build-cache\9739740c4d2164a706941e590cee9c88c6ef36ca\output\AndroidManifest.xml:3:5-42
+MERGED from [com.google.android.gms:play-services-tasks:10.0.1] C:\Users\Nhan\.android\build-cache\1379f1385849c55de6db400dd8f1733236e69a3d\output\AndroidManifest.xml:3:5-42
+MERGED from [com.google.android.gms:play-services-basement:10.0.1] C:\Users\Nhan\.android\build-cache\940492ecf5d9ae1ab26ce64a73166fe6c5350375\output\AndroidManifest.xml:17:5-42
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\Nhan\.android\build-cache\2de72c3e90f7a6562d10b65ea9df4c3b17829bc1\output\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\Nhan\.android\build-cache\0e751c3e9acf0696a9bf5d9fbce925e35e7959bc\output\AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\Nhan\.android\build-cache\eec034a0ba16c0927ef70a2219cd1e412624d90c\output\AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\Nhan\.android\build-cache\dd3ea4e6bf1956b5c9611fd7ba195726c5d8ca47\output\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\Nhan\.android\build-cache\cf16d51804459326a8b69267b9a4cb5d4b7ebe41\output\AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\Nhan\.android\build-cache\24a3a60e24db741062c711190672125333fb864a\output\AndroidManifest.xml:21:5-23:58
+	tools:overrideLibrary
+		ADDED from [com.android.support:support-v13:25.2.0] C:\Users\Nhan\.android\build-cache\120223cdfee5ae898d12d3515d1d53c18d24552c\output\AndroidManifest.xml:23:9-52
+	android:targetSdkVersion
+		INJECTED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml
+		INJECTED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml
+		INJECTED from H:\Do an\android\Order App\app\app\src\main\AndroidManifest.xml
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:10.0.1] C:\Users\Nhan\.android\build-cache\5eecabb1bf2f654c4d78e11784c08291e5157c9a\output\AndroidManifest.xml:19:9-172
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:10.0.1] C:\Users\Nhan\.android\build-cache\5eecabb1bf2f654c4d78e11784c08291e5157c9a\output\AndroidManifest.xml:19:146-170
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:10.0.1] C:\Users\Nhan\.android\build-cache\5eecabb1bf2f654c4d78e11784c08291e5157c9a\output\AndroidManifest.xml:19:86-145
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:10.0.1] C:\Users\Nhan\.android\build-cache\5eecabb1bf2f654c4d78e11784c08291e5157c9a\output\AndroidManifest.xml:19:19-85
+uses-permission#android.permission.VIBRATE
+ADDED from [com.wdullaer:materialdatetimepicker:3.1.3] C:\Users\Nhan\.android\build-cache\a5995c40713a85e4361f569acad92f265d93e839\output\AndroidManifest.xml:26:5-66
+	android:name
+		ADDED from [com.wdullaer:materialdatetimepicker:3.1.3] C:\Users\Nhan\.android\build-cache\a5995c40713a85e4361f569acad92f265d93e839\output\AndroidManifest.xml:26:22-63
+activity#com.facebook.CustomTabMainActivity
+ADDED from [com.facebook.android:facebook-android-sdk:4.22.0] C:\Users\Nhan\.android\build-cache\383cf36007cbb72022f1d3c1476780b0b4202400\output\AndroidManifest.xml:33:9-71
+	android:name
+		ADDED from [com.facebook.android:facebook-android-sdk:4.22.0] C:\Users\Nhan\.android\build-cache\383cf36007cbb72022f1d3c1476780b0b4202400\output\AndroidManifest.xml:33:19-68
+provider#com.facebook.internal.FacebookInitProvider
+ADDED from [com.facebook.android:facebook-android-sdk:4.22.0] C:\Users\Nhan\.android\build-cache\383cf36007cbb72022f1d3c1476780b0b4202400\output\AndroidManifest.xml:44:9-47:40
+	android:authorities
+		ADDED from [com.facebook.android:facebook-android-sdk:4.22.0] C:\Users\Nhan\.android\build-cache\383cf36007cbb72022f1d3c1476780b0b4202400\output\AndroidManifest.xml:46:13-72
+	android:exported
+		ADDED from [com.facebook.android:facebook-android-sdk:4.22.0] C:\Users\Nhan\.android\build-cache\383cf36007cbb72022f1d3c1476780b0b4202400\output\AndroidManifest.xml:47:13-37
+	android:name
+		ADDED from [com.facebook.android:facebook-android-sdk:4.22.0] C:\Users\Nhan\.android\build-cache\383cf36007cbb72022f1d3c1476780b0b4202400\output\AndroidManifest.xml:45:13-70
+meta-data#android.support.VERSION
+ADDED from [com.android.support:recyclerview-v7:25.3.1] C:\Users\Nhan\.android\build-cache\819d4552617894eb43cc52390ce4dacea44d4784\output\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\Nhan\.android\build-cache\2de72c3e90f7a6562d10b65ea9df4c3b17829bc1\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\Nhan\.android\build-cache\0e751c3e9acf0696a9bf5d9fbce925e35e7959bc\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\Nhan\.android\build-cache\eec034a0ba16c0927ef70a2219cd1e412624d90c\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\Nhan\.android\build-cache\dd3ea4e6bf1956b5c9611fd7ba195726c5d8ca47\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\Nhan\.android\build-cache\cf16d51804459326a8b69267b9a4cb5d4b7ebe41\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\Nhan\.android\build-cache\24a3a60e24db741062c711190672125333fb864a\output\AndroidManifest.xml:25:5-27:34
+	android:value
+		ADDED from [com.android.support:recyclerview-v7:25.3.1] C:\Users\Nhan\.android\build-cache\819d4552617894eb43cc52390ce4dacea44d4784\output\AndroidManifest.xml:24:9-31
+	android:name
+		ADDED from [com.android.support:recyclerview-v7:25.3.1] C:\Users\Nhan\.android\build-cache\819d4552617894eb43cc52390ce4dacea44d4784\output\AndroidManifest.xml:23:9-47
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [com.google.firebase:firebase-analytics:10.0.1] C:\Users\Nhan\.android\build-cache\c02771ace37b8d02c25f1ac13a5471e2dedfc252\output\AndroidManifest.xml:21:5-78
+MERGED from [com.google.firebase:firebase-analytics-impl:10.0.1] C:\Users\Nhan\.android\build-cache\4acc770bc32b23de96850dade872e09fcdb59ef3\output\AndroidManifest.xml:21:5-78
+MERGED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:19:5-78
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:10.0.1] C:\Users\Nhan\.android\build-cache\c02771ace37b8d02c25f1ac13a5471e2dedfc252\output\AndroidManifest.xml:21:22-76
+uses-permission#android.permission.WAKE_LOCK
+ADDED from [com.google.firebase:firebase-analytics:10.0.1] C:\Users\Nhan\.android\build-cache\c02771ace37b8d02c25f1ac13a5471e2dedfc252\output\AndroidManifest.xml:22:5-67
+MERGED from [com.google.firebase:firebase-analytics-impl:10.0.1] C:\Users\Nhan\.android\build-cache\4acc770bc32b23de96850dade872e09fcdb59ef3\output\AndroidManifest.xml:22:5-67
+MERGED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:21:5-67
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:10.0.1] C:\Users\Nhan\.android\build-cache\c02771ace37b8d02c25f1ac13a5471e2dedfc252\output\AndroidManifest.xml:22:22-65
+receiver#com.google.android.gms.measurement.AppMeasurementReceiver
+ADDED from [com.google.firebase:firebase-analytics:10.0.1] C:\Users\Nhan\.android\build-cache\c02771ace37b8d02c25f1ac13a5471e2dedfc252\output\AndroidManifest.xml:25:7-26:18
+MERGED from [com.google.firebase:firebase-analytics-impl:10.0.1] C:\Users\Nhan\.android\build-cache\4acc770bc32b23de96850dade872e09fcdb59ef3\output\AndroidManifest.xml:25:7-26:18
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:10.0.1] C:\Users\Nhan\.android\build-cache\c02771ace37b8d02c25f1ac13a5471e2dedfc252\output\AndroidManifest.xml:25:90-112
+	android:exported
+		ADDED from [com.google.firebase:firebase-analytics:10.0.1] C:\Users\Nhan\.android\build-cache\c02771ace37b8d02c25f1ac13a5471e2dedfc252\output\AndroidManifest.xml:25:113-137
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:10.0.1] C:\Users\Nhan\.android\build-cache\c02771ace37b8d02c25f1ac13a5471e2dedfc252\output\AndroidManifest.xml:25:17-89
+receiver#com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver
+ADDED from [com.google.firebase:firebase-analytics:10.0.1] C:\Users\Nhan\.android\build-cache\c02771ace37b8d02c25f1ac13a5471e2dedfc252\output\AndroidManifest.xml:27:7-31:18
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:10.0.1] C:\Users\Nhan\.android\build-cache\c02771ace37b8d02c25f1ac13a5471e2dedfc252\output\AndroidManifest.xml:27:162-184
+	android:permission
+		ADDED from [com.google.firebase:firebase-analytics:10.0.1] C:\Users\Nhan\.android\build-cache\c02771ace37b8d02c25f1ac13a5471e2dedfc252\output\AndroidManifest.xml:27:105-161
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:10.0.1] C:\Users\Nhan\.android\build-cache\c02771ace37b8d02c25f1ac13a5471e2dedfc252\output\AndroidManifest.xml:27:17-104
+intent-filter#com.android.vending.INSTALL_REFERRER
+ADDED from [com.google.firebase:firebase-analytics:10.0.1] C:\Users\Nhan\.android\build-cache\c02771ace37b8d02c25f1ac13a5471e2dedfc252\output\AndroidManifest.xml:28:11-30:27
+action#com.android.vending.INSTALL_REFERRER
+ADDED from [com.google.firebase:firebase-analytics:10.0.1] C:\Users\Nhan\.android\build-cache\c02771ace37b8d02c25f1ac13a5471e2dedfc252\output\AndroidManifest.xml:29:15-76
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:10.0.1] C:\Users\Nhan\.android\build-cache\c02771ace37b8d02c25f1ac13a5471e2dedfc252\output\AndroidManifest.xml:29:23-74
+service#com.google.android.gms.measurement.AppMeasurementService
+ADDED from [com.google.firebase:firebase-analytics:10.0.1] C:\Users\Nhan\.android\build-cache\c02771ace37b8d02c25f1ac13a5471e2dedfc252\output\AndroidManifest.xml:32:7-137
+MERGED from [com.google.firebase:firebase-analytics-impl:10.0.1] C:\Users\Nhan\.android\build-cache\4acc770bc32b23de96850dade872e09fcdb59ef3\output\AndroidManifest.xml:27:7-137
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:10.0.1] C:\Users\Nhan\.android\build-cache\c02771ace37b8d02c25f1ac13a5471e2dedfc252\output\AndroidManifest.xml:32:88-110
+	android:exported
+		ADDED from [com.google.firebase:firebase-analytics:10.0.1] C:\Users\Nhan\.android\build-cache\c02771ace37b8d02c25f1ac13a5471e2dedfc252\output\AndroidManifest.xml:32:111-135
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:10.0.1] C:\Users\Nhan\.android\build-cache\c02771ace37b8d02c25f1ac13a5471e2dedfc252\output\AndroidManifest.xml:32:16-87
+uses-permission#com.google.android.c2dm.permission.RECEIVE
+ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:22:5-81
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:22:22-79
+permission#${applicationId}.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:24:5-109
+	android:protectionLevel
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:24:72-107
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:24:17-71
+uses-permission#${applicationId}.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:26:5-78
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:26:22-76
+receiver#com.google.firebase.iid.FirebaseInstanceIdReceiver
+ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:30:9-36:20
+	android:exported
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:30:85-108
+	android:permission
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:30:109-169
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:30:19-84
+intent-filter#${applicationId}+com.google.android.c2dm.intent.RECEIVE+com.google.android.c2dm.intent.REGISTRATION
+ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:31:13-35:29
+action#com.google.android.c2dm.intent.RECEIVE
+ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:32:17-80
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:32:25-78
+action#com.google.android.c2dm.intent.REGISTRATION
+ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:33:17-85
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:33:25-83
+category#${applicationId}
+ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:34:17-60
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:34:27-58
+receiver#com.google.firebase.iid.FirebaseInstanceIdInternalReceiver
+ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:40:9-119
+	android:exported
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:40:93-117
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:40:19-92
+service#com.google.firebase.iid.FirebaseInstanceIdService
+ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:44:9-48:19
+	android:exported
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:44:83-106
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:44:18-82
+intent-filter#com.google.firebase.INSTANCE_ID_EVENT
+ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:45:13-47:29
+	android:priority
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:45:28-51
+action#com.google.firebase.INSTANCE_ID_EVENT
+ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:46:17-79
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] C:\Users\Nhan\.android\build-cache\7fb32c75d8e2f3c1ccb8b47222169d2165395dd6\output\AndroidManifest.xml:46:25-77
+provider#com.google.firebase.provider.FirebaseInitProvider
+ADDED from [com.google.firebase:firebase-common:10.0.1] C:\Users\Nhan\.android\build-cache\9739740c4d2164a706941e590cee9c88c6ef36ca\output\AndroidManifest.xml:6:9-194
+	android:authorities
+		ADDED from [com.google.firebase:firebase-common:10.0.1] C:\Users\Nhan\.android\build-cache\9739740c4d2164a706941e590cee9c88c6ef36ca\output\AndroidManifest.xml:6:19-78
+	android:exported
+		ADDED from [com.google.firebase:firebase-common:10.0.1] C:\Users\Nhan\.android\build-cache\9739740c4d2164a706941e590cee9c88c6ef36ca\output\AndroidManifest.xml:6:144-168
+	android:initOrder
+		ADDED from [com.google.firebase:firebase-common:10.0.1] C:\Users\Nhan\.android\build-cache\9739740c4d2164a706941e590cee9c88c6ef36ca\output\AndroidManifest.xml:6:169-192
+	android:name
+		ADDED from [com.google.firebase:firebase-common:10.0.1] C:\Users\Nhan\.android\build-cache\9739740c4d2164a706941e590cee9c88c6ef36ca\output\AndroidManifest.xml:6:79-143
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:10.0.1] C:\Users\Nhan\.android\build-cache\940492ecf5d9ae1ab26ce64a73166fe6c5350375\output\AndroidManifest.xml:20:9-121
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:10.0.1] C:\Users\Nhan\.android\build-cache\940492ecf5d9ae1ab26ce64a73166fe6c5350375\output\AndroidManifest.xml:20:66-119
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:10.0.1] C:\Users\Nhan\.android\build-cache\940492ecf5d9ae1ab26ce64a73166fe6c5350375\output\AndroidManifest.xml:20:20-65

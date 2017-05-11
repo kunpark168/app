@@ -1,29 +1,22 @@
 package com.example.win81version2.orderdrink.product_list.model;
 
-import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 
-import com.bignerdranch.expandablerecyclerview.ChildViewHolder;
 import com.bignerdranch.expandablerecyclerview.ExpandableRecyclerAdapter;
-import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
-import com.bignerdranch.expandablerecyclerview.model.Parent;
 import com.bumptech.glide.Glide;
+import com.example.win81version2.orderdrink.Login.view.LoginActivity;
 import com.example.win81version2.orderdrink.R;
+import com.example.win81version2.orderdrink.display_product.DisplayProduct;
 import com.example.win81version2.orderdrink.product.model.Product;
+import com.example.win81version2.orderdrink.signup.view.SignupActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,25 +25,30 @@ import java.util.List;
 
 public class ProductListAdapter extends ExpandableRecyclerAdapter<GroupProduct , Product ,GroupProductViewHolder , ViewHolders> {
 
+    private static final int NOI_BAT = 1;
+    private static final int BINH_THUONG = 2;
     private Context mContext;
     private LayoutInflater inflater;
+    private List<GroupProduct> parentList;
+
 
     public ProductListAdapter(Context context , @NonNull List<GroupProduct> parentList) {
         super(parentList);
         this.mContext = context;
         inflater = LayoutInflater.from(context);
+        this.parentList = parentList;
     }
 
     @Override
     public GroupProductViewHolder onCreateParentViewHolder(@NonNull ViewGroup parentViewGroup, int viewType) {
-        View recipeView = inflater.inflate(R.layout.category_product, parentViewGroup, false);
+        View recipeView = inflater.inflate(R.layout.product_section_header, parentViewGroup, false);
         return new GroupProductViewHolder(recipeView);
     }
 
 
     @Override
     public ViewHolders onCreateChildViewHolder(@NonNull ViewGroup childViewGroup, int viewType) {
-        View recipeView = inflater.inflate(R.layout.cardview_product, childViewGroup, false);
+        View recipeView = inflater.inflate(R.layout.product_cardview, childViewGroup, false);
         return new ViewHolders(recipeView);
     }
 
@@ -63,13 +61,23 @@ public class ProductListAdapter extends ExpandableRecyclerAdapter<GroupProduct ,
     @Override
     public void onBindChildViewHolder(@NonNull ViewHolders childViewHolder, int parentPosition, int childPosition, @NonNull Product child) {
 
-        childViewHolder.setTxtPriceName(child.getProductName());
-        childViewHolder.setTxtNameName(String.valueOf(child.getPrice()));
-
+        final Product product = child;
+        childViewHolder.setTxtPriceName(String.valueOf(child.getPrice()));
+        childViewHolder.setTxtNameName(child.getProductName());
+        childViewHolder.btnGetit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayProduct(product);
+            }
+        });
         String linkPhoto = child.getLinkPhotoProduct();
-        if(linkPhoto.equals("")){
+        if(!linkPhoto.equals("")){
             Glide.with(mContext).load(linkPhoto).into(childViewHolder.getImg());
         }
+    }
+
+    private void displayProduct(Product product){
+        mContext.startActivity(new Intent(mContext, DisplayProduct.class));
     }
 
 }

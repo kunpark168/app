@@ -3,6 +3,7 @@ package com.example.win81version2.orderdrink.product_list.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -60,8 +61,16 @@ public class ProductListFragment extends Fragment {
         mData = FirebaseDatabase.getInstance().getReference();
         recyclerProduct = (RecyclerView) getActivity().findViewById(R.id.recyclerProducts);
         recyclerProduct.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
         adapter = new ProductListAdapter(getContext() , initData());
         recyclerProduct.setAdapter(adapter);
+    }
+
+    private int getTypeForPosition(int position) {
+        if(position > 2)
+            return 1;
+        return 2;
     }
 
     private List<GroupProduct> initData() {
