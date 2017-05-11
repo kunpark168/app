@@ -1,8 +1,9 @@
-package com.example.win81version2.orderdrink.ordered_history.model;
+package com.example.win81version2.orderdrink.ordered_list.model;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,8 +17,9 @@ import com.example.win81version2.orderdrink.R;
 public class OrderListViewHolder extends RecyclerView.ViewHolder {
     public TextView txtUserName, txtPhoneNumber, txtProductName, txtCount, txtTimeOrder;
     public Button btnShipped, btnCanceled;
-    public ImageView imgAvataUser;
-    public LinearLayout layoutShippedorCanceled;
+    public ImageView imgAvataUser, imgStatusShip;
+    public LinearLayout layoutShippedorCanceled, layoutInfo;
+    public FrameLayout layoutAvata;
     public OrderListViewHolder(View itemView) {
         super(itemView);
         txtUserName = (TextView) itemView.findViewById(R.id.txtUserName_itemOrderList);
@@ -27,8 +29,10 @@ public class OrderListViewHolder extends RecyclerView.ViewHolder {
         txtTimeOrder = (TextView) itemView.findViewById(R.id.txtTimeOrder);
         btnShipped = (Button) itemView.findViewById(R.id.btnShipped);
         btnCanceled = (Button) itemView.findViewById(R.id.btnCanceled);
-        imgAvataUser = (ImageView) itemView.findViewById(R.id.imgAvataUser_itemOrderList);
+        imgAvataUser = (ImageView) itemView.findViewById(R.id.imgAvataUser_itemOrderHistory);
+        imgStatusShip = (ImageView) itemView.findViewById(R.id.imgStatusShip);
         layoutShippedorCanceled = (LinearLayout) itemView.findViewById(R.id.layoutShippedorCanceled);
-
+        layoutAvata = (FrameLayout) itemView.findViewById(R.id.layoutAvataUser);
+        layoutInfo = (LinearLayout) itemView.findViewById(R.id.layoutInfor_itemOrderHistory);
     }
 }

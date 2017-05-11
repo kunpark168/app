@@ -1,4 +1,4 @@
-package com.example.win81version2.orderdrink.ordered_history.model;
+package com.example.win81version2.orderdrink.ordered_list.model;
 
 import com.example.win81version2.orderdrink.utility.Constain;
 

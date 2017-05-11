@@ -1,4 +1,4 @@
-package com.example.win81version2.orderdrink.ordered_history.model;
+package com.example.win81version2.orderdrink.ordered_list.model;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,8 +11,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
-import com.example.win81version2.orderdrink.category.model.CategoryListViewHolder;
-import com.example.win81version2.orderdrink.ordered_history.presenter.OrderListPresenter;
+import com.example.win81version2.orderdrink.ordered_list.presenter.OrderListPresenter;
 
 import java.util.ArrayList;
 
@@ -58,6 +57,17 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListViewHolder> 
                     .load(linkPhotoUser)
                     .into(holder.imgAvataUser);
         }
+        if (orderList.getStatusOrder() == 0 ){
+            holder.imgStatusShip.setVisibility(View.GONE);
+        }
+        else if (orderList.getStatusOrder() == 1 ){
+            holder.imgStatusShip.setVisibility(View.VISIBLE);
+            holder.imgStatusShip.setImageResource(R.drawable.imgshipped);
+        }
+        else  if (orderList.getStatusOrder() == 2 ){
+            holder.imgStatusShip.setVisibility(View.VISIBLE);
+            holder.imgStatusShip.setImageResource(R.drawable.imgcanceled);
+        }
         //Set Event Click "Đã Giao"
         holder.btnShipped.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,8 +84,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListViewHolder> 
                 progressCanceled (position, orderList.getIdOrderList());
             }
         });
-        //set Item click
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        //set layoutInfo click
+        holder.layoutInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (flag == true){
@@ -86,6 +96,15 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListViewHolder> 
                     holder.layoutShippedorCanceled.setVisibility(View.GONE);
                     flag = true;
                 }
+            }
+        });
+        //set Avata click
+        holder.layoutAvata.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               //Replace Fragment Profile User
+                //put isStore = true;
+                //put idUser
             }
         });
     }

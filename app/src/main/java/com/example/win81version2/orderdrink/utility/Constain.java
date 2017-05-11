@@ -15,7 +15,7 @@ public class Constain {
     public static final String IS_STORE  = "isStore";
     public static final String EMAIL  = "email";
     public static final String GENDER = "gender";
-    public static final String PHONENUMBER  = "phoneNumer";
+    public static final String PHONENUMBER  = "phoneNumber";
     public static final String BIRTHDAY = "birthDay";
     public static final String LINKPHOTOUSER = "linkPhotoUser";
     public static final String LOCATION = "location";

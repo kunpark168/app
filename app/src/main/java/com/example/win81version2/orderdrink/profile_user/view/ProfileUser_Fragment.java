@@ -13,7 +13,6 @@ import com.example.win81version2.orderdrink.R;
 
 public class ProfileUser_Fragment extends Fragment {
     public ProfileUser_Fragment() {
-        // Required empty public constructor
     }
     @Nullable
     @Override

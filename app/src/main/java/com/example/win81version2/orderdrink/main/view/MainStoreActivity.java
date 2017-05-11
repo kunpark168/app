@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.FragmentTransaction;
@@ -19,12 +18,10 @@ import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -34,7 +31,8 @@ import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.category.view.CategoryListFragment;
 import com.example.win81version2.orderdrink.notification_store.view.Notification_Store_Fragment;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
-import com.example.win81version2.orderdrink.ordered_history.model.OrderList;
+import com.example.win81version2.orderdrink.ordered_list.model.OrderList;
+import com.example.win81version2.orderdrink.ordered_list.view.OrderedListFragment;
 import com.example.win81version2.orderdrink.product.view.CreateProductFragment;
 import com.example.win81version2.orderdrink.product_list.view.ProductListFragment;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
@@ -44,7 +42,6 @@ import com.example.win81version2.orderdrink.utility.Constain;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -81,8 +78,6 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         addControls();
         innitInfo();
         checkNotify();
-        notiButtonClicked("Kun");
-        CustomNotification("KunKa", "Click ", "Có thoogn báo");
         addEvents ();
     }
 
@@ -95,7 +90,7 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
                       for (DataSnapshot dt : dataSnapshot.getChildren()){
                           OrderList orderList = dt.getValue(OrderList.class);
                           if (orderList.getStatusOrder() == 0){
-                              notiButtonClicked(orderList.getUserName());
+                              notifyNewOrder(orderList.getUserName());
                           }
                       }
                   }
@@ -223,6 +218,7 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         //get IdStore
         Intent intent = getIntent();
         idStore = intent.getStringExtra(Constain.ID_STORE);
+        replaceFragment(idStore);
         //Notification
         notBuilder = new NotificationCompat.Builder(this);
         // Thông báo sẽ tự động bị hủy khi người dùng click vào Panel
@@ -268,11 +264,10 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
     @Override
     public void onTabSelected(int position, boolean wasSelected) {
         if (position == 0) {
-           // ProductListActivity product_list_fragment = new ProductListActivity();
-           // getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, product_list_fragment).commit();
+            replaceFragment(idStore);
         } else if (position == 1) {
-            Notification_Store_Fragment notification_store_fragment = new Notification_Store_Fragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, notification_store_fragment).commit();
+            OrderedListFragment orderedListFragment = new OrderedListFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, orderedListFragment).commit();
         } else if (position == 2) {
             Profile_Store_Fragment profile_store_fragment = new Profile_Store_Fragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, profile_store_fragment).commit();
@@ -301,9 +296,9 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         alert.show();
     }
 
-    public void notiButtonClicked(String userName) {
+    public void notifyNewOrder(String userName) {
 
-        notBuilder.setSmallIcon(R.drawable.store);
+        notBuilder.setSmallIcon(R.drawable.shipping);
         notBuilder.setTicker("Có thông báo!");
 
         // Sét đặt thời điểm sự kiện xẩy ra.
@@ -311,7 +306,7 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         notBuilder.setSound(alarmSound);
         notBuilder.setWhen(System.currentTimeMillis() + 10 * 1000);
-        notBuilder.setContentTitle(userName + " đã đặt hàng của bạn").setColor(Color.GREEN);
+        notBuilder.setContentTitle(userName + " đã đặt hàng của bạn");
         notBuilder.setContentText("Click để xem chi tiết!");
 
         // Tạo một Intent
@@ -323,39 +318,15 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         notificationService.notify(MY_NOTIFICATION_ID, notification);
     }
 
-    //custom Notify
-    public void CustomNotification(String customnotificationtitle, String customnotificationtext, String customnotificationticker) {
-        RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.item_notify);
-        String strtitle = customnotificationtitle;
-        String strtext = customnotificationtext;
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("title", strtitle);
-        intent.putExtra("text", strtext);
-        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
-                // Set Icon
-                .setSmallIcon(R.drawable.store)
-                .setContentText("Click để xem chi tiết!")
-                // Set Ticker Message
-                .setTicker(customnotificationticker)
-                // Dismiss Notification
-                .setAutoCancel(true)
-                // Set PendingIntent into Notification
-                .setContentIntent(pIntent)
-                // Set RemoteViews into Notification
-                .setContent(remoteViews);
-
-        // Locate and set the Image into customnotificationtext.xml ImageViews
-        remoteViews.setImageViewResource(R.id.imgAvataUser_itemNotify,R.drawable.avatar);
-
-        // Locate and set the Text into customnotificationtext.xml TextViews
-        remoteViews.setTextViewText(R.id.txtUserName_itemNotify, customnotificationtitle);
-
-        // Create Notification Manager
-        NotificationManager notificationmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        // Build Notification with Notification Manager
-        notificationmanager.notify(0, builder.build());
-
+    public void replaceFragment(String idStore) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constain.ID_STORE, idStore);
+        ProductListFragment newFragment = new ProductListFragment();
+        newFragment.setArguments(bundle);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_id_user, newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 

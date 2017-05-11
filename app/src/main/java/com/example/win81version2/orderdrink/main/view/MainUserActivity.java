@@ -23,6 +23,7 @@ import com.example.win81version2.orderdrink.product.model.Product;
 import com.example.win81version2.orderdrink.product_list.view.ProductListFragment;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
 import com.example.win81version2.orderdrink.profile_user.model.User;
+import com.example.win81version2.orderdrink.profile_user.view.ProfileUserActivity;
 import com.example.win81version2.orderdrink.search_user.model.SearchStore;
 import com.example.win81version2.orderdrink.search_user.view.SearchStoreActivity;
 import com.example.win81version2.orderdrink.store_list.view.Store_List_Fragment;
@@ -53,7 +54,7 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
     private HashMap<String, Object> location;
     private ArrayList<Product> arrAllProduct;
     private double lo = 0, la = 0;
-    private LinearLayout layoutSearch, layoutHome, layoutMyfavorite, layoutOrderHistory, layoutRate, layoutShare;
+    private LinearLayout layoutSearch, layoutHome, layoutMyfavorite, layoutOrderHistory, layoutRate, layoutShare, layoutMyProfile;
     private Store_List_Fragment storeListFragment;
 
     @Override
@@ -69,6 +70,7 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
 
     private void checkGPS() {
         if (gps.canGetLocation()) {
+            gps.getLocation();
             lo = gps.getLongitude();
             la = gps.getLatitude();
         } else {
@@ -79,6 +81,8 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
     private void addEvvents() {
         btnLogout.setOnClickListener(this);
         layoutSearch.setOnClickListener(this);
+        layoutMyProfile.setOnClickListener(this);
+        layoutHome.setOnClickListener(this);
     }
 
     private void initInfo() {
@@ -92,19 +96,16 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
                         try {
                             User user = dataSnapshot.getValue(User.class);
                             userName = user.getUserName();
+                            addressUser = "";
                             if (user.getLocation() != null) {
                                 HashMap<String, Object> flag = new HashMap<>();
-                                flag = user.getLocation();
-                                addressUser = String.valueOf(flag.get(Constain.ADDRESS));
-                                lo = (double) flag.get(Constain.LO);
-                                la = (double) flag.get(Constain.LA);
-                                if (lo != 0 && la != 0) {
-                                    location.put(Constain.LO, lo);
-                                    location.put(Constain.LA, la);
-                                    location.put(Constain.ADDRESS, addressUser);
-                                    presenter.updateLocation(idUser, location);
-                                }
+                                    flag = user.getLocation();
+                                    addressUser = String.valueOf(flag.get(Constain.ADDRESS));
                             }
+                            location.put(Constain.LO, lo);
+                            location.put(Constain.LA, la);
+                            location.put(Constain.ADDRESS, addressUser);
+                            presenter.updateLocation(idUser, location);
                             linkPhotoUser = user.getLinkPhotoUser();
                             sumOrdered = user.getSumOrdered() + " Ordered";
                             if (!linkPhotoUser.equals("")) {
@@ -154,6 +155,7 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
         btnLogout = (Button) findViewById(R.id.btn_logout_user);
         layoutSearch = (LinearLayout) findViewById(R.id.layoutSearch);
         layoutHome = (LinearLayout) findViewById(R.id.navigation_homeUser);
+        layoutMyProfile = (LinearLayout) findViewById(R.id.navigation_myprofile);
         layoutMyfavorite = (LinearLayout) findViewById(R.id.navigation_myfavorite);
         layoutOrderHistory = (LinearLayout) findViewById(R.id.navigation_historyorder);
         layoutRate = (LinearLayout) findViewById(R.id.navigation_rateus_user);
@@ -165,8 +167,6 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
         arrAllProduct = new ArrayList<>();
         storeListFragment = new Store_List_Fragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user, storeListFragment).commit();
-
-
     }
 
     public void onBackPressed() {
@@ -206,9 +206,19 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
             moveToSearchAcitvity();
         }
         if (view == R.id.navigation_homeUser){
-            storeListFragment = new Store_List_Fragment();
+            onBackPressed();
             getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user, storeListFragment).commit();
         }
+        if (view == R.id.navigation_myprofile){
+            moveToProfileActivity ();
+        }
+    }
+
+    private void moveToProfileActivity() {
+        Intent intent = new Intent(MainUserActivity.this, ProfileUserActivity.class);
+        intent.putExtra(Constain.ID_USER, idUser);
+        intent.putExtra(Constain.ID_STORE, true);
+        startActivity(intent);
     }
 
     private void moveToSearchAcitvity() {

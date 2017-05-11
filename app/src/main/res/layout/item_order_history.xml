@@ -21,13 +21,24 @@
             android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <ImageView
-                android:id="@+id/imgAvataUser_itemOrderList"
-                android:src="@drawable/avatar"
+            <FrameLayout
+                android:id="@+id/layoutAvataUser"
                 android:layout_weight="2.8"
                 android:layout_width="0dp"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent" >
+                <ImageView
+                    android:id="@+id/imgAvataUser_itemOrderHistory"
+                    android:src="@drawable/avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:id="@+id/imgStatusShip"
+                    android:src="@drawable/imgshipped"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
             <LinearLayout
+                android:id="@+id/layoutInfor_itemOrderHistory"
                 android:orientation="vertical"
                 android:weightSum="4"
                 android:layout_weight="7.2"
@@ -124,8 +135,8 @@
                 android:text="Đã giao"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
                 android:background="@color/colorPrimaryDark"
                 android:layout_weight="1"
                 android:layout_width="0dp"
