@@ -32,6 +32,7 @@
             android:label="................................................................................"
             android:theme="@style/DialogNoActionBar" />
         <activity android:name=".main.view.MainUserActivity" />
+        <activity android:name=".main.view.MainUser2Activity" />
         <activity android:name=".profile_store.view.CreateStoreActivity" />
 
         <meta-data
@@ -46,7 +47,8 @@
             tools:replace="android:theme" />
         <activity android:name=".main.view.MainAdminActivity" />
         <activity android:name=".main.view.MainStoreActivity" />
-        <activity android:name=".ordered_list.view.DisplayProduct"
+        <activity
+            android:name=".ordered_list.view.DisplayProduct"
             android:label=""
             android:theme="@style/DialogNoActionBar" />
         <activity
@@ -56,7 +58,8 @@
         <activity
             android:name=".search_user.view.SearchStoreActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".profile_user.view.ProfileUserActivity"></activity>
+        <activity android:name=".profile_user.view.ProfileUserActivity" />
+        <activity android:name=".product.view.EditProduct"></activity>
     </application>
 
 </manifest>

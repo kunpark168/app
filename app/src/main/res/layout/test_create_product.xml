@@ -39,19 +39,19 @@
         android:layout_weight="1"/>
 
     <EditText
-        android:layout_marginTop="4dp"
-        android:background="@drawable/test_bg_buttton"
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="4dp"
         android:layout_weight="1"
+        android:background="@drawable/test_bg_buttton"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:gravity="center"
         android:hint="Tên sản phẩm"
-        android:textSize="15sp"
+        android:inputType="textPersonName"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:gravity="center"/>
+        android:textSize="15sp" />
 
     <EditText
         android:layout_marginTop="8dp"

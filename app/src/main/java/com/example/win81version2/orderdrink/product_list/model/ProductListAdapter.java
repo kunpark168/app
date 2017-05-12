@@ -13,7 +13,9 @@ import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.product.model.Product;
 import com.example.win81version2.orderdrink.ordered_list.view.DisplayProduct;
+import com.example.win81version2.orderdrink.utility.Constain;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -56,7 +58,7 @@ public class ProductListAdapter extends ExpandableRecyclerAdapter<GroupProduct ,
     }
 
     @Override
-    public void onBindChildViewHolder(@NonNull ViewHolders childViewHolder, int parentPosition, int childPosition, @NonNull Product child) {
+    public void onBindChildViewHolder(@NonNull ViewHolders childViewHolder, final int parentPosition, final int childPosition, @NonNull Product child) {
 
         final Product product = child;
         childViewHolder.setTxtPriceName(String.valueOf(child.getPrice()));
@@ -64,7 +66,8 @@ public class ProductListAdapter extends ExpandableRecyclerAdapter<GroupProduct ,
         childViewHolder.btnGetit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                displayProduct(product);
+                GroupProduct groupProduct = parentList.get(parentPosition);
+                displayProduct(product, groupProduct.getTitle());
             }
         });
         String linkPhoto = child.getLinkPhotoProduct();
@@ -73,8 +76,11 @@ public class ProductListAdapter extends ExpandableRecyclerAdapter<GroupProduct ,
         }
     }
 
-    private void displayProduct(Product product){
-        mContext.startActivity(new Intent(mContext, DisplayProduct.class));
+    private void displayProduct(Product product, String categoryName){
+        Intent intent = new Intent(mContext, DisplayProduct.class);
+        intent.putExtra(Constain.PRODUCTS, product);
+        intent.putExtra(Constain.CATEGORY_NAME, categoryName);
+        mContext.startActivity(intent);
     }
 
 }

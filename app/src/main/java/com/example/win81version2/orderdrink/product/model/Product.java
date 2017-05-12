@@ -2,13 +2,14 @@ package com.example.win81version2.orderdrink.product.model;
 
 import com.example.win81version2.orderdrink.utility.Constain;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  * Created by Win 8.1 Version 2 on 4/21/2017.
  */
 
-public class Product {
+public class Product implements Serializable {
     private String idProduct;
     private String productName;
     private String linkPhotoProduct;
@@ -17,8 +18,6 @@ public class Product {
     private String infoProduct;
     private boolean status;
     //Contructor
-
-
     public Product() {
     }
 

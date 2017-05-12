@@ -2,12 +2,12 @@ package com.example.win81version2.orderdrink.main.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -15,13 +15,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.main.presenter.UserPresenter;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
+import com.example.win81version2.orderdrink.ordered_list.view.OrderedListFragment;
 import com.example.win81version2.orderdrink.product.model.Product;
 import com.example.win81version2.orderdrink.product_list.view.ProductListFragment;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
+import com.example.win81version2.orderdrink.profile_store.view.Profile_Store_Fragment;
 import com.example.win81version2.orderdrink.profile_user.model.User;
 import com.example.win81version2.orderdrink.profile_user.view.ProfileUserActivity;
 import com.example.win81version2.orderdrink.search_user.model.SearchStore;
@@ -42,12 +46,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MainUserActivity extends BaseActivity implements View.OnClickListener, Serializable {
+public class MainUser2Activity extends BaseActivity implements View.OnClickListener, Serializable , AHBottomNavigation.OnTabSelectedListener{
 
     private ImageView imgAvata, imgSearch;
+    private AHBottomNavigation ahBottomNavigation;
     private TextView txtUserName, txtSumOrdered, txtSearch;
     private DatabaseReference mData;
-    private String idUser, userName, linkPhotoUser, sumOrdered, addressUser = "";
+    private String idUser, idStore, userName, linkPhotoUser, sumOrdered, addressUser = "";
     private Button btnLogout;
     private GPSTracker gps;
     private UserPresenter presenter;
@@ -61,7 +66,7 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this);
-        setContentView(R.layout.activity_main_user);
+        setContentView(R.layout.activity_main_user2);
         addControls();
         checkGPS();
         initInfo();
@@ -82,12 +87,9 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
         btnLogout.setOnClickListener(this);
         layoutSearch.setOnClickListener(this);
         layoutMyProfile.setOnClickListener(this);
-        layoutHome.setOnClickListener(this);
     }
 
     private void initInfo() {
-        Intent intent = getIntent();
-        idUser = intent.getStringExtra(Constain.ID_USER);
         try {
             mData.child(Constain.USERS).child(idUser).addValueEventListener(new ValueEventListener() {
                 @Override
@@ -109,7 +111,7 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
                             linkPhotoUser = user.getLinkPhotoUser();
                             sumOrdered = user.getSumOrdered() + " Ordered";
                             if (!linkPhotoUser.equals("")) {
-                                Glide.with(MainUserActivity.this)
+                                Glide.with(MainUser2Activity.this)
                                         .load(linkPhotoUser)
                                         .fitCenter()
                                         .into(imgAvata);
@@ -137,60 +139,48 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void addControls() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout2);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        Intent intent = getIntent();
+        idUser = intent.getStringExtra(Constain.ID_USER);
+        idStore = intent.getStringExtra(Constain.ID_STORE);
+        //Navigation Bottom
+        ahBottomNavigation = (AHBottomNavigation) findViewById(R.id.navigation_User);
+        initItemNavigation();
 
         //View
-        imgAvata = (ImageView) findViewById(R.id.imgPhotoUser);
-        imgSearch = (ImageView) findViewById(R.id.imgSearchLabel);
-        txtSearch = (TextView) findViewById(R.id.txtSearch);
-        txtUserName = (TextView) findViewById(R.id.txtusername_mainuser);
-        txtSumOrdered = (TextView) findViewById(R.id.txtSumOreders_mainuser);
-        btnLogout = (Button) findViewById(R.id.btn_logout_user);
-        layoutSearch = (LinearLayout) findViewById(R.id.layoutSearch);
-        layoutHome = (LinearLayout) findViewById(R.id.navigation_homeUser);
-        layoutMyProfile = (LinearLayout) findViewById(R.id.navigation_myprofile);
-        layoutMyfavorite = (LinearLayout) findViewById(R.id.navigation_myfavorite);
-        layoutOrderHistory = (LinearLayout) findViewById(R.id.navigation_historyorder);
-        layoutRate = (LinearLayout) findViewById(R.id.navigation_rateus_user);
-        layoutShare = (LinearLayout) findViewById(R.id.navigation_share_user);
+        imgAvata = (ImageView) findViewById(R.id.imgPhotoUser2);
+        imgSearch = (ImageView) findViewById(R.id.imgSearchLabel2);
+        txtSearch = (TextView) findViewById(R.id.txtSearch2);
+        txtUserName = (TextView) findViewById(R.id.txtusername_mainuser2);
+        txtSumOrdered = (TextView) findViewById(R.id.txtSumOreders_mainuser2);
+        btnLogout = (Button) findViewById(R.id.btn_logout_user2);
+        layoutSearch = (LinearLayout) findViewById(R.id.layoutSearch2);
+        layoutHome = (LinearLayout) findViewById(R.id.navigation_homeUser2);
+        layoutMyProfile = (LinearLayout) findViewById(R.id.navigation_myprofile2);
+        layoutMyfavorite = (LinearLayout) findViewById(R.id.navigation_myfavorite2);
+        layoutOrderHistory = (LinearLayout) findViewById(R.id.navigation_historyorder2);
+        layoutRate = (LinearLayout) findViewById(R.id.navigation_rateus_user2);
+        layoutShare = (LinearLayout) findViewById(R.id.navigation_share_user2);
         location = new HashMap<>();
         mData = FirebaseDatabase.getInstance().getReference();
         presenter = new UserPresenter();
         gps = new GPSTracker(this);
         arrAllProduct = new ArrayList<>();
-        storeListFragment = new Store_List_Fragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user, storeListFragment).commit();
     }
 
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout2);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else if (getSupportFragmentManager().getFragments() == storeListFragment){
-            AlertDialog.Builder aler = new AlertDialog.Builder(this);
-            aler.setMessage("Bạn có muốn thoát app ?");
-            aler.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    moveTaskToBack(true);
-                    android.os.Process.killProcess(android.os.Process.myPid());
-                    System.exit(1);
-                }
-            });
-            aler.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            aler.show();
+        } else {
+            finish();
         }
     }
 
@@ -215,7 +205,7 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void moveToProfileActivity() {
-        Intent intent = new Intent(MainUserActivity.this, ProfileUserActivity.class);
+        Intent intent = new Intent(MainUser2Activity.this, ProfileUserActivity.class);
         intent.putExtra(Constain.ID_USER, idUser);
         intent.putExtra(Constain.ID_STORE, true);
         startActivity(intent);
@@ -242,18 +232,19 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
         startActivity(intent);
     }
 
-    public void replaceFragment(String idStore) {
-        Bundle bundle = new Bundle();
-        bundle.putString(Constain.ID_STORE, idStore);
-        ProductListFragment newFragment = new ProductListFragment();
-        newFragment.setArguments(bundle);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content_id_user, newFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+    private void initItemNavigation() {
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Product", R.drawable.icon_coffe, R.color.ahbottom);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem("History", R.drawable.icon_history, R.color.ahbottom);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Infomation", R.drawable.icon_info, R.color.ahbottom);
+        ahBottomNavigation.addItem(item1);
+        ahBottomNavigation.addItem(item2);
+        ahBottomNavigation.addItem(item3);
+        ahBottomNavigation.setOnTabSelectedListener(this);
+        ahBottomNavigation.setCurrentItem(0);
     }
+
     private void logOut() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(MainUserActivity.this);
+        AlertDialog.Builder alert = new AlertDialog.Builder(MainUser2Activity.this);
         alert.setMessage("Do you want to logout?");
         alert.setCancelable(false);
         alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -261,7 +252,7 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
             public void onClick(DialogInterface dialog, int which) {
                 LoginManager.getInstance().logOut();
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(MainUserActivity.this, MainActivity.class));
+                startActivity(new Intent(MainUser2Activity.this, MainActivity.class));
             }
         });
         alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -287,5 +278,25 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
             }
         }
     }
+    @Override
+    public void onTabSelected(int position, boolean wasSelected) {
+        if (position == 0) {
+            createProductListFragment(idStore);
 
+        } else if (position == 1) {
+
+        } else if (position == 2) {
+        }
+    }
+
+    public void createProductListFragment(String idStore) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constain.ID_STORE, idStore);
+        ProductListFragment fragment = new ProductListFragment();
+        fragment.setArguments(bundle);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_id_user, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 }

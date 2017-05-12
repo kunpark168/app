@@ -16,12 +16,10 @@ public class OrderList {
     private String productName;
     private String timeOrder;
     private int count;
-    private int statusOrder; //0 : Đang chờ 1: Đã giao 2 : Bị hủy
+    private int statusOrder; //-1 : Đang chờ //0 : Đã đặt // 1: Đã giao //2 : Bị hủy
     //contructor
-
     public OrderList() {
     }
-
     public OrderList(String idOrderList, String userName, String linkPhotoUser, String phoneNumber, String productName, String timeOrder, int count, int statusOrder) {
         this.idOrderList = idOrderList;
         this.userName = userName;

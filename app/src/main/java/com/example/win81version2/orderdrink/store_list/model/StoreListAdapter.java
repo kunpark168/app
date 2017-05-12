@@ -1,6 +1,7 @@
 package com.example.win81version2.orderdrink.store_list.model;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
+import com.example.win81version2.orderdrink.main.view.MainUser2Activity;
 import com.example.win81version2.orderdrink.main.view.MainUserActivity;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
 import com.example.win81version2.orderdrink.store_list.presenter.StoreListPresenter;
@@ -299,7 +301,10 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder>{
             @Override
             public void onClick(View v) {
                 Store store2 = arrStore.get(position);
-                ( (MainUserActivity) mContext).replaceFragment(store2.getIdStore());
+                Intent intent = new Intent(mContext, MainUser2Activity.class);
+                intent.putExtra(Constain.ID_STORE, store2.getIdStore());
+                intent.putExtra(Constain.ID_USER, idUser);
+                mContext.startActivity(intent);
 
             }
         });

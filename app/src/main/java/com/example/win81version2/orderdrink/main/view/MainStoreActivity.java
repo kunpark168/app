@@ -271,7 +271,6 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         } else if (position == 2) {
             Profile_Store_Fragment profile_store_fragment = new Profile_Store_Fragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, profile_store_fragment).commit();
-
         }
     }
 
