@@ -1,6 +1,7 @@
 package com.example.win81version2.orderdrink.category.presenter;
 
 import com.example.win81version2.orderdrink.category.model.CategorySubmitter;
+import com.example.win81version2.orderdrink.utility.Constain;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -18,5 +19,8 @@ public class CategoryPresenter {
     }
     public void addCategoryOnData (String idStore, String idCategory, String categoryName, int sumProduct, String timeCreate){
         submitter.addCategoryOnData(idStore, idCategory, categoryName, sumProduct, timeCreate);
+    }
+    public void deleteCategory (String idStore, String idCategory){
+        submitter.deleteCategory(idStore, idCategory);
     }
 }

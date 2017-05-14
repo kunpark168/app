@@ -29,7 +29,7 @@ public class StoreListViewHolder extends RecyclerView.ViewHolder {
         txtSumShipped = (TextView) itemView.findViewById(R.id.txtSumShipped_itemstore);
         txtAddress = (TextView) itemView.findViewById(R.id.txtAddress_itemstore);
         txtTimeWork = (TextView) itemView.findViewById(R.id.txtTimeWork_itemstore);
-        txtDistance = (TextView) itemView.findViewById(R.id.txtDistance);
+        txtDistance = (TextView) itemView.findViewById(R.id.txtDistanceFromUserToStore);
         linearLayout = (LinearLayout) itemView.findViewById(R.id.layoutInfo);
         cardView = (CardView) itemView.findViewById(R.id.cardView);
         btnCallnow = (Button) itemView.findViewById(R.id.btnCallNow);

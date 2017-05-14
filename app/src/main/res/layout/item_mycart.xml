@@ -2,81 +2,57 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="90dp">
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    android:layout_height="91dp">
         <com.daimajia.swipe.SwipeLayout
             android:id="@+id/swipe_myorder"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="90dp">
             <android.support.v7.widget.CardView
-                android:id="@+id/layout_left"
+                android:id="@+id/layout_left_myorder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <LinearLayout
                     android:background="@color/colorPrimaryDark"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-
-                    <LinearLayout
-                        android:background="@color/item_Active"
-                        android:padding="25dp"
-                        android:layout_weight="2.7"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent">
-                        <ImageView
-                            android:id="@+id/imgDeleteCategory"
-                            android:layout_width="0dp"
-                            android:layout_weight="2.7"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/delete" />
-                    </LinearLayout>
+                    android:orientation="horizontal">
                     <TextView
+                        android:id="@+id/txtDeleteProduct"
                         android:background="@color/item_Active"
                         android:textColor="@color/white"
                         android:gravity="center"
                         android:textSize="20dp"
-                        android:text="Delete Category"
-                        android:layout_weight="4.6"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" />
-                    <TextView
-                        android:id="@+id/txtSTTswipe"
-                        android:layout_weight="2.7"
-                        android:textColor="@color/white"
-                        android:gravity="center"
-                        android:textSize="50dp"
-                        android:text="1"
-                        android:layout_width="0dp"
+                        android:text="Delete"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                card_view:cardElevation="7dp">
+                card_view:cardElevation="3dp">
                 <LinearLayout
                     android:weightSum="10"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
-
+                    //2.3
                     <LinearLayout
-                        android:layout_weight="2.7"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="2.3"
                         android:layout_width="0dp"
                         android:layout_height="match_parent">
                         <ImageView
-                            android:src="@drawable/imgshipped"
+                            android:id="@+id/imgStatusOrder"
+                            android:src="@drawable/store"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
                     </LinearLayout>
+                    //6.4
                     <LinearLayout
-                        android:layout_weight="6"
+                        android:layout_weight="6.4"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
@@ -134,6 +110,7 @@
                                 android:text=" 12/02/2016" />
                         </LinearLayout>
                     </LinearLayout>
+                    //1.3
                     <ImageView
                         android:layout_weight="1.3"
                         android:layout_width="0dp"
@@ -142,6 +119,9 @@
                 </LinearLayout>
             </android.support.v7.widget.CardView>
         </com.daimajia.swipe.SwipeLayout>
-    </android.support.v7.widget.CardView>
+    <TextView
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp" />
 
 </LinearLayout>

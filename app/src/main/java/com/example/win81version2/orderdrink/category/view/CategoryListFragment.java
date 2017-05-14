@@ -55,8 +55,6 @@ public class CategoryListFragment extends Fragment {
     }
 
     private void initInfo() {
-        Intent intent = getActivity().getIntent();
-        idStore = intent.getStringExtra(Constain.ID_STORE);
         try {
             mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).addValueEventListener( new ValueEventListener() {
                 @Override
@@ -89,11 +87,13 @@ public class CategoryListFragment extends Fragment {
     private void addControls() {
         imgCreate = (ImageView) getActivity().findViewById(R.id.imgCreateCategoryFrag);
         mData = FirebaseDatabase.getInstance().getReference();
+        Intent intent = getActivity().getIntent();
+        idStore = intent.getStringExtra(Constain.ID_STORE);
         //List Category
         mManager = new LinearLayoutManager(getActivity());
         recyclerCategory = (RecyclerView) getActivity().findViewById(R.id.recyclerCategory);
         arrCategory = new ArrayList<>();
-        adapter = new CategoryListAdapter(arrCategory, getActivity());
+        adapter = new CategoryListAdapter(arrCategory, getActivity(), idStore);
         recyclerCategory.setAdapter(adapter);
     }
 

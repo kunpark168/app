@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context=".ordered_list.view.DisplayProduct">
+    tools:context=".my_cart.view.DisplayProduct">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="So luong: "
+                        android:text="Số lượng: "
                         android:textSize="12sp" />
 
                     <EditText
@@ -95,7 +95,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/test_bg_btn"
                     android:gravity="center"
-                    android:text="Mua hang"
+                    android:text="Mua hàng"
                     android:textColor="@color/white"
 
                     android:textStyle="bold" />

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.win81version2.orderdrink.ordered_list.view.OrderedListFragment">
+    tools:context="com.example.win81version2.orderdrink.ordered_list_store.view.OrderedListFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerOrderList"

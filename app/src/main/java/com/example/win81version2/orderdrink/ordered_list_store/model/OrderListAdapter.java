@@ -1,4 +1,4 @@
-package com.example.win81version2.orderdrink.ordered_list.model;
+package com.example.win81version2.orderdrink.ordered_list_store.model;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
-import com.example.win81version2.orderdrink.ordered_list.presenter.OrderListPresenter;
+import com.example.win81version2.orderdrink.ordered_list_store.presenter.OrderListPresenter;
 
 import java.util.ArrayList;
 
@@ -49,7 +49,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListViewHolder> 
         holder.txtUserName.setText(orderList.getUserName());
         holder.txtTimeOrder.setText(orderList.getTimeOrder());
         holder.txtPhoneNumber.setText(orderList.getPhoneNumber());
-        holder.txtCount.setText(String.valueOf(orderList.getCount()));
         String linkPhotoUser = "";
         linkPhotoUser = orderList.getLinkPhotoUser();
         if (!linkPhotoUser.equals("")){

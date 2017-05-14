@@ -48,9 +48,6 @@ public class Store_List_Fragment extends BaseFragment {
 
     private void addControls() {
         mData = FirebaseDatabase.getInstance().getReference();
-        arrStore = new ArrayList<>();
-        adapter = new StoreListAdapter(arrStore, this, idUser, getContext());
-        adapter.setEmailUser(emailUser);
 
     }
 
@@ -58,6 +55,9 @@ public class Store_List_Fragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_store__list_, container, false);
+        arrStore = new ArrayList<>();
+        adapter = new StoreListAdapter(arrStore, this, idUser, getContext());
+        adapter.setEmailUser(emailUser);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerviewliststore);
         mManager = new LinearLayoutManager(getActivity());
         recyclerView.setAdapter(adapter);

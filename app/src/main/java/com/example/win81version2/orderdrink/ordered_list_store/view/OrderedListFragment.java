@@ -1,6 +1,5 @@
-package com.example.win81version2.orderdrink.ordered_list.view;
+package com.example.win81version2.orderdrink.ordered_list_store.view;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.win81version2.orderdrink.R;
-import com.example.win81version2.orderdrink.ordered_list.model.OrderList;
-import com.example.win81version2.orderdrink.ordered_list.model.OrderListAdapter;
+import com.example.win81version2.orderdrink.ordered_list_store.model.OrderList;
+import com.example.win81version2.orderdrink.ordered_list_store.model.OrderListAdapter;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

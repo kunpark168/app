@@ -23,7 +23,7 @@ public class Constain {
     public static final String LO = "lotitude";
     public static final String LA = "latitude";
     public static final String FAVORITE_DRINK = "favorite_drink";
-    public static final String MY_ORDER = "myOrder";
+    public static final String MY_CART = "myCart";
     public static final String SUM_ORDERED = "sumOrdered";
     //store
     public static final String STORES = "Stores";
@@ -40,6 +40,7 @@ public class Constain {
     public static final String ORDER_SCHEDULE = "orderSchedule";
     //Product
     public static final String PRODUCTS = "products";
+    public static final String PRODUCT_LIST = "productList";
     public static final String CATEGORY = "Categories";
     public static final String ID_CATEGORY = "idCategory";
     public static final String CATEGORY_NAME = "categoryName";
@@ -52,6 +53,7 @@ public class Constain {
     public static final String STATUS = "status";
     public static final String INFO_PRODUCT = "infoProduct";
     public static final String STATUS_ORDER = "statusOrder";
+    public static final String ID_MYORDER = "idMyOrder";
     public static final String PRICE = "price";
     //CODE
     public static final int REQUEST_CODE_GPS = 3;

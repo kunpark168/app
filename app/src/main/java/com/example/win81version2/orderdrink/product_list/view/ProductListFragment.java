@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 
@@ -35,6 +36,8 @@ public class ProductListFragment extends Fragment {
     private RecyclerView recyclerProduct;
     private DatabaseReference mData;
     private String idStore;
+
+    private ScrollView scroll;
     private TextView txtStoreName, txtAddressStore, txtTimeWorkStore;
     public ProductListFragment() {
         // Required empty public constructor
@@ -91,11 +94,26 @@ public class ProductListFragment extends Fragment {
 
     private void addControls() {
         categoryList = new ArrayList<>();
+        scroll = (ScrollView) getActivity().findViewById(R.id.scrollbarP);
         mData = FirebaseDatabase.getInstance().getReference();
         recyclerProduct = (RecyclerView) getActivity().findViewById(R.id.recyclerProducts);
         recyclerProduct.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ProductListAdapter(getContext() , initData());
+        adapter.expandAllParents();
         recyclerProduct.setAdapter(adapter);
+        recyclerProduct.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                scroll.scrollTo(dx ,dy);
+            }
+        });
         txtStoreName = (TextView) getActivity().findViewById(R.id.txtStoreName_listproduct);
         txtAddressStore = (TextView) getActivity().findViewById(R.id.txtAddressStore_listproduct);
         txtTimeWorkStore = (TextView) getActivity().findViewById(R.id.txtTimeWork_listproduct);

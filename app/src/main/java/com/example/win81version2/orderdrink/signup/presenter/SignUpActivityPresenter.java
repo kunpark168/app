@@ -3,7 +3,7 @@ package com.example.win81version2.orderdrink.signup.presenter;
 import android.support.annotation.NonNull;
 
 import com.example.win81version2.orderdrink.signup.model.SignUpActvitySubmitter;
-import com.example.win81version2.orderdrink.signup.view.SignupActivity;
+import com.example.win81version2.orderdrink.signup.view.SignupUserActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -19,11 +19,11 @@ import java.util.HashMap;
 
 public class SignUpActivityPresenter {
     private DatabaseReference mData;
-    private SignupActivity view;
+    private SignupUserActivity view;
     private SignUpActvitySubmitter submitter;
     private FirebaseAuth mAuth;
 
-    public SignUpActivityPresenter(SignupActivity view) {
+    public SignUpActivityPresenter(SignupUserActivity view) {
         this.view = view;
         mAuth = FirebaseAuth.getInstance();
         mData = FirebaseDatabase.getInstance().getReference();

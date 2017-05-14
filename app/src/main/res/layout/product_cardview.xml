@@ -19,24 +19,24 @@
         android:layout_marginBottom="10dp">
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="150dp"
             android:layout_gravity="top"
             android:background="@color/white">
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="95dp"
+                android:layout_height="145dp"
                 android:id="@+id/img"
                 android:scaleX="1.2"
                 android:scaleType="fitCenter"
                 android:scaleY="1.2"
-                android:src="@drawable/apple"/>
+                android:src="@drawable/drink_default"/>
 
         </FrameLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="#C7C7CC">
+            android:background="@color/black">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
                     android:id="@+id/txtName"
                     android:maxLines="2"
                     tools:text="Trà sữa trà xanh"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/white"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
                     android:layout_marginRight="10dp"
                     tools:text="15000 VNĐ"
                     android:textSize="12dp"
-                    android:textColor="#f44336"
+                    android:textColor="#4FC3F7"
                     />
             </LinearLayout>
             <FrameLayout

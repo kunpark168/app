@@ -4,30 +4,25 @@
     android:layout_height="50dp"
     android:paddingTop="5dp"
     android:paddingBottom="5dp"
-    android:background="#C7C7CC"
+    android:background="@color/white"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        tools:text="Title Category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <FrameLayout
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="15dp"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimary"
-        android:id="@+id/categoryTitle" />
+        android:background="#FFA726">
+        <TextView
+            tools:text="Title Category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:id="@+id/categoryTitle" />
+    </FrameLayout>
 
-    <Button
 
-        android:text="MORE"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:layout_marginRight="15dp"
-        android:background="@drawable/product_btnmore"
-        android:id="@+id/btnMore" />
 </RelativeLayout>

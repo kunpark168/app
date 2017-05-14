@@ -28,11 +28,12 @@
             android:name=".Login.view.LoginActivity"
             android:theme="@style/NoActionBar" />
         <activity
-            android:name=".signup.view.SignupActivity"
+            android:name=".signup.view.SignupUserActivity"
             android:label="................................................................................"
             android:theme="@style/DialogNoActionBar" />
         <activity android:name=".main.view.MainUserActivity" />
         <activity android:name=".main.view.MainUser2Activity" />
+        <activity android:name=".signup.view.ChooseSignnup" />
         <activity android:name=".profile_store.view.CreateStoreActivity" />
 
         <meta-data
@@ -48,7 +49,7 @@
         <activity android:name=".main.view.MainAdminActivity" />
         <activity android:name=".main.view.MainStoreActivity" />
         <activity
-            android:name=".ordered_list.view.DisplayProduct"
+            android:name=".my_cart.view.DisplayProduct"
             android:label=""
             android:theme="@style/DialogNoActionBar" />
         <activity

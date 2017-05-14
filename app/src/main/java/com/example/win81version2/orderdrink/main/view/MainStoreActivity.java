@@ -29,16 +29,17 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.category.view.CategoryListFragment;
-import com.example.win81version2.orderdrink.notification_store.view.Notification_Store_Fragment;
+import com.example.win81version2.orderdrink.main.presenter.StorePresenter;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
-import com.example.win81version2.orderdrink.ordered_list.model.OrderList;
-import com.example.win81version2.orderdrink.ordered_list.view.OrderedListFragment;
+import com.example.win81version2.orderdrink.ordered_list_store.model.OrderList;
+import com.example.win81version2.orderdrink.ordered_list_store.view.OrderedListFragment;
 import com.example.win81version2.orderdrink.product.view.CreateProductFragment;
 import com.example.win81version2.orderdrink.product_list.view.ProductListFragment;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
 import com.example.win81version2.orderdrink.profile_store.presenter.UpdateStorePresenter;
 import com.example.win81version2.orderdrink.profile_store.view.Profile_Store_Fragment;
 import com.example.win81version2.orderdrink.utility.Constain;
+import com.example.win81version2.orderdrink.utility.GPSTracker;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,20 +49,26 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 public class MainStoreActivity extends BaseActivity implements AHBottomNavigation.OnTabSelectedListener {
 
     private AHBottomNavigation ahBottomNavigation;
     private ImageView imgPhotoStore;
     private TextView  txtStoreName, txtSumShipped;
     private LinearLayout layoutMyCategory, layoutReport, layoutCreateProduct, layoutRateUs, layoutShare;
-    private String idStore, linkPhotoStore = "";
+    private String idStore, addressUser, linkPhotoStore = "";
     private DatabaseReference mData;
     private Button btnLogout;
+    private GPSTracker gps;
+    private HashMap<String, Object> location;
     private SwitchCompat switchCompatStatus;
     private boolean isOpen = true, flagNotify = false;
     private Bitmap bitmap = null;
+    private double lo = 0, la = 0;
     private CreateProductFragment createProductFragment;
     private UpdateStorePresenter presenter;
+    private StorePresenter storePresenter;
     //Notification
     private NotificationCompat.Builder notBuilder;
     private static final int MY_NOTIFICATION_ID = 12345;
@@ -76,6 +83,7 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         FacebookSdk.sdkInitialize(this);
         setContentView(R.layout.activity_main_store);
         addControls();
+        checkGPS();
         innitInfo();
         checkNotify();
         addEvents ();
@@ -104,6 +112,16 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         }
         catch (Exception ex){
             ex.printStackTrace();
+        }
+    }
+
+    private void checkGPS() {
+        if (gps.canGetLocation()) {
+            gps.getLocation();
+            lo = gps.getLongitude();
+            la = gps.getLatitude();
+        } else {
+            gps.showSettingsAlert();
         }
     }
 
@@ -160,6 +178,16 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
                   if (dataSnapshot.getValue() != null){
                       try {
                           Store store = dataSnapshot.getValue(Store.class);
+                          addressUser = "";
+                          if (store.getLocation() != null) {
+                              HashMap<String, Object> flag = new HashMap<>();
+                              flag = store.getLocation();
+                              addressUser = String.valueOf(flag.get(Constain.ADDRESS));
+                          }
+                          location.put(Constain.LO, lo);
+                          location.put(Constain.LA, la);
+                          location.put(Constain.ADDRESS, addressUser);
+                          storePresenter.updateLocation(idStore, location);
                           txtStoreName.setText(store.getStoreName().toString());
                           txtSumShipped.setText(String.valueOf(store.getSumShipped()) + " Shipped");
                           linkPhotoStore = store.getLinkPhotoStore().toString();
@@ -213,8 +241,11 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         layoutRateUs = (LinearLayout) findViewById(R.id.navigation_rateus_store);
         layoutShare = (LinearLayout) findViewById(R.id.navigation_share_store);
         switchCompatStatus = (SwitchCompat) findViewById(R.id.switchCompat_Status);
+        gps = new GPSTracker(this);
+        location = new HashMap<>();
         //Presenter
         presenter = new UpdateStorePresenter(this);
+        storePresenter = new StorePresenter();
         //get IdStore
         Intent intent = getIntent();
         idStore = intent.getStringExtra(Constain.ID_STORE);
@@ -328,5 +359,20 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         transaction.commit();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constain.REQUEST_CODE_GPS) {
+            gps.getLocation();
+            lo = gps.getLongitude();
+            la = gps.getLatitude();
+            if (lo != 0 && la != 0) {
+                location.put(Constain.LO, lo);
+                location.put(Constain.LA, la);
+                location.put(Constain.ADDRESS, addressUser);
+                storePresenter.updateLocation(idStore, location);
+            }
+        }
+    }
 
 }

@@ -21,4 +21,7 @@ public class CategorySubmitter  {
         myMap = category.putMap();
         mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).child(idCategory).setValue(myMap);
     }
+    public void deleteCategory (String idStore, String idCategory){
+        mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).child(idCategory).removeValue();
+    }
 }

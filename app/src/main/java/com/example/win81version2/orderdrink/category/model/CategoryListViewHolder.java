@@ -14,7 +14,7 @@ import com.example.win81version2.orderdrink.R;
 
 public class CategoryListViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView txtSTT, txtSTTSwipe, txtCategoryName, txtSumProduct, txtTimeCreate;
+    public TextView txtSTT, txtSTTSwipe, txtCategoryName, txtSumProduct, txtTimeCreate, txtDeleteCategory;
     public ImageView imgDelete;
     public SwipeLayout swipeLayout;
     public CategoryListViewHolder(View itemView) {
@@ -23,8 +23,8 @@ public class CategoryListViewHolder extends RecyclerView.ViewHolder {
         txtSumProduct = (TextView) itemView.findViewById(R.id.txtSumProduct_itemCategoryList);
         txtTimeCreate = (TextView) itemView.findViewById(R.id.txtTimeCreateCategory);
         txtSTT = (TextView) itemView.findViewById(R.id.txtSTT);
+        txtDeleteCategory = (TextView) itemView.findViewById(R.id.txtDeleteCategory);
         txtSTTSwipe = (TextView) itemView.findViewById(R.id.txtSTTswipe);
-        imgDelete = (ImageView) itemView.findViewById(R.id.imgDeleteCategory);
 
         swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe_Category);
         swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);

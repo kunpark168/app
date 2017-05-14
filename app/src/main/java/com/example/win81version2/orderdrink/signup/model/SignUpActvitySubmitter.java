@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.example.win81version2.orderdrink.main.view.MainActivity;
 import com.example.win81version2.orderdrink.profile_user.model.User;
-import com.example.win81version2.orderdrink.signup.view.SignupActivity;
+import com.example.win81version2.orderdrink.signup.view.SignupUserActivity;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -23,9 +23,9 @@ import java.util.HashMap;
 public class SignUpActvitySubmitter {
     private DatabaseReference mData;
     private FirebaseAuth mAuth;
-    private SignupActivity view;
+    private SignupUserActivity view;
 
-    public SignUpActvitySubmitter(DatabaseReference mData, SignupActivity view) {
+    public SignUpActvitySubmitter(DatabaseReference mData, SignupUserActivity view) {
         this.mData = mData;
         this.view = view;
         mAuth = FirebaseAuth.getInstance();

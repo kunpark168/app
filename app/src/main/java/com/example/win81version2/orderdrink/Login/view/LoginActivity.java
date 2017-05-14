@@ -1,7 +1,6 @@
 package com.example.win81version2.orderdrink.Login.view;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,7 +14,7 @@ import com.example.win81version2.orderdrink.Login.presenter.LoginPresenter;
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.main.view.MainActivity;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
-import com.example.win81version2.orderdrink.signup.view.SignupActivity;
+import com.example.win81version2.orderdrink.signup.view.ChooseSignnup;
 import com.facebook.CallbackManager;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -122,7 +121,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void sign_Up() {
-        startActivity(new Intent(LoginActivity.this, SignupActivity.class));
+        startActivity(new Intent(LoginActivity.this, ChooseSignnup.class));
     }
 
     public void moveToMainActivity (){

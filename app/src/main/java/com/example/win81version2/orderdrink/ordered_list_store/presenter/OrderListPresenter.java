@@ -1,6 +1,6 @@
-package com.example.win81version2.orderdrink.ordered_list.presenter;
+package com.example.win81version2.orderdrink.ordered_list_store.presenter;
 
-import com.example.win81version2.orderdrink.ordered_list.model.OrderListSubmitter;
+import com.example.win81version2.orderdrink.ordered_list_store.model.OrderListSubmitter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

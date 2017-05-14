@@ -12,10 +12,9 @@ import com.bignerdranch.expandablerecyclerview.ExpandableRecyclerAdapter;
 import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.product.model.Product;
-import com.example.win81version2.orderdrink.ordered_list.view.DisplayProduct;
+import com.example.win81version2.orderdrink.my_cart.view.DisplayProduct;
 import com.example.win81version2.orderdrink.utility.Constain;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -61,7 +60,7 @@ public class ProductListAdapter extends ExpandableRecyclerAdapter<GroupProduct ,
     public void onBindChildViewHolder(@NonNull ViewHolders childViewHolder, final int parentPosition, final int childPosition, @NonNull Product child) {
 
         final Product product = child;
-        childViewHolder.setTxtPriceName(String.valueOf(child.getPrice()));
+        childViewHolder.setTxtPriceName(Math.round(child.getPrice()) + " VNĐ");
         childViewHolder.setTxtNameName(child.getProductName());
         childViewHolder.btnGetit.setOnClickListener(new View.OnClickListener() {
             @Override

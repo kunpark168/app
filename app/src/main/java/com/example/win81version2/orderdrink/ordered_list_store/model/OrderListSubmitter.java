@@ -1,4 +1,4 @@
-package com.example.win81version2.orderdrink.ordered_list.model;
+package com.example.win81version2.orderdrink.ordered_list_store.model;
 
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.google.firebase.database.DatabaseReference;

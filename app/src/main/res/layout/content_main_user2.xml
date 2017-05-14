@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".main.view.MainUserActivity"
-    android:id="@+id/content_id_user"
+    android:id="@+id/content_id_user2"
     android:weightSum="10"
     tools:showIn="@layout/activity_main_user2">
 </LinearLayout>

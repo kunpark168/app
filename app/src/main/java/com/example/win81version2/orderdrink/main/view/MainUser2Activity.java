@@ -20,12 +20,11 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.main.presenter.UserPresenter;
+import com.example.win81version2.orderdrink.my_cart.view.MyCartFragment;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
-import com.example.win81version2.orderdrink.ordered_list.view.OrderedListFragment;
 import com.example.win81version2.orderdrink.product.model.Product;
 import com.example.win81version2.orderdrink.product_list.view.ProductListFragment;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
-import com.example.win81version2.orderdrink.profile_store.view.Profile_Store_Fragment;
 import com.example.win81version2.orderdrink.profile_user.model.User;
 import com.example.win81version2.orderdrink.profile_user.view.ProfileUserActivity;
 import com.example.win81version2.orderdrink.search_user.model.SearchStore;
@@ -61,6 +60,8 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
     private double lo = 0, la = 0;
     private LinearLayout layoutSearch, layoutHome, layoutMyfavorite, layoutOrderHistory, layoutRate, layoutShare, layoutMyProfile;
     private Store_List_Fragment storeListFragment;
+    private MyCartFragment myCartFragment;
+    private ProductListFragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,6 +151,11 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
         Intent intent = getIntent();
         idUser = intent.getStringExtra(Constain.ID_USER);
         idStore = intent.getStringExtra(Constain.ID_STORE);
+        myCartFragment = new MyCartFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(Constain.ID_STORE, idStore);
+        fragment = new ProductListFragment();
+        fragment.setArguments(bundle);
         //Navigation Bottom
         ahBottomNavigation = (AHBottomNavigation) findViewById(R.id.navigation_User);
         initItemNavigation();
@@ -282,21 +288,18 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
     public void onTabSelected(int position, boolean wasSelected) {
         if (position == 0) {
             createProductListFragment(idStore);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content_id_user2, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
 
         } else if (position == 1) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user2, myCartFragment).commit();
 
         } else if (position == 2) {
         }
     }
 
     public void createProductListFragment(String idStore) {
-        Bundle bundle = new Bundle();
-        bundle.putString(Constain.ID_STORE, idStore);
-        ProductListFragment fragment = new ProductListFragment();
-        fragment.setArguments(bundle);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content_id_user, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 }

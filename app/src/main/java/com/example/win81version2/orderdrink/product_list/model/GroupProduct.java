@@ -40,6 +40,6 @@ public class GroupProduct implements Parent<Product> {
 
     @Override
     public boolean isInitiallyExpanded() {
-        return false;
+        return true;
     }
 }

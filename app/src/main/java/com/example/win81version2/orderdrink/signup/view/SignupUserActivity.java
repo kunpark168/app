@@ -16,7 +16,7 @@ import com.example.win81version2.orderdrink.utility.Constain;
 
 import java.util.HashMap;
 
-public class SignupActivity extends BaseActivity {
+public class SignupUserActivity extends BaseActivity {
 
     private EditText edtEmail, edtPassword, edtConfirmPassword, edtPhoneNumber, edtUserName;
     private Button btnSignup;
