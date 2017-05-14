@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
+import java.util.Random;
 
 public class CreateCategory extends BaseActivity {
 
@@ -35,12 +36,13 @@ public class CreateCategory extends BaseActivity {
     private DatabaseReference mData;
     private String idCategory, timeCreate;
     private CategoryPresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_category);
-        addControls ();
-        addEvents ();
+        addControls();
+        addEvents();
     }
 
     private void addEvents() {
@@ -48,7 +50,7 @@ public class CreateCategory extends BaseActivity {
             @Override
             public void onClick(View v) {
                 String flag = edtCategoryName.getText().toString();
-                if (!TextUtils.isEmpty(flag)){
+                if (!TextUtils.isEmpty(flag)) {
                     AlertDialog.Builder alert = new AlertDialog.Builder(CreateCategory.this);
                     alert.setMessage("Bạn đang nhập dở,Thoát có thể làm mất dữ liệu?");
                     alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -65,8 +67,7 @@ public class CreateCategory extends BaseActivity {
                     });
                     alert.setCancelable(false);
                     alert.show();
-                }
-                else {
+                } else {
                     finish();
                 }
             }
@@ -82,17 +83,16 @@ public class CreateCategory extends BaseActivity {
     private void createCategory() {
         String flag_CategoryName1 = edtCategoryName.getText().toString();
         boolean isVail = true;
-        if (TextUtils.isEmpty(flag_CategoryName1)){
+        if (TextUtils.isEmpty(flag_CategoryName1)) {
             isVail = false;
             edtCategoryName.setError("Bắt Buộc");
-        }
-        else {
+        } else {
             edtCategoryName.setError(null);
         }
         if (isVail) {
-            String [] tu = flag_CategoryName1.trim().split(" ");
+            String[] tu = flag_CategoryName1.trim().split(" ");
             String flag_Category2 = "";
-            for (int i = 0 ; i<tu.length ; i++){
+            for (int i = 0; i < tu.length; i++) {
                 tu[i] = Character.toUpperCase(tu[i].charAt(0)) + tu[i].substring(1) + " ";
                 flag_Category2 += tu[i];
             }
@@ -101,37 +101,54 @@ public class CreateCategory extends BaseActivity {
                 mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        StringBuilder mBuilder = new StringBuilder();
                         if (dataSnapshot.getValue() != null) {
-                            idCategory = String.valueOf(dataSnapshot.getChildrenCount());
-                            if (idCategory.length() == 1){
-                                idCategory = "0" + idCategory;
-                            }
-                            boolean flag = true;
-                            for (DataSnapshot dt : dataSnapshot.getChildren()) {
-                                try {
-                                    Category category = dt.getValue(Category.class);
-                                    if (category.getCategoryName().equals(categoryName)){
-                                        flag = false;
-                                        Toast.makeText(CreateCategory.this, "Tên Thư Mục Đã Tồn Tại", Toast.LENGTH_SHORT).show();
-                                        edtCategoryName.requestFocus();
+                            boolean flag_id = true;
+                            while (flag_id == true) {
+                                Random ra = new Random();
+                                for (int i = 0; i <= 10; i++) {
+                                    String number = String.valueOf(ra.nextInt(10));
+                                    mBuilder.append(number);
+                                }
+                                idCategory = mBuilder.toString();
+                                for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                                    if (idCategory.equals(dt.getKey())) {
+                                        flag_id = true;
+                                        break;
+                                    } else {
+                                        flag_id = false;
                                     }
-                                } catch (Exception ex) {
-                                    ex.printStackTrace();
                                 }
                             }
-                            if (flag) {
-                                presenter.addCategoryOnData(idStore, idCategory, categoryName, 0, timeCreate);
-                                Toast.makeText(CreateCategory.this, "Tạo Thư Mục Thành Công!", Toast.LENGTH_SHORT).show();
-                                edtCategoryName.setText("");
-                                edtCategoryName.requestFocus();
+                            try {
+                                boolean flag_name = true;
+                                for (DataSnapshot dt : dataSnapshot.getChildren()){
+                                    Category category = dt.getValue(Category.class);
+                                    if (categoryName.equals(category.getCategoryName())){
+                                        flag_name = false;
+                                        showToast("Tên thư mục đã tồn tại, vui lòng chọn tên khác");
+                                        edtCategoryName.requestFocus();
+                                        break;
+                                    }
+                                }
+                                if (flag_name == true ){
+                                    presenter.addCategoryOnData(idStore, idCategory, categoryName, 0, timeCreate);
+                                    Toast.makeText(CreateCategory.this, "Tạo Thư Mục Thành Công!", Toast.LENGTH_SHORT).show();
+                                   finish();
+                                }
+                            } catch (Exception ex) {
+
                             }
-                        }
-                        else {
-                            idCategory = "00";
+                        } else {
+                            Random ra = new Random();
+                            for (int i = 0; i <= 10; i++) {
+                                String number = String.valueOf(ra.nextInt(10));
+                                mBuilder.append(number);
+                            }
+                            idCategory = mBuilder.toString();
                             presenter.addCategoryOnData(idStore, idCategory, categoryName, 0, timeCreate);
                             Toast.makeText(CreateCategory.this, "Tạo Thư Mục Thành Công!", Toast.LENGTH_SHORT).show();
-                            edtCategoryName.setText("");
-                            edtCategoryName.requestFocus();
+                            finish();
                         }
                     }
 

@@ -2,13 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.win81version2.orderdrink.ordered_list_store.view.OrderedListFragment">
+    tools:context="com.example.win81version2.orderdrink.history_order_user.view.HistoryOrderUserFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerOrderList"
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_order_history">
-    </android.support.v7.widget.RecyclerView>
+        android:text="@string/hello_blank_fragment" />
 
 </FrameLayout>

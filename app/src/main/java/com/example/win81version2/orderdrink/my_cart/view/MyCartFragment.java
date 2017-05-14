@@ -1,7 +1,10 @@
 package com.example.win81version2.orderdrink.my_cart.view;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,9 +14,16 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.win81version2.orderdrink.R;
+import com.example.win81version2.orderdrink.history_order_user.model.HistoryOrderUser;
+import com.example.win81version2.orderdrink.history_order_user.presenter.HistoryOrderPresenter;
+import com.example.win81version2.orderdrink.history_ship_store.model.HistoryShipStore;
+import com.example.win81version2.orderdrink.history_ship_store.presenter.HistoryShipPresenter;
 import com.example.win81version2.orderdrink.my_cart.model.MyCart;
 import com.example.win81version2.orderdrink.my_cart.model.MyCartAdapter;
 import com.example.win81version2.orderdrink.oop.BaseFragment;
+import com.example.win81version2.orderdrink.product.model.Flag_Product;
+import com.example.win81version2.orderdrink.profile_store.model.Store;
+import com.example.win81version2.orderdrink.profile_user.model.User;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,6 +32,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Random;
 
 
 public class MyCartFragment extends BaseFragment {
@@ -34,6 +47,10 @@ public class MyCartFragment extends BaseFragment {
     private TextView txtSumMoney;
     private Button btnPay;
     private float sumMoney = 0;
+    private String idHistoryOrder, idHistoryShip, idStore, storeName, userName, phoneNumberUser, phoneNumberStore, addressStore, addressUser, linkPhotoStore, linkPhotoUser, timeCreate;
+    private ArrayList<Flag_Product> arrFlagProduct;
+    private HistoryOrderPresenter presenter;
+    private HistoryShipPresenter shipPresenter;
 
     public MyCartFragment() {
     }
@@ -49,44 +66,89 @@ public class MyCartFragment extends BaseFragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_my_cart, container, false);
     }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         addControls();
         initInfo();
-        addEvents ();
+        addEvents();
     }
 
     private void addEvents() {
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Calendar now = Calendar.getInstance();
+                int day = now.get(Calendar.DAY_OF_MONTH);
+                int month = now.get(Calendar.MONTH);
+                int year = now.get(Calendar.YEAR);
+                int hour = now.get(Calendar.HOUR);
+                int minute = now.get(Calendar.MINUTE);
+                timeCreate = hour + "h:" + minute + "p - " + day + "\\" + month + "\\" + year;
+                orderBill();
             }
         });
     }
 
-    private void initInfo() {
+    private void orderBill() {
+        AlertDialog.Builder aler = new AlertDialog.Builder(getContext());
+        aler.setMessage("Bạn có chắc chăn muốn đặt hàng hóa đơn này?");
+        aler.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                createHistoryOrder();
+            }
+        });
+        aler.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        aler.show();
+    }
+
+    private void createHistoryOrder() {
+        //check Id
         try {
-            mData.child(Constain.USERS).child(idUser).child(Constain.MY_CART).addValueEventListener(new ValueEventListener() {
+            mData.child(Constain.USERS).child(idUser).child(Constain.HISTORY_ORDER_USER).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    arrMyCart.clear();
-                    sumMoney = 0;
-                      if (dataSnapshot.getValue() != null){
-                          try {
-                              for (DataSnapshot dt : dataSnapshot.getChildren()){
-                                  MyCart myCart = dt.getValue(MyCart.class);
-                                  sumMoney += myCart.getPrice();
-                                  arrMyCart.add(myCart);
-                                  adapter.notifyDataSetChanged();
-                              }
-                              txtSumMoney.setText(Math.round(sumMoney) + " VNĐ");
-                          }
-                          catch (Exception ex){
-                              ex.printStackTrace();
-                          }
-                      }
+                    if (dataSnapshot.getValue() != null) {
+                        boolean flag_id = true;
+                        while (flag_id == true) {
+                            Random ra = new Random();
+                            StringBuilder mBuilder = new StringBuilder();
+                            for (int i = 0; i <= 10; i++) {
+                                String number = String.valueOf(ra.nextInt(10));
+                                mBuilder.append(number);
+                            }
+                            idHistoryOrder = mBuilder.toString();
+                            for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                                if (idHistoryOrder.equals(dt.getKey())) {
+                                    flag_id = true;
+                                    break;
+                                } else {
+                                    flag_id = false;
+                                }
+                            }
+                        }
+                        HistoryOrderUser historyOrderUser = new HistoryOrderUser(idHistoryOrder, idStore, storeName, linkPhotoStore, phoneNumberStore, addressStore, timeCreate, arrFlagProduct, 0);
+                        presenter.createHistoryOrder(idUser, idHistoryOrder, idStore, historyOrderUser);
+                        createHistoryShip();
+                    } else {
+                        Random ra = new Random();
+                        StringBuilder mBuilder = new StringBuilder();
+                        for (int i = 0; i <= 10; i++) {
+                            String number = String.valueOf(ra.nextInt(10));
+                            mBuilder.append(number);
+                        }
+                        idHistoryOrder = mBuilder.toString();
+                        HistoryOrderUser historyOrderUser = new HistoryOrderUser(idHistoryOrder, idStore, storeName, linkPhotoStore, phoneNumberStore, addressStore, timeCreate, arrFlagProduct, 0);
+                        presenter.createHistoryOrder(idUser, idHistoryOrder, idStore, historyOrderUser);
+                        createHistoryShip();
+                    }
                 }
 
                 @Override
@@ -94,8 +156,160 @@ public class MyCartFragment extends BaseFragment {
 
                 }
             });
+        } catch (Exception ex) {
+
         }
-        catch (Exception ex){
+    }
+
+    private void createHistoryShip() {
+        mData.child(Constain.STORES).child(idStore).child(Constain.HISTORY_SHIP_STORE).child(idUser).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null) {
+                    boolean flag_id = true;
+                    while (flag_id == true) {
+                        Random ra = new Random();
+                        StringBuilder mBuilder = new StringBuilder();
+                        for (int i = 0; i <= 10; i++) {
+                            String number = String.valueOf(ra.nextInt(10));
+                            mBuilder.append(number);
+                        }
+                        idHistoryShip = mBuilder.toString();
+                        for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                            if (idHistoryShip.equals(dt.getKey())) {
+                                flag_id = true;
+                                break;
+                            } else {
+                                flag_id = false;
+                            }
+                        }
+                    }
+                    HistoryShipStore historyShipStore = new HistoryShipStore(idHistoryShip, idUser, userName, linkPhotoUser, phoneNumberUser, addressUser, timeCreate, arrFlagProduct, 0);
+                    shipPresenter.createHistoryShip(idStore, idUser, idHistoryShip, historyShipStore);
+                    presenter.deleteMyCart(idUser, idStore);
+                    arrMyCart.clear();
+                    adapter.notifyDataSetChanged();
+                    showToast("Đặt hàng thành công!, vui lòng đợi điện thoại của cửa hàng trong vòng 5-10p để xác nhận hóa đơn,xin cảm ơn!");
+
+                } else {
+                    Random ra = new Random();
+                    StringBuilder mBuilder = new StringBuilder();
+                    for (int i = 0; i <= 10; i++) {
+                        String number = String.valueOf(ra.nextInt(10));
+                        mBuilder.append(number);
+                    }
+                    idHistoryShip = mBuilder.toString();
+                    HistoryShipStore historyShipStore = new HistoryShipStore(idHistoryShip, idUser, userName, linkPhotoUser, phoneNumberUser, addressUser, timeCreate, arrFlagProduct, 0);
+                    shipPresenter.createHistoryShip(idStore, idUser, idHistoryShip, historyShipStore);
+                    presenter.deleteMyCart(idUser, idStore);
+                    arrMyCart.clear();
+                    adapter.notifyDataSetChanged();
+                    showToast("Đặt hàng thành công!, vui lòng đợi điện thoại của cửa hàng trong vòng 5-10p để xác nhận hóa đơn,xin cảm ơn!");
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void initInfo() {
+        try {
+            //Caculator Sum money for bill
+            mData.child(Constain.USERS).child(idUser).child(Constain.MY_CART).child(idStore).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    arrMyCart.clear();
+                    arrFlagProduct.clear();
+                    sumMoney = 0;
+                    if (dataSnapshot.getValue() != null) {
+                        try {
+                            for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                                MyCart myCart = dt.getValue(MyCart.class);
+                                sumMoney += myCart.getPrice();
+                                arrMyCart.add(myCart);
+                                adapter.notifyDataSetChanged();
+                                arrFlagProduct.add(new Flag_Product(myCart.getProductName(), myCart.getCount(), myCart.getPrice()));
+                            }
+                            txtSumMoney.setText(Math.round(sumMoney) + " VNĐ");
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+            //get Info Store
+            mData.child(Constain.STORES).child(idStore).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null) {
+                        try {
+                            Store store = dataSnapshot.getValue(Store.class);
+                            if (store.getStoreName() != null) {
+                                storeName = store.getStoreName();
+                            }
+                            if (store.getPhoneNumber() != null) {
+                                phoneNumberStore = store.getPhoneNumber();
+                            }
+                            if (!store.getLinkPhotoStore().equals("")) {
+                                linkPhotoStore = store.getLinkPhotoStore();
+                            }
+                            if (store.getLocation() != null) {
+                                HashMap<String, Object> location = store.getLocation();
+                                addressStore = (String) location.get(Constain.ADDRESS);
+                            }
+                        } catch (Exception ex) {
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+            //get Info User
+            mData.child(Constain.USERS).child(idUser).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null){
+                        try {
+                            User user = dataSnapshot.getValue(User.class);
+                            if (user.getUserName() != null) {
+                                userName = user.getUserName();
+                            }
+                            if (user.getPhoneNumber() != null) {
+                                phoneNumberUser = user.getPhoneNumber();
+                            }
+                            if (!user.getLinkPhotoUser().equals("")) {
+                                linkPhotoUser = user.getLinkPhotoUser();
+                            }
+                            if (user.getLocation() != null) {
+                                HashMap<String, Object> location = user.getLocation();
+                                addressUser = (String) location.get(Constain.ADDRESS);
+                            }
+                        }
+                        catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -104,12 +318,16 @@ public class MyCartFragment extends BaseFragment {
         arrMyCart = new ArrayList<>();
         idUser = getActivity().getIntent().getStringExtra(Constain.ID_USER);
         mData = FirebaseDatabase.getInstance().getReference();
-        adapter = new MyCartAdapter(arrMyCart, getContext(), idUser);
+        adapter = new MyCartAdapter(arrMyCart, getContext(), idUser, idStore);
         recyclerMyOrder = (RecyclerView) getActivity().findViewById(R.id.recyclerViewMyOrder);
         recyclerMyOrder.setAdapter(adapter);
         RecyclerView.LayoutManager mManager = new LinearLayoutManager(getActivity());
         recyclerMyOrder.setLayoutManager(mManager);
         txtSumMoney = (TextView) getActivity().findViewById(R.id.txtSumMoney);
         btnPay = (Button) getActivity().findViewById(R.id.btnPay);
+        presenter = new HistoryOrderPresenter();
+        shipPresenter = new HistoryShipPresenter();
+        arrFlagProduct = new ArrayList<>();
+        idStore = getActivity().getIntent().getStringExtra(Constain.ID_STORE);
     }
 }

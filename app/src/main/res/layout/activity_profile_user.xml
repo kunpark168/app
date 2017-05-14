@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:weightSum="10"
     tools:context="com.example.win81version2.orderdrink.profile_user.view.ProfileUserActivity">
-    //4
+    //4.5
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,12 +16,12 @@
         android:background="@color/colorPrimaryDark"
         android:orientation="vertical"
         android:weightSum="5">
-        //1
+        //0.5
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             android:columnCount="1"
             android:orientation="horizontal"
             android:rowCount="1">
@@ -31,7 +31,6 @@
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:layout_column="0"
-                android:layout_margin="10dp"
                 android:layout_row="0"
                 android:src="@drawable/back" />
 
@@ -42,7 +41,7 @@
                 android:layout_column="0"
                 android:layout_row="0"
                 android:gravity="center"
-                android:text="------------------"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="20dp" />
         </GridLayout>
@@ -51,7 +50,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3">
+            android:layout_weight="3.5">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgPhotoUser"
@@ -104,8 +103,7 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
     </LinearLayout>
-    //2
-
+    //1.5
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -173,8 +171,7 @@
         android:orientation="vertical"
         android:weightSum="4">
 
-        <android.support.v7.widget.CardView
-            app:cardElevation="2dp"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
@@ -231,10 +228,10 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </android.support.v7.widget.CardView>
+        </LinearLayout>
 
         <android.support.v7.widget.CardView
-            app:cardElevation="1.9dp"
+            app:cardElevation="1dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -294,8 +291,7 @@
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            app:cardElevation="2.2dp"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
@@ -352,7 +348,7 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </android.support.v7.widget.CardView>
+        </LinearLayout>
 
         <android.support.v7.widget.CardView
             app:cardElevation="1dp"

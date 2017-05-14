@@ -34,7 +34,7 @@ public class DisplayProduct extends BaseActivity {
     private EditText edtCountProduct;
     private MyCartPresenter prsenter;
     private DatabaseReference mData;
-    private String idUser, categoryName, idMyCart;
+    private String idUser, idStore, categoryName, idMyCart, linkPhotoProduct = "";
     private StringBuilder idMyCart_mBuilder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +61,7 @@ public class DisplayProduct extends BaseActivity {
         else {
             final int countProduct = Integer.parseInt(edtCountProduct.getText().toString());
             final float price = product.getPrice() * countProduct;
+            linkPhotoProduct = product.getLinkPhotoProduct();
             Calendar now = Calendar.getInstance();
             int day = now.get(Calendar.DAY_OF_MONTH);
             int month = now.get(Calendar.MONTH);
@@ -70,7 +71,7 @@ public class DisplayProduct extends BaseActivity {
             final String timeOrder = hour + "h:" + minute + "p - " + day + "\\" + month + "\\" + year;
             edtCountProduct.setError(null);
             try {
-                mData.child(Constain.USERS).child(idUser).child(Constain.MY_CART).addListenerForSingleValueEvent(new ValueEventListener() {
+                mData.child(Constain.USERS).child(idUser).child(Constain.MY_CART).child(idStore).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.getValue() != null){
@@ -107,14 +108,14 @@ public class DisplayProduct extends BaseActivity {
                                     }
                                 }
                                 if (flag_name == true){
-                                    MyCart myCart = new MyCart(idMyCart, categoryName, product.getIdProduct(), product.getProductName(), countProduct, timeOrder, price);
-                                    prsenter.addProductToCart(idUser, idMyCart, myCart);
+                                    MyCart myCart = new MyCart(idMyCart, categoryName, product.getIdProduct(), product.getProductName(), linkPhotoProduct, countProduct, timeOrder, price);
+                                    prsenter.addProductToCart(idUser, idMyCart, idStore, myCart);
                                     showToast("Thêm vào giỏ hàng thành công!");
                                     finish();
                                 }
                                 else {
-                                    prsenter.updateCountProduct(idUser, idMyCart, sumCount);
-                                    prsenter.updatePrice(idUser, idMyCart, sumPrice);
+                                    prsenter.updateCountProduct(idUser, idMyCart, idStore, sumCount);
+                                    prsenter.updatePrice(idUser, idMyCart, idStore, sumPrice);
                                     showToast("Thêm vào giỏ hàng thành công!");
                                     finish();
                                 }
@@ -130,8 +131,8 @@ public class DisplayProduct extends BaseActivity {
                                 idMyCart_mBuilder.append(number);
                             }
                             idMyCart = idMyCart_mBuilder.toString();
-                            MyCart myCart = new MyCart(idMyCart, categoryName, product.getIdProduct(), product.getProductName(), countProduct, timeOrder, price);
-                            prsenter.addProductToCart(idUser, idMyCart, myCart);
+                            MyCart myCart = new MyCart(idMyCart, categoryName, product.getIdProduct(), product.getProductName(), linkPhotoProduct, countProduct, timeOrder, price);
+                            prsenter.addProductToCart(idUser, idMyCart, idStore, myCart);
                             showToast("Thêm vào giỏ thành công!");
                             finish();
                         }
@@ -177,6 +178,7 @@ public class DisplayProduct extends BaseActivity {
         Intent intent = getIntent();
         product = (Product) intent.getSerializableExtra(Constain.PRODUCTS);
         categoryName = intent.getStringExtra(Constain.CATEGORY_NAME);
+        idStore = intent.getStringExtra(Constain.ID_STORE);
         idUser = getIdUser();
     }
 }

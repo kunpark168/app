@@ -98,7 +98,7 @@ public class ProductListFragment extends Fragment {
         mData = FirebaseDatabase.getInstance().getReference();
         recyclerProduct = (RecyclerView) getActivity().findViewById(R.id.recyclerProducts);
         recyclerProduct.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ProductListAdapter(getContext() , initData());
+        adapter = new ProductListAdapter(idStore, getContext() , initData());
         adapter.expandAllParents();
         recyclerProduct.setAdapter(adapter);
         recyclerProduct.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -134,9 +134,10 @@ public class ProductListFragment extends Fragment {
     private void getListCategory(final List<GroupProduct> parentObjectList) {
 
         try {
-            mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).addListenerForSingleValueEvent(new ValueEventListener() {
+            mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    parentObjectList.clear();
                     if (dataSnapshot.getValue() != null) {
                         try {
                             for (DataSnapshot dt : dataSnapshot.getChildren()) {

@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
+import com.example.win81version2.orderdrink.main.view.MainUser2Activity;
 import com.example.win81version2.orderdrink.my_cart.presenter.MyCartPresenter;
 
 import java.util.ArrayList;
@@ -24,11 +26,13 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartViewHolder> {
     private Context mContext;
     private MyCartPresenter presenter;
     private String idUser;
+    private String idStore;
 
-    public MyCartAdapter(ArrayList<MyCart> arrMyCart, Context mContext, String idUser) {
+    public MyCartAdapter(ArrayList<MyCart> arrMyCart, Context mContext, String idUser, String idStore) {
         this.arrMyCart = arrMyCart;
         this.mContext = mContext;
         this.idUser = idUser;
+        this.idStore = idStore;
         presenter = new MyCartPresenter();
     }
 
@@ -45,7 +49,14 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartViewHolder> {
          final MyCart myCart = arrMyCart.get(position);
         holder.txtProductName.setText(myCart.getProductName());
         holder.txtCountProduct.setText(String.valueOf(myCart.getCount()));
-        holder.txtPrice.setText(String.valueOf(myCart.getPrice()));
+        holder.txtPrice.setText(Math.round(myCart.getPrice()) + " VNĐ");
+        String linkPhotoProduct = myCart.getLinkPhotoProduct();
+        if (!linkPhotoProduct.equals("")) {
+            Glide.with(mContext)
+                    .load(linkPhotoProduct)
+                    .fitCenter()
+                    .into(holder.imgPhotoProduct);
+        }
         //set Click Buy Product
         holder.txtDeleteProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +66,7 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartViewHolder> {
                 aler.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        presenter.deleteProductOrder(idUser, myCart.getIdMyOrder());
+                        presenter.deleteProductOrder(idUser, myCart.getIdMyOrder(), idStore);
                         Toast.makeText(mContext, "Xóa sản phẩm thành công!", Toast.LENGTH_SHORT).show();
                     }
                 });

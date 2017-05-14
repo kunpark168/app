@@ -13,6 +13,7 @@ public class MyCart {
     private String categoryName;
     private String idProduct;
     private String productName;
+    private String linkPhotoProduct;
     private int count;
     private float price;
     private String timeOrder;
@@ -20,11 +21,12 @@ public class MyCart {
     public MyCart() {
     }
 
-    public MyCart(String idMyOrder, String categoryName, String idProduct, String productName, int count, String timeOrder, float price) {
+    public MyCart(String idMyOrder, String categoryName, String idProduct, String productName, String linkPhotoProduct, int count, String timeOrder, float price) {
         this.idMyOrder = idMyOrder;
         this.categoryName = categoryName;
         this.idProduct = idProduct;
         this.productName = productName;
+        this.linkPhotoProduct = linkPhotoProduct;
         this.count = count;
         this.timeOrder = timeOrder;
         this.price = price;
@@ -37,6 +39,7 @@ public class MyCart {
         myMap.put(Constain.CATEGORY_NAME, categoryName);
         myMap.put(Constain.ID_PRODUCT, idProduct);
         myMap.put(Constain.PRODUCT_NAME, productName);
+        myMap.put(Constain.LINK_PHOTO_PRODUCT, linkPhotoProduct);
         myMap.put(Constain.COUNT, count);
         myMap.put(Constain.TIME_ORDER, timeOrder);
         myMap.put(Constain.PRICE, price);
@@ -76,6 +79,14 @@ public class MyCart {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public String getLinkPhotoProduct() {
+        return linkPhotoProduct;
+    }
+
+    public void setLinkPhotoProduct(String linkPhotoProduct) {
+        this.linkPhotoProduct = linkPhotoProduct;
     }
 
     public int getCount() {

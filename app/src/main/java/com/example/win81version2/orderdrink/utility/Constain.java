@@ -59,9 +59,11 @@ public class Constain {
     public static final int REQUEST_CODE_GPS = 3;
     public static final int REQUEST_CODE_LOAD_IMAGE = 4;
     public static final int REQUEST_CODE_LOAD_CAMERA = 5;
-    //OrderList
-    public static final String ORDER_LIST = "orderList";
-    public static final String ID_ORDERLIST = "idOrderList";
+    //HistoryOrderUser
+    public static final String HISTORY_SHIP_STORE = "historyShip";
+    public static final String HISTORY_ORDER_USER = "historyOrder";
+    public static final String ID_HISTORY_SHIP_STORE = "idHistoryStore";
+    public static final String ID_HISTORY_ORDER_USER = "idHistoryUser";
     public static final String TIME_ORDER = "timeOrder";
     public static final String COUNT = "count";
     public static final String STATUS_PRODUCTS = "statusProduct";

@@ -29,10 +29,10 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.category.view.CategoryListFragment;
+import com.example.win81version2.orderdrink.history_ship_store.model.HistoryShipStore;
 import com.example.win81version2.orderdrink.main.presenter.StorePresenter;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
-import com.example.win81version2.orderdrink.ordered_list_store.model.OrderList;
-import com.example.win81version2.orderdrink.ordered_list_store.view.OrderedListFragment;
+import com.example.win81version2.orderdrink.history_ship_store.view.HistoryOrderStoreFragment;
 import com.example.win81version2.orderdrink.product.view.CreateProductFragment;
 import com.example.win81version2.orderdrink.product_list.view.ProductListFragment;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
@@ -55,7 +55,7 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
 
     private AHBottomNavigation ahBottomNavigation;
     private ImageView imgPhotoStore;
-    private TextView  txtStoreName, txtSumShipped;
+    private TextView txtStoreName, txtSumShipped;
     private LinearLayout layoutMyCategory, layoutReport, layoutCreateProduct, layoutRateUs, layoutShare;
     private String idStore, addressUser, linkPhotoStore = "";
     private DatabaseReference mData;
@@ -86,22 +86,40 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         checkGPS();
         innitInfo();
         checkNotify();
-        addEvents ();
+        addEvents();
     }
 
     private void checkNotify() {
         try {
-            mData.child(Constain.STORES).child(idStore).child(Constain.ORDER_LIST).addValueEventListener(new ValueEventListener() {
+            mData.child(Constain.STORES).child(idStore).child(Constain.HISTORY_SHIP_STORE).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                  if (dataSnapshot.getValue() != null){
-                      for (DataSnapshot dt : dataSnapshot.getChildren()){
-                          OrderList orderList = dt.getValue(OrderList.class);
-                          if (orderList.getStatusOrder() == 0){
-                              notifyNewOrder(orderList.getUserName());
-                          }
-                      }
-                  }
+                    if (dataSnapshot.getValue() != null) {
+                        for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                            mData.child(Constain.STORES).child(idStore).child(Constain.HISTORY_SHIP_STORE).child(dt.getKey()).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.getValue() != null) {
+                                        try {
+                                            for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                                                HistoryShipStore historyShipStore = dt.getValue(HistoryShipStore.class);
+                                                if (historyShipStore.getStatusOrder() == 0) {
+                                                    notifyNewOrder(historyShipStore.getUserName());
+                                                }
+                                            }
+                                        } catch (Exception ex) {
+                                            ex.printStackTrace();
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+                    }
                 }
 
                 @Override
@@ -109,8 +127,7 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
 
                 }
             });
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -147,11 +164,10 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         switchCompatStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (switchCompatStatus.isChecked() == true ){
+                if (switchCompatStatus.isChecked() == true) {
                     isOpen = true;
                     presenter.updateStatusStore(idStore, isOpen);
-                }
-                else {
+                } else {
                     isOpen = false;
                     presenter.updateStatusStore(idStore, isOpen);
                 }
@@ -172,47 +188,45 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
 
     private void innitInfo() {
         try {
-          mData.child(Constain.STORES).child(idStore).addListenerForSingleValueEvent(new ValueEventListener() {
-              @Override
-              public void onDataChange(DataSnapshot dataSnapshot) {
-                  if (dataSnapshot.getValue() != null){
-                      try {
-                          Store store = dataSnapshot.getValue(Store.class);
-                          addressUser = "";
-                          if (store.getLocation() != null) {
-                              HashMap<String, Object> flag = new HashMap<>();
-                              flag = store.getLocation();
-                              addressUser = String.valueOf(flag.get(Constain.ADDRESS));
-                          }
-                          location.put(Constain.LO, lo);
-                          location.put(Constain.LA, la);
-                          location.put(Constain.ADDRESS, addressUser);
-                          storePresenter.updateLocation(idStore, location);
-                          txtStoreName.setText(store.getStoreName().toString());
-                          txtSumShipped.setText(String.valueOf(store.getSumShipped()) + " Shipped");
-                          linkPhotoStore = store.getLinkPhotoStore().toString();
-                          isOpen = store.isOpen();
-                          switchCompatStatus.setChecked(isOpen);
-                          if (!linkPhotoStore.equals("")) {
-                              Glide.with(MainStoreActivity.this)
-                                      .load(linkPhotoStore)
-                                      .fitCenter()
-                                      .into(imgPhotoStore);
-                          }
-                      }
-                      catch (Exception ex){
-                          ex.printStackTrace();
-                      }
-                  }
-              }
+            mData.child(Constain.STORES).child(idStore).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null) {
+                        try {
+                            Store store = dataSnapshot.getValue(Store.class);
+                            addressUser = "";
+                            if (store.getLocation() != null) {
+                                HashMap<String, Object> flag = new HashMap<>();
+                                flag = store.getLocation();
+                                addressUser = String.valueOf(flag.get(Constain.ADDRESS));
+                            }
+                            location.put(Constain.LO, lo);
+                            location.put(Constain.LA, la);
+                            location.put(Constain.ADDRESS, addressUser);
+                            storePresenter.updateLocation(idStore, location);
+                            txtStoreName.setText(store.getStoreName().toString());
+                            txtSumShipped.setText(String.valueOf(store.getSumShipped()) + " Shipped");
+                            linkPhotoStore = store.getLinkPhotoStore().toString();
+                            isOpen = store.isOpen();
+                            switchCompatStatus.setChecked(isOpen);
+                            if (!linkPhotoStore.equals("")) {
+                                Glide.with(MainStoreActivity.this)
+                                        .load(linkPhotoStore)
+                                        .fitCenter()
+                                        .into(imgPhotoStore);
+                            }
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                }
 
-              @Override
-              public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-              }
-          });
-        }
-        catch (Exception ex){
+                }
+            });
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -297,10 +311,12 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         if (position == 0) {
             replaceFragment(idStore);
         } else if (position == 1) {
-            OrderedListFragment orderedListFragment = new OrderedListFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, orderedListFragment).commit();
+            // HistoryOrderStoreFragment historyOrderStoreFragment = new HistoryOrderStoreFragment();
+            //getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, historyOrderStoreFragment).commit();
         } else if (position == 2) {
             Profile_Store_Fragment profile_store_fragment = new Profile_Store_Fragment();
+            String email = profile_store_fragment.getEmail();
+            setTitle(email);
             getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, profile_store_fragment).commit();
         }
     }

@@ -15,18 +15,18 @@ public class MyCartSubmitter {
     public MyCartSubmitter(DatabaseReference mData) {
         this.mData = mData;
     }
-    public void addProductToCart (String idUser, String idMyCart, MyCart myCart){
+    public void addProductToCart (String idUser, String idMyCart, String idStore, MyCart myCart){
         HashMap<String, Object> myMap = new HashMap<>();
         myMap = myCart.putMap();
-        mData.child(Constain.USERS).child(idUser).child(Constain.MY_CART).child(idMyCart).setValue(myMap);
+        mData.child(Constain.USERS).child(idUser).child(Constain.MY_CART).child(idStore).child(idMyCart).setValue(myMap);
     }
-    public void deleteProductOrder (String idUser, String idMyCart){
-        mData.child(Constain.USERS).child(idUser).child(Constain.MY_CART).child(idMyCart).removeValue();
+    public void deleteProductOrder (String idUser, String idMyCart, String idStore){
+        mData.child(Constain.USERS).child(idUser).child(Constain.MY_CART).child(idStore).child(idMyCart).removeValue();
     }
-    public void updateCountProduct (String idUser, String idMyCart, int count){
-        mData.child(Constain.USERS).child(idUser).child(Constain.MY_CART).child(idMyCart).child(Constain.COUNT).setValue(count);
+    public void updateCountProduct (String idUser, String idMyCart, String idStore, int count){
+        mData.child(Constain.USERS).child(idUser).child(Constain.MY_CART).child(idStore).child(idMyCart).child(Constain.COUNT).setValue(count);
     }
-    public void updatePrice (String idUser, String idMyCart, float price){
-        mData.child(Constain.USERS).child(idUser).child(Constain.MY_CART).child(idMyCart).child(Constain.PRICE).setValue(price);
+    public void updatePrice (String idUser, String idMyCart, String idStore, float price){
+        mData.child(Constain.USERS).child(idUser).child(Constain.MY_CART).child(idStore).child(idMyCart).child(Constain.PRICE).setValue(price);
     }
 }

@@ -13,8 +13,11 @@ import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.category.presenter.CategoryPresenter;
 import com.example.win81version2.orderdrink.category.view.CreateCategory;
 import com.example.win81version2.orderdrink.utility.Constain;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -27,12 +30,14 @@ public class CategoryListAdapter extends RecyclerSwipeAdapter<CategoryListViewHo
     private ArrayList<Category> arrCategory;
     private Activity activity;
     private String idStore;
+    private DatabaseReference mData;
     private CategoryPresenter presenter;
 
     public CategoryListAdapter(ArrayList<Category> arrCategory, Activity activity, String idStore) {
         this.arrCategory = arrCategory;
         this.activity = activity;
         this.idStore = idStore;
+        mData = FirebaseDatabase.getInstance().getReference();
         presenter = new CategoryPresenter();
     }
 
@@ -45,15 +50,33 @@ public class CategoryListAdapter extends RecyclerSwipeAdapter<CategoryListViewHo
     }
 
     @Override
-    public void onBindViewHolder(CategoryListViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(final CategoryListViewHolder viewHolder, final int position) {
         Category category = arrCategory.get(position);
-        int stt = Integer.parseInt(category.getIdCategory()) + 1;
+        int stt = position + 1;
         if (stt % 2 == 0) {
             viewHolder.txtSTT.setBackgroundColor(activity.getResources().getColor(R.color.stt1));
             viewHolder.txtSTTSwipe.setBackgroundColor(activity.getResources().getColor(R.color.stt1));
         } else {
             viewHolder.txtSTT.setBackgroundColor(activity.getResources().getColor(R.color.stt2));
             viewHolder.txtSTTSwipe.setBackgroundColor(activity.getResources().getColor(R.color.stt2));
+        }
+        //get sumProduct
+        try {
+            mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).child(category.getIdCategory()).child(Constain.PRODUCTS).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    long sumProduct = dataSnapshot.getChildrenCount();
+                    viewHolder.txtSumProduct.setText(String.valueOf(sumProduct));
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+        catch (Exception ex){
+
         }
         viewHolder.txtSTT.setText(String.valueOf(stt));
         viewHolder.txtSTTSwipe.setText(String.valueOf(stt));

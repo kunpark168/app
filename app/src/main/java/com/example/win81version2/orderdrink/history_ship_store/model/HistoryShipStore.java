@@ -1,4 +1,4 @@
-package com.example.win81version2.orderdrink.ordered_list_store.model;
+package com.example.win81version2.orderdrink.history_ship_store.model;
 
 import com.example.win81version2.orderdrink.product.model.Flag_Product;
 import com.example.win81version2.orderdrink.utility.Constain;
@@ -10,51 +10,54 @@ import java.util.HashMap;
  * Created by Win 8.1 Version 2 on 5/10/2017.
  */
 
-public class OrderList {
-    private String idOrderList;
+public class HistoryShipStore {
+    private String idHistoryStore;
     private String idUser;
     private String userName;
     private String linkPhotoUser;
     private String phoneNumber;
-    private String productName;
+    private String address;
     private String timeOrder;
     private ArrayList<Flag_Product> arrProduct;
     private int statusOrder; // 0 : Đang chờ // 1: Đã giao //2 : Bị hủy
     //contructor
-    public OrderList() {
+    public HistoryShipStore() {
     }
-    public OrderList(String idOrderList, String idUser, String userName, String linkPhotoUser, String phoneNumber, String productName, String timeOrder, ArrayList<Flag_Product> arrProduct, int statusOrder) {
-        this.idOrderList = idOrderList;
+
+    public HistoryShipStore(String idHistoryStore, String idUser, String userName, String linkPhotoUser, String phoneNumber, String address, String timeOrder, ArrayList<Flag_Product> arrProduct, int statusOrder) {
+        this.idHistoryStore = idHistoryStore;
         this.idUser = idUser;
         this.userName = userName;
         this.linkPhotoUser = linkPhotoUser;
         this.phoneNumber = phoneNumber;
-        this.productName = productName;
+        this.address = address;
         this.timeOrder = timeOrder;
         this.arrProduct = arrProduct;
         this.statusOrder = statusOrder;
     }
+
     //put all to HashMap
     public HashMap<String, Object> putMap (){
         HashMap<String, Object> myMap = new HashMap<>();
-        myMap.put(Constain.ID_ORDERLIST, idOrderList);
+        myMap.put(Constain.ID_HISTORY_SHIP_STORE, idHistoryStore);
         myMap.put(Constain.ID_USER, idUser);
         myMap.put(Constain.USER_NAME, userName);
         myMap.put(Constain.LINKPHOTOUSER, linkPhotoUser);
         myMap.put(Constain.PHONENUMBER, phoneNumber);
-        myMap.put(Constain.PRODUCT_NAME, productName);
+        myMap.put(Constain.ADDRESS, address);
         myMap.put(Constain.TIME_ORDER, timeOrder);
         myMap.put(Constain.PRODUCT_LIST, arrProduct);
         myMap.put(Constain.STATUS_PRODUCTS, statusOrder);
         return myMap;
     }
+    //Getter and setter
 
-    public String getIdOrderList() {
-        return idOrderList;
+    public String getIdHistoryStore() {
+        return idHistoryStore;
     }
 
-    public void setIdOrderList(String idOrderList) {
-        this.idOrderList = idOrderList;
+    public void setIdHistoryStore(String idHistoryStore) {
+        this.idHistoryStore = idHistoryStore;
     }
 
     public String getIdUser() {
@@ -89,12 +92,12 @@ public class OrderList {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getAddress() {
+        return address;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getTimeOrder() {

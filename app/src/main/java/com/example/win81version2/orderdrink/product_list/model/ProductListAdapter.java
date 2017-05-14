@@ -26,12 +26,14 @@ public class ProductListAdapter extends ExpandableRecyclerAdapter<GroupProduct ,
     private static final int NOI_BAT = 1;
     private static final int BINH_THUONG = 2;
     private Context mContext;
+    private String idStore;
     private LayoutInflater inflater;
     private List<GroupProduct> parentList;
 
 
-    public ProductListAdapter(Context context , @NonNull List<GroupProduct> parentList) {
+    public ProductListAdapter(String idStore, Context context , @NonNull List<GroupProduct> parentList) {
         super(parentList);
+        this.idStore = idStore;
         this.mContext = context;
         inflater = LayoutInflater.from(context);
         this.parentList = parentList;
@@ -79,6 +81,7 @@ public class ProductListAdapter extends ExpandableRecyclerAdapter<GroupProduct ,
         Intent intent = new Intent(mContext, DisplayProduct.class);
         intent.putExtra(Constain.PRODUCTS, product);
         intent.putExtra(Constain.CATEGORY_NAME, categoryName);
+        intent.putExtra(Constain.ID_STORE, idStore);
         mContext.startActivity(intent);
     }
 

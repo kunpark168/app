@@ -14,7 +14,7 @@ import com.example.win81version2.orderdrink.R;
 
 public class MyCartViewHolder extends RecyclerView.ViewHolder {
     public TextView txtProductName, txtPrice, txtCountProduct, txtDeleteProduct;
-    public ImageView imgStatusOrder;
+    public ImageView imgPhotoProduct;
     public SwipeLayout swipeLayout;
     public MyCartViewHolder(View itemView) {
         super(itemView);
@@ -22,7 +22,7 @@ public class MyCartViewHolder extends RecyclerView.ViewHolder {
         txtCountProduct = (TextView) itemView.findViewById(R.id.txtCountProduct_itemmyorder);
         txtPrice = (TextView) itemView.findViewById(R.id.txtPrice_itemmyorder);
         txtProductName = (TextView) itemView.findViewById(R.id.txtProductName_itemmyorder);
-        imgStatusOrder = (ImageView) itemView.findViewById(R.id.imgStatusOrder);
+        imgPhotoProduct = (ImageView) itemView.findViewById(R.id.imgPhotoProduct_itemcart);
 
         swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe_myorder);
         swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
