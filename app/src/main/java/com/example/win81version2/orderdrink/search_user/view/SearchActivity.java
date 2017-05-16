@@ -7,7 +7,7 @@ import android.text.TextWatcher;
 import android.widget.AutoCompleteTextView;
 
 import com.example.win81version2.orderdrink.R;
-import com.example.win81version2.orderdrink.search_user.model.SearchStore;
+import com.example.win81version2.orderdrink.search_user.model.Search;
 import com.example.win81version2.orderdrink.search_user.model.SearchStoreAdapter;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.google.firebase.database.DatabaseReference;
@@ -16,10 +16,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SearchStoreActivity extends AppCompatActivity implements TextWatcher, Serializable {
+public class SearchActivity extends AppCompatActivity implements TextWatcher, Serializable {
 
     private AutoCompleteTextView edtSearch;
-    private ArrayList<SearchStore> arrSearch;
+    private ArrayList<Search> arrSearch;
     private int viewResourceId;
     private DatabaseReference mData;
     private SearchStoreAdapter adapter;

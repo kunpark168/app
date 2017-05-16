@@ -23,10 +23,11 @@
             android:layout_height="match_parent">
 
             <FrameLayout
+                android:id="@+id/layoutChangeCoverStore"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:id="@+id/img_bg_shop"
+                    android:id="@+id/imgCoverStore"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
@@ -38,6 +39,7 @@
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/layoutChangeAvataStore"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginLeft="15dp"
@@ -46,7 +48,7 @@
                 android:padding="3dp">
 
                 <ImageView
-                    android:id="@+id/img_avatar_shop"
+                    android:id="@+id/imgAvataStore"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/store" />
@@ -78,7 +80,7 @@
             android:weightSum="2">
 
             <TextView
-                android:id="@+id/txtSumOredered_profileUser"
+                android:id="@+id/txtSumOredered_profileStore"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -105,7 +107,7 @@
             android:weightSum="2">
 
             <TextView
-                android:id="@+id/txtSumShipped_profileUser"
+                android:id="@+id/txtSumShipped_profileStore"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -186,7 +188,6 @@
                             android:layout_weight="2">
 
                             <ImageView
-                                android:id="@+id/imgEditUserName_profileUser"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="5dp"
@@ -246,7 +247,6 @@
                             android:layout_weight="2">
 
                             <ImageView
-                                android:id="@+id/imgEditPhoneNumber_profileUser"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="5dp"
@@ -305,7 +305,6 @@
                             android:layout_weight="2">
 
                             <ImageView
-                                android:id="@+id/imgEditEmail_profileUser"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="5dp"
@@ -365,7 +364,6 @@
                             android:layout_weight="2">
 
                             <ImageView
-                                android:id="@+id/imgEditAddress_profileUser"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="5dp"
@@ -432,7 +430,6 @@
                             android:maxLines="1"
                             android:textColor="@color/black"
                             android:textSize="15dp" />
-
                         <LinearLayout
                             android:id="@+id/layoutEditPasswordStore"
                             android:layout_width="0dp"
@@ -440,7 +437,6 @@
                             android:layout_weight="2">
 
                             <ImageView
-                                android:id="@+id/imgEditUserName_profileUser"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="5dp"

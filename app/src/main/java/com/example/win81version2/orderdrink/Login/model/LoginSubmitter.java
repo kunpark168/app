@@ -46,7 +46,7 @@ public class LoginSubmitter {
     }
     //create new user on firebase
     public void addUser (String idUser, String userName, String email, boolean gender, String phoneNumber, String linkPhotoUser, String birthDay, HashMap<String, Object> location, HashMap<String, Object> favorite_drink){
-        User user = new User(idUser, userName, email, gender, phoneNumber, linkPhotoUser, birthDay, false, 0, location, favorite_drink);
+        User user = new User(idUser, userName, email, gender, phoneNumber, linkPhotoUser, birthDay, false, 0, 0, location, favorite_drink);
         HashMap<String, Object> myMap = new HashMap<>();
         myMap = user.putMap();
         mData.child(Constain.USERS).child(idUser).setValue(myMap);

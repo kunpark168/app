@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
+import com.example.win81version2.orderdrink.main.view.MainStoreActivity;
 import com.example.win81version2.orderdrink.main.view.MainUser2Activity;
 import com.example.win81version2.orderdrink.main.view.MainUserActivity;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
@@ -293,7 +294,6 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder>{
         holder.btnCallnow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
             }
         });
        //btnView Order click
@@ -304,6 +304,7 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder>{
                 Intent intent = new Intent(mContext, MainUser2Activity.class);
                 intent.putExtra(Constain.ID_STORE, store2.getIdStore());
                 intent.putExtra(Constain.ID_USER, idUser);
+                intent.putExtra(Constain.IS_STORE, false);
                 mContext.startActivity(intent);
 
             }

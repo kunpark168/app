@@ -1,6 +1,6 @@
 package com.example.win81version2.orderdrink.history_ship_store.model;
 
-import com.example.win81version2.orderdrink.product.model.Flag_Product;
+import com.example.win81version2.orderdrink.product.model.OrderProduct;
 import com.example.win81version2.orderdrink.utility.Constain;
 
 import java.util.ArrayList;
@@ -18,13 +18,13 @@ public class HistoryShipStore {
     private String phoneNumber;
     private String address;
     private String timeOrder;
-    private ArrayList<Flag_Product> arrProduct;
+    private ArrayList<OrderProduct> arrProduct;
     private int statusOrder; // 0 : Đang chờ // 1: Đã giao //2 : Bị hủy
     //contructor
     public HistoryShipStore() {
     }
 
-    public HistoryShipStore(String idHistoryStore, String idUser, String userName, String linkPhotoUser, String phoneNumber, String address, String timeOrder, ArrayList<Flag_Product> arrProduct, int statusOrder) {
+    public HistoryShipStore(String idHistoryStore, String idUser, String userName, String linkPhotoUser, String phoneNumber, String address, String timeOrder, ArrayList<OrderProduct> arrProduct, int statusOrder) {
         this.idHistoryStore = idHistoryStore;
         this.idUser = idUser;
         this.userName = userName;
@@ -108,11 +108,11 @@ public class HistoryShipStore {
         this.timeOrder = timeOrder;
     }
 
-    public ArrayList<Flag_Product> getArrProduct() {
+    public ArrayList<OrderProduct> getArrProduct() {
         return arrProduct;
     }
 
-    public void setArrProduct(ArrayList<Flag_Product> arrProduct) {
+    public void setArrProduct(ArrayList<OrderProduct> arrProduct) {
         this.arrProduct = arrProduct;
     }
 

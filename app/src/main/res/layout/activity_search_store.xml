@@ -6,7 +6,7 @@
     android:weightSum="10"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.win81version2.orderdrink.search_user.view.SearchStoreActivity">
+    tools:context="com.example.win81version2.orderdrink.search_user.view.SearchActivity">
     //1
     <LinearLayout
         android:weightSum="10"

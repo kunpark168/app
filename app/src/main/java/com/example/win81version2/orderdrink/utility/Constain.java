@@ -5,11 +5,9 @@ package com.example.win81version2.orderdrink.utility;
  */
 
 public class Constain {
-    //admin
-    public static final String ADMIN = "admin";
-    public static final String EMAIL_ADMIN = "admin@gmail.com";
     //user
     public static final String USERS  = "Users";
+    public static final String PASSWORD = "password";
     public static final String ID_USER  = "idUser";
     public static final String USER_NAME  = "userName";
     public static final String IS_STORE  = "isStore";
@@ -30,6 +28,7 @@ public class Constain {
     public static final String ID_STORE = "idStore";
     public static final String STORE_NAME = "storeName";
     public static final String LINKPHOTOSTORE = "linkPhotoStore";
+    public static final String LINKCOVERSTORE = "linkCoverStore";
     public static final String SUMFAVORITE = "sumFavorite";
     public static final String SUM_SHIPPED = "sumShipped";
     public static final String FAVORITE_LIST = "favoriteList";
@@ -58,7 +57,8 @@ public class Constain {
     //CODE
     public static final int REQUEST_CODE_GPS = 3;
     public static final int REQUEST_CODE_LOAD_IMAGE = 4;
-    public static final int REQUEST_CODE_LOAD_CAMERA = 5;
+    public static final int REQUEST_CODE_LOAD_IMAGE_COVERSTORE = 5;
+    public static final int REQUEST_CODE_LOAD_IMAGE_AVATASTORE = 6;
     //HistoryOrderUser
     public static final String HISTORY_SHIP_STORE = "historyShip";
     public static final String HISTORY_ORDER_USER = "historyOrder";

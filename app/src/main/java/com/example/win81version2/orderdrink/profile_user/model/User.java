@@ -18,6 +18,7 @@ public class User {
     private String birthDay;
     private boolean isStore;
     private int sumOrdered;
+    private int sumShipped;
     private HashMap<String, Object> location;
     private HashMap<String, Object> favorite_drink;
 
@@ -25,7 +26,7 @@ public class User {
     public User() {
     }
 
-    public User(String idUser, String userName, String email, boolean gender, String phoneNumber, String linkPhotoUser, String birthDay, boolean isStore, int sumOrdered, HashMap<String, Object> location, HashMap<String, Object> favorite_drink) {
+    public User(String idUser, String userName, String email, boolean gender, String phoneNumber, String linkPhotoUser, String birthDay, boolean isStore, int sumOrdered, int sumShipped, HashMap<String, Object> location, HashMap<String, Object> favorite_drink) {
         this.idUser = idUser;
         this.userName = userName;
         this.email = email;
@@ -35,6 +36,7 @@ public class User {
         this.birthDay = birthDay;
         this.isStore = isStore;
         this.sumOrdered = sumOrdered;
+        this.sumShipped = sumShipped;
         this.location = location;
         this.favorite_drink = favorite_drink;
     }
@@ -51,6 +53,7 @@ public class User {
         myMap.put(Constain.BIRTHDAY, birthDay);
         myMap.put(Constain.IS_STORE, isStore);
         myMap.put(Constain.SUM_ORDERED, sumOrdered);
+        myMap.put(Constain.SUM_SHIPPED, sumShipped);
         myMap.put(Constain.LOCATION, location);
         myMap.put(Constain.FAVORITE_DRINK, favorite_drink);
         return myMap;
@@ -128,6 +131,14 @@ public class User {
 
     public void setSumOrdered(int sumOrdered) {
         this.sumOrdered = sumOrdered;
+    }
+
+    public int getSumShipped() {
+        return sumShipped;
+    }
+
+    public void setSumShipped(int sumShipped) {
+        this.sumShipped = sumShipped;
     }
 
     public HashMap<String, Object> getLocation() {

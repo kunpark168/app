@@ -8,12 +8,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.category.model.Category;
+import com.example.win81version2.orderdrink.main.view.MainStoreActivity;
 import com.example.win81version2.orderdrink.product.model.Product;
 import com.example.win81version2.orderdrink.product_list.model.GroupProduct;
 import com.example.win81version2.orderdrink.product_list.model.ProductListAdapter;
@@ -32,13 +35,15 @@ import java.util.List;
 public class ProductListFragment extends Fragment {
 
     private ProductListAdapter adapter;
-    private List<GroupProduct> categoryList;
+    private ArrayList<Product> arrProduct;
     private RecyclerView recyclerProduct;
     private DatabaseReference mData;
     private String idStore;
 
     private ScrollView scroll;
     private TextView txtStoreName, txtAddressStore, txtTimeWorkStore;
+    private ImageView imgCoverStore;
+
     public ProductListFragment() {
         // Required empty public constructor
     }
@@ -55,7 +60,7 @@ public class ProductListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         addControls();
-        initInfo ();
+        initInfo();
     }
 
     private void initInfo() {
@@ -63,19 +68,28 @@ public class ProductListFragment extends Fragment {
             mData.child(Constain.STORES).child(idStore).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.getValue() != null){
+                    if (dataSnapshot.getValue() != null) {
                         Store store = dataSnapshot.getValue(Store.class);
-                        if (store.getStoreName() != null){
+                        if (store.getStoreName() != null) {
                             txtStoreName.setText(store.getStoreName().toString());
                         }
-                        if (store.getTimeWork() != null){
+                        if (store.getTimeWork() != null) {
                             txtTimeWorkStore.setText(store.getTimeWork().toString());
                         }
-                        if (store.getLocation() != null){
-                            HashMap<String, Object> location =  new HashMap<String, Object>();
+                        if (store.getLocation() != null) {
+                            HashMap<String, Object> location = new HashMap<String, Object>();
                             location = store.getLocation();
-                            if (location.get(Constain.ADDRESS) != null){
+                            if (location.get(Constain.ADDRESS) != null) {
                                 txtAddressStore.setText(location.get(Constain.ADDRESS).toString());
+                            }
+                        }
+                        if (store.getLinkCoverStore() != null){
+                            String linkCover = store.getLinkCoverStore();
+                            if (!linkCover.equals("")) {
+                                Glide.with(getContext())
+                                        .load(linkCover)
+                                        .fitCenter()
+                                        .into(imgCoverStore);
                             }
                         }
                     }
@@ -86,19 +100,19 @@ public class ProductListFragment extends Fragment {
 
                 }
             });
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
     private void addControls() {
-        categoryList = new ArrayList<>();
+        arrProduct = new ArrayList<>();
         scroll = (ScrollView) getActivity().findViewById(R.id.scrollbarP);
+        imgCoverStore = (ImageView) getActivity().findViewById(R.id.imgCoverStore_productlist);
         mData = FirebaseDatabase.getInstance().getReference();
         recyclerProduct = (RecyclerView) getActivity().findViewById(R.id.recyclerProducts);
         recyclerProduct.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ProductListAdapter(idStore, getContext() , initData());
+        adapter = new ProductListAdapter(idStore, getContext(), initData());
         adapter.expandAllParents();
         recyclerProduct.setAdapter(adapter);
         recyclerProduct.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -111,7 +125,7 @@ public class ProductListFragment extends Fragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                scroll.scrollTo(dx ,dy);
+                scroll.scrollTo(dx, dy);
             }
         });
         txtStoreName = (TextView) getActivity().findViewById(R.id.txtStoreName_listproduct);
@@ -120,7 +134,7 @@ public class ProductListFragment extends Fragment {
     }
 
     private int getTypeForPosition(int position) {
-        if(position > 2)
+        if (position > 2)
             return 1;
         return 2;
     }
@@ -138,6 +152,7 @@ public class ProductListFragment extends Fragment {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     parentObjectList.clear();
+                    arrProduct.clear();
                     if (dataSnapshot.getValue() != null) {
                         try {
                             for (DataSnapshot dt : dataSnapshot.getChildren()) {
@@ -153,8 +168,9 @@ public class ProductListFragment extends Fragment {
                                                     for (DataSnapshot dt : dataSnapshot.getChildren()) {
                                                         Product product = dt.getValue(Product.class);
                                                         childList.add(product);
+                                                        arrProduct.add(product);
                                                     }
-                                                    GroupProduct category = new GroupProduct(cate.getCategoryName() , childList);
+                                                    GroupProduct category = new GroupProduct(cate.getCategoryName(), childList);
                                                     parentObjectList.add(category);
                                                     adapter.notifyParentDataSetChanged(true);
                                                 } catch (Exception ex) {
@@ -162,6 +178,7 @@ public class ProductListFragment extends Fragment {
                                                 }
                                             }
                                         }
+
                                         @Override
                                         public void onCancelled(DatabaseError databaseError) {
                                         }
@@ -191,5 +208,9 @@ public class ProductListFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         ((ProductListAdapter) recyclerProduct.getAdapter()).onSaveInstanceState(outState);
+    }
+
+    public ArrayList<Product> getArrProduct() {
+        return arrProduct;
     }
 }

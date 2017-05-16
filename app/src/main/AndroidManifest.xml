@@ -57,9 +57,8 @@
             android:label="----------------------------------------"
             android:theme="@style/DialogNoActionBar" />
         <activity
-            android:name=".search_user.view.SearchStoreActivity"
+            android:name=".search_user.view.SearchActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".profile_user.view.ProfileUserActivity" />
         <activity android:name=".product.view.EditProduct"></activity>
     </application>
 

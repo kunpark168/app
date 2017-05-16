@@ -42,7 +42,6 @@
                 <TextView
                     android:id="@+id/txtDistance_itemsearch"
                     android:maxLines="1"
-                    android:text="Cách đây 143 Km"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </LinearLayout>

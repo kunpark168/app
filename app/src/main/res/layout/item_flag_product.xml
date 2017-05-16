@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="20dp">
         <TextView
+            android:id="@+id/txtNameOrderItem"
             android:gravity="center"
             android:text="Trà sữa trà xanh"
             android:textSize="13dp"
@@ -21,6 +22,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent" />
         <TextView
+            android:id="@+id/txtCountOrderItem"
             android:text="2"
             android:typeface="serif"
             android:textSize="13dp"
@@ -34,6 +36,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent" />
         <TextView
+            android:id="@+id/txtPriceOrderItem"
             android:gravity="center"
             android:text="15000 VND"
             android:layout_weight="3"

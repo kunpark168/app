@@ -82,4 +82,7 @@ public class UserProfileSubmitter {
     public void updateLinkPhotoUser (String idUser, String linkPhotoUser){
         mData.child(Constain.USERS).child(idUser).child(Constain.LINKPHOTOUSER).setValue(linkPhotoUser);
     }
+    public void updateSumOrderUser (String idUser, int sumOrdered){
+        mData.child(Constain.USERS).child(idUser).child(Constain.SUM_ORDERED).setValue(sumOrdered);
+    }
 }

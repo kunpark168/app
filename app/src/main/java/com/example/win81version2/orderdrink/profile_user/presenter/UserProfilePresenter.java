@@ -37,19 +37,28 @@ public class UserProfilePresenter {
         mStorage = FirebaseStorage.getInstance().getReference();
         submitter = new UserProfileSubmitter(mData, mAuth, mStorage);
     }
-    public void updateUserName (String idUser, String userName){
+
+    public void updateUserName(String idUser, String userName) {
         submitter.updateUserName(idUser, userName);
     }
-    public void updatePhoneNumber (String idUser, String phoneNumber){
-       submitter.updatePhoneNumber(idUser, phoneNumber);
+
+    public void updatePhoneNumber(String idUser, String phoneNumber) {
+        submitter.updatePhoneNumber(idUser, phoneNumber);
     }
-    public void updateEmail (String idUser, String email){
-       submitter.updateEmail(idUser, email);
+
+    public void updateEmail(String idUser, String email) {
+        submitter.updateEmail(idUser, email);
     }
-    public void updatePhoto (Bitmap bitmap, final String idUser){
+
+    public void updatePhoto(Bitmap bitmap, final String idUser) {
         submitter.updatePhoto(bitmap, idUser);
     }
-    public void updateAdress (String idUser, String address){
+
+    public void updateAdress(String idUser, String address) {
         submitter.updateAdress(idUser, address);
+    }
+
+    public void updateSumOrderUser(String idUser, int sumOrdered) {
+        submitter.updateSumOrderUser(idUser, sumOrdered);
     }
 }

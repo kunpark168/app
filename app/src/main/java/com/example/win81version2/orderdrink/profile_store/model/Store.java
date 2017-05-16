@@ -19,7 +19,9 @@ public class Store {
     private boolean isOpen;
     private String phoneNumber;
     private String linkPhotoStore;
+    private String linkCoverStore;
     private int sumShipped;
+    private int sumOrdered;
     private int sumProduct;
     private String timeWork;
     private HashMap<String, Object> location;
@@ -31,7 +33,7 @@ public class Store {
     public Store() {
     }
 
-    public Store(String idStore, String storeName, String email, boolean isStore, boolean isOpen, String phoneNumber, String linkPhotoStore, int sumShipped, int sumProduct, String timeWork, HashMap<String, Object> location, HashMap<String, Object> favorite_list, HashMap<String, Object> products, HashMap<String, Object> orderSchedule) {
+    public Store(String idStore, String storeName, String email, boolean isStore, boolean isOpen, String phoneNumber, String linkPhotoStore, String linkCoverStore, int sumShipped, int sumOrdered, int sumProduct, String timeWork, HashMap<String, Object> location, HashMap<String, Object> favorite_list, HashMap<String, Object> products, HashMap<String, Object> orderSchedule) {
         this.idStore = idStore;
         this.storeName = storeName;
         this.email = email;
@@ -39,7 +41,9 @@ public class Store {
         this.isOpen = isOpen;
         this.phoneNumber = phoneNumber;
         this.linkPhotoStore = linkPhotoStore;
+        this.linkCoverStore = linkCoverStore;
         this.sumShipped = sumShipped;
+        this.sumOrdered = sumOrdered;
         this.sumProduct = sumProduct;
         this.timeWork = timeWork;
         this.location = location;
@@ -57,7 +61,9 @@ public class Store {
         myMap.put(Constain.IS_OPEN, isOpen);
         myMap.put(Constain.PHONENUMBER, phoneNumber);
         myMap.put(Constain.LINKPHOTOSTORE, linkPhotoStore);
+        myMap.put(Constain.LINKCOVERSTORE, linkCoverStore);
         myMap.put(Constain.SUM_SHIPPED, sumShipped);
+        myMap.put(Constain.SUM_ORDERED, sumOrdered);
         myMap.put(Constain.SUM_PRODUCT, sumProduct);
         myMap.put(Constain.TIME_WORK, timeWork);
         myMap.put(Constain.LOCATION, location);
@@ -124,12 +130,28 @@ public class Store {
         this.linkPhotoStore = linkPhotoStore;
     }
 
+    public String getLinkCoverStore() {
+        return linkCoverStore;
+    }
+
+    public void setLinkCoverStore(String linkCoverStore) {
+        this.linkCoverStore = linkCoverStore;
+    }
+
     public int getSumShipped() {
         return sumShipped;
     }
 
     public void setSumShipped(int sumShipped) {
         this.sumShipped = sumShipped;
+    }
+
+    public int getSumOrdered() {
+        return sumOrdered;
+    }
+
+    public void setSumOrdered(int sumOrdered) {
+        this.sumOrdered = sumOrdered;
     }
 
     public int getSumProduct() {

@@ -4,15 +4,15 @@ package com.example.win81version2.orderdrink.product.model;
  * Created by Win 8.1 Version 2 on 5/13/2017.
  */
 
-public class Flag_Product {
+public class OrderProduct {
     private String  productName;
     private int count;
     private float price;
 
-    public Flag_Product() {
+    public OrderProduct() {
     }
 
-    public Flag_Product(String productName, int count, float price) {
+    public OrderProduct(String productName, int count, float price) {
         this.productName = productName;
         this.count = count;
         this.price = price;

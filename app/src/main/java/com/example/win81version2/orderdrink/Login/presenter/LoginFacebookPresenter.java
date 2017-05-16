@@ -22,8 +22,11 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.sql.Array;
 import java.util.ArrayList;
@@ -77,13 +80,34 @@ public class LoginFacebookPresenter {
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential).addOnCompleteListener(view, new OnCompleteListener<AuthResult>() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
+            public void onComplete(@NonNull final Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     //creare new user on firebase
-                    HashMap<String, Object> location = new HashMap<>();
-                    HashMap<String, Object> favorite_drink = new HashMap<>();
-                    submitter.addUser(task.getResult().getUser().getUid(), task.getResult().getUser().getDisplayName(), task.getResult().getUser().getEmail(), true, "", task.getResult().getUser().getPhotoUrl().toString(), "", location, favorite_drink);
-                    view.moveToMainActivity();
+                    try {
+                        mData.child(Constain.USERS).child(task.getResult().getUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.getValue() != null){
+                                    view.moveToMainActivity();
+                                }
+                                else {
+                                    HashMap<String, Object> location = new HashMap<>();
+                                    HashMap<String, Object> favorite_drink = new HashMap<>();
+                                    submitter.addUser(task.getResult().getUser().getUid(), task.getResult().getUser().getDisplayName(), task.getResult().getUser().getEmail(), true, "", task.getResult().getUser().getPhotoUrl().toString(), "", location, favorite_drink);
+                                    view.moveToMainActivity();
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                    catch (Exception ex){
+                        ex.printStackTrace();
+                    }
                 }
                 else {
                     view.moveToMainActivity();

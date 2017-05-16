@@ -48,6 +48,7 @@ public class MainActivity extends BaseActivity {
         mAuth = FirebaseAuth.getInstance();
         mData = FirebaseDatabase.getInstance().getReference();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -58,7 +59,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.logout){
+        if (id == R.id.logout) {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
@@ -73,61 +74,59 @@ public class MainActivity extends BaseActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     idUser = user.getUid().toString();
-                        mData.child(Constain.USERS).child(idUser).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.getValue() != null) {
-                                    try {
-                                        User user = dataSnapshot.getValue(User.class);
-                                        if (user != null) {
-                                                hideProgressDialog();
-                                                Intent intent = new Intent(MainActivity.this, MainUserActivity.class);
-                                                intent.putExtra(Constain.ID_USER, idUser);
-                                                startActivity(intent);
-                                        }
-                                        else {
-                                            showToast("Không lấy được dữ liệu User, vui lòng liên hệ với Admin!");
-                                        }
-                                    } catch (Exception ex) {
-                                        ex.printStackTrace();
+                    mData.child(Constain.USERS).child(idUser).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getValue() != null) {
+                                try {
+                                    User user = dataSnapshot.getValue(User.class);
+                                    if (user != null) {
+                                        hideProgressDialog();
+                                        Intent intent = new Intent(MainActivity.this, MainUserActivity.class);
+                                        intent.putExtra(Constain.ID_USER, idUser);
+                                        intent.putExtra(Constain.ID_STORE, false);
+                                        startActivity(intent);
+                                    } else {
+                                        showToast("Không lấy được dữ liệu User, vui lòng liên hệ với Admin!");
                                     }
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
                                 }
-                                else {
-                                    mData.child(Constain.STORES).child(idUser).addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            if (dataSnapshot.getValue() != null){
-                                                try {
-                                                    Store store = dataSnapshot.getValue(Store.class);
-                                                    if (store != null){
-                                                        hideProgressDialog();
-                                                        Intent intent = new Intent(MainActivity.this, MainStoreActivity.class);
-                                                        intent.putExtra(Constain.ID_STORE, idUser);
-                                                        startActivity(intent);
-                                                    }
-                                                    else {
-                                                        hideProgressDialog();
-                                                        showToast("Không lấy được dữ liệu cửa hàng, vui lòng liên hệ Admin!");
-                                                    }
+                            } else {
+                                mData.child(Constain.STORES).child(idUser).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.getValue() != null) {
+                                            try {
+                                                Store store = dataSnapshot.getValue(Store.class);
+                                                if (store != null) {
+                                                    hideProgressDialog();
+                                                    Intent intent = new Intent(MainActivity.this, MainStoreActivity.class);
+                                                    intent.putExtra(Constain.ID_STORE, idUser);
+                                                    intent.putExtra(Constain.IS_STORE, true);
+                                                    startActivity(intent);
+                                                } else {
+                                                    hideProgressDialog();
+                                                    showToast("Không lấy được dữ liệu cửa hàng, vui lòng liên hệ Admin!");
                                                 }
-                                                catch (Exception ex){
-                                                        ex.printStackTrace();
-                                                }
+                                            } catch (Exception ex) {
+                                                ex.printStackTrace();
                                             }
                                         }
+                                    }
 
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
 
-                                        }
-                                    });
-                                }
+                                    }
+                                });
                             }
+                        }
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                            }
-                        });
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
                 } else {
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 }
@@ -140,6 +139,7 @@ public class MainActivity extends BaseActivity {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
     }
+
     @Override
     public void onStop() {
         super.onStop();

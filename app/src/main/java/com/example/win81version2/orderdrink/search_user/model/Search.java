@@ -7,17 +7,17 @@ import android.os.Parcelable;
  * Created by Win 8.1 Version 2 on 5/6/2017.
  */
 
-public class SearchStore implements Parcelable {
+public class Search implements Parcelable {
     String linkPhoto;
     String name;
     double lo;
     double la;
 
-    public SearchStore(){
+    public Search(){
         super();
     }
 
-    public SearchStore(String linkPhoto, String name, double lo, double la) {
+    public Search(String linkPhoto, String name, double lo, double la) {
         this.linkPhoto = linkPhoto;
         this.name = name;
         this.lo = lo;
@@ -57,7 +57,7 @@ public class SearchStore implements Parcelable {
     }
 
     //Parceble
-    public SearchStore(Parcel parcel) {
+    public Search(Parcel parcel) {
         this.linkPhoto = parcel.readString();
         this.name = parcel.readString();
         this.lo = parcel.readDouble();
@@ -78,15 +78,15 @@ public class SearchStore implements Parcelable {
 
     }
 
-    public static final Creator<SearchStore> CREATOR = new Creator<SearchStore>() {
+    public static final Creator<Search> CREATOR = new Creator<Search>() {
         @Override
-        public SearchStore createFromParcel(Parcel source) {
-            return new SearchStore(source);
+        public Search createFromParcel(Parcel source) {
+            return new Search(source);
         }
 
         @Override
-        public SearchStore[] newArray(int size) {
-            return new SearchStore[size];
+        public Search[] newArray(int size) {
+            return new Search[size];
         }
     };
 }

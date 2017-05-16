@@ -1,6 +1,5 @@
 package com.example.win81version2.orderdrink.my_cart.view;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,12 +17,15 @@ import com.example.win81version2.orderdrink.history_order_user.model.HistoryOrde
 import com.example.win81version2.orderdrink.history_order_user.presenter.HistoryOrderPresenter;
 import com.example.win81version2.orderdrink.history_ship_store.model.HistoryShipStore;
 import com.example.win81version2.orderdrink.history_ship_store.presenter.HistoryShipPresenter;
+import com.example.win81version2.orderdrink.main.view.MainStoreActivity;
 import com.example.win81version2.orderdrink.my_cart.model.MyCart;
 import com.example.win81version2.orderdrink.my_cart.model.MyCartAdapter;
 import com.example.win81version2.orderdrink.oop.BaseFragment;
-import com.example.win81version2.orderdrink.product.model.Flag_Product;
+import com.example.win81version2.orderdrink.product.model.OrderProduct;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
+import com.example.win81version2.orderdrink.profile_store.presenter.UpdateStorePresenter;
 import com.example.win81version2.orderdrink.profile_user.model.User;
+import com.example.win81version2.orderdrink.profile_user.presenter.UserProfilePresenter;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,10 +49,13 @@ public class MyCartFragment extends BaseFragment {
     private TextView txtSumMoney;
     private Button btnPay;
     private float sumMoney = 0;
+    private int sumOrderUser = 0, sumOrderStore = 0;
     private String idHistoryOrder, idHistoryShip, idStore, storeName, userName, phoneNumberUser, phoneNumberStore, addressStore, addressUser, linkPhotoStore, linkPhotoUser, timeCreate;
-    private ArrayList<Flag_Product> arrFlagProduct;
+    private ArrayList<OrderProduct> arrFlagProduct;
     private HistoryOrderPresenter presenter;
     private HistoryShipPresenter shipPresenter;
+    private UserProfilePresenter profilePresenter;
+    private UpdateStorePresenter storePresenter;
 
     public MyCartFragment() {
     }
@@ -136,6 +141,8 @@ public class MyCartFragment extends BaseFragment {
                         }
                         HistoryOrderUser historyOrderUser = new HistoryOrderUser(idHistoryOrder, idStore, storeName, linkPhotoStore, phoneNumberStore, addressStore, timeCreate, arrFlagProduct, 0);
                         presenter.createHistoryOrder(idUser, idHistoryOrder, idStore, historyOrderUser);
+                        sumOrderUser += 1;
+                        profilePresenter.updateSumOrderUser(idUser, sumOrderUser);
                         createHistoryShip();
                     } else {
                         Random ra = new Random();
@@ -188,7 +195,10 @@ public class MyCartFragment extends BaseFragment {
                     shipPresenter.createHistoryShip(idStore, idUser, idHistoryShip, historyShipStore);
                     presenter.deleteMyCart(idUser, idStore);
                     arrMyCart.clear();
+                    txtSumMoney.setText("0");
                     adapter.notifyDataSetChanged();
+                    sumOrderStore += 1;
+                    storePresenter.updateSumOrderedStore(idStore, sumOrderStore);
                     showToast("Đặt hàng thành công!, vui lòng đợi điện thoại của cửa hàng trong vòng 5-10p để xác nhận hóa đơn,xin cảm ơn!");
 
                 } else {
@@ -203,7 +213,10 @@ public class MyCartFragment extends BaseFragment {
                     shipPresenter.createHistoryShip(idStore, idUser, idHistoryShip, historyShipStore);
                     presenter.deleteMyCart(idUser, idStore);
                     arrMyCart.clear();
+                    txtSumMoney.setText("0");
                     adapter.notifyDataSetChanged();
+                    sumOrderStore += 1;
+                    storePresenter.updateSumOrderedStore(idStore, sumOrderStore);
                     showToast("Đặt hàng thành công!, vui lòng đợi điện thoại của cửa hàng trong vòng 5-10p để xác nhận hóa đơn,xin cảm ơn!");
 
                 }
@@ -232,7 +245,7 @@ public class MyCartFragment extends BaseFragment {
                                 sumMoney += myCart.getPrice();
                                 arrMyCart.add(myCart);
                                 adapter.notifyDataSetChanged();
-                                arrFlagProduct.add(new Flag_Product(myCart.getProductName(), myCart.getCount(), myCart.getPrice()));
+                                arrFlagProduct.add(new OrderProduct(myCart.getProductName(), myCart.getCount(), myCart.getPrice()));
                             }
                             txtSumMoney.setText(Math.round(sumMoney) + " VNĐ");
                         } catch (Exception ex) {
@@ -309,6 +322,42 @@ public class MyCartFragment extends BaseFragment {
 
                 }
             });
+            //get SumorderStore
+            mData.child(Constain.STORES).child(idStore).child(Constain.HISTORY_SHIP_STORE).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null){
+                        for (DataSnapshot dt : dataSnapshot.getChildren()){
+                            if (dataSnapshot.getValue() != null){
+                                sumOrderStore += dt.getChildrenCount();
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+            //get SumOrderUser
+            mData.child(Constain.USERS).child(idUser).child(Constain.HISTORY_ORDER_USER).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null){
+                        for (DataSnapshot dt : dataSnapshot.getChildren()){
+                            if (dataSnapshot.getValue() != null){
+                                sumOrderUser += dt.getChildrenCount();
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -327,6 +376,9 @@ public class MyCartFragment extends BaseFragment {
         btnPay = (Button) getActivity().findViewById(R.id.btnPay);
         presenter = new HistoryOrderPresenter();
         shipPresenter = new HistoryShipPresenter();
+        MainStoreActivity view = new MainStoreActivity();
+        storePresenter = new UpdateStorePresenter(view);
+        profilePresenter = new UserProfilePresenter();
         arrFlagProduct = new ArrayList<>();
         idStore = getActivity().getIntent().getStringExtra(Constain.ID_STORE);
     }

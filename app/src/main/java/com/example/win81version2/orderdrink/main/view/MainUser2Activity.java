@@ -25,10 +25,11 @@ import com.example.win81version2.orderdrink.oop.BaseActivity;
 import com.example.win81version2.orderdrink.product.model.Product;
 import com.example.win81version2.orderdrink.product_list.view.ProductListFragment;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
+import com.example.win81version2.orderdrink.profile_store.view.Profile_Store_Fragment;
 import com.example.win81version2.orderdrink.profile_user.model.User;
-import com.example.win81version2.orderdrink.profile_user.view.ProfileUserActivity;
-import com.example.win81version2.orderdrink.search_user.model.SearchStore;
-import com.example.win81version2.orderdrink.search_user.view.SearchStoreActivity;
+import com.example.win81version2.orderdrink.profile_user.view.ProfileUser_Fragment;
+import com.example.win81version2.orderdrink.search_user.model.Search;
+import com.example.win81version2.orderdrink.search_user.view.SearchActivity;
 import com.example.win81version2.orderdrink.store_list.view.Store_List_Fragment;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.example.win81version2.orderdrink.utility.GPSTracker;
@@ -88,10 +89,12 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
         btnLogout.setOnClickListener(this);
         layoutSearch.setOnClickListener(this);
         layoutMyProfile.setOnClickListener(this);
+        layoutHome.setOnClickListener(this);
     }
 
     private void initInfo() {
         try {
+            //get Info User
             mData.child(Constain.USERS).child(idUser).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -154,6 +157,7 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
         myCartFragment = new MyCartFragment();
         Bundle bundle = new Bundle();
         bundle.putString(Constain.ID_STORE, idStore);
+        storeListFragment = new Store_List_Fragment();
         fragment = new ProductListFragment();
         fragment.setArguments(bundle);
         //Navigation Bottom
@@ -193,45 +197,54 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         int view = v.getId();
-        if (view == R.id.btn_logout_user) {
+        if (view == R.id.btn_logout_user2) {
             logOut();
         }
-        if (view == R.id.layoutSearch) {
+        if (view == R.id.layoutSearch2) {
             txtSearch.setEnabled(true);
             imgSearch.setEnabled(true);
             moveToSearchAcitvity();
         }
-        if (view == R.id.navigation_homeUser){
+        if (view == R.id.navigation_homeUser2){
             onBackPressed();
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user, storeListFragment).commit();
+            finish();
+            moveToStoreList ();
         }
-        if (view == R.id.navigation_myprofile){
-            moveToProfileActivity ();
+        if (view == R.id.navigation_myprofile2){
+            onBackPressed();
+            ahBottomNavigation.setCurrentItem(2);
+            moveToProfileFragment ();
         }
     }
 
-    private void moveToProfileActivity() {
-        Intent intent = new Intent(MainUser2Activity.this, ProfileUserActivity.class);
+    private void moveToStoreList() {
+        Intent intent = new Intent(MainUser2Activity.this, MainUserActivity.class);
         intent.putExtra(Constain.ID_USER, idUser);
-        intent.putExtra(Constain.ID_STORE, true);
+        intent.putExtra(Constain.IS_STORE, false);
         startActivity(intent);
+    }
+
+    private void moveToProfileFragment() {
+        ProfileUser_Fragment profileUserFragment = new ProfileUser_Fragment();
+        setTitle("Trang cá nhân");
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user2, profileUserFragment).commit();
     }
 
     private void moveToSearchAcitvity() {
         ArrayList<Store> arrStore = storeListFragment.getArrStore();
-        ArrayList<SearchStore> arrSearch = new ArrayList<>();
+        ArrayList<Search> arrSearch = new ArrayList<>();
         for (int i = 0; i < arrStore.size() - 1; i++) {
             try {
                 double lo = (double) arrStore.get(i).getLocation().get(Constain.LO);
                 double la = (double) arrStore.get(i).getLocation().get(Constain.LA);
-                SearchStore search = new SearchStore(arrStore.get(i).getLinkPhotoStore(), arrStore.get(i).getStoreName(), lo, la);
+                Search search = new Search(arrStore.get(i).getLinkPhotoStore(), arrStore.get(i).getStoreName(), lo, la);
                 arrSearch.add(search);
             }
             catch (Exception ex){
                 ex.printStackTrace();
             }
         }
-        Intent intent = new Intent(this,SearchStoreActivity.class);
+        Intent intent = new Intent(this,SearchActivity.class);
         intent.putExtra("search" , arrSearch);
         intent.putExtra(Constain.LO, lo);
         intent.putExtra(Constain.LA, la);
@@ -297,6 +310,8 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
             getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user2, myCartFragment).commit();
 
         } else if (position == 2) {
+            setTitle("Trang cá nhân");
+            moveToProfileFragment();
         }
     }
 

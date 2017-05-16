@@ -23,9 +23,9 @@ import com.example.win81version2.orderdrink.product.model.Product;
 import com.example.win81version2.orderdrink.product_list.view.ProductListFragment;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
 import com.example.win81version2.orderdrink.profile_user.model.User;
-import com.example.win81version2.orderdrink.profile_user.view.ProfileUserActivity;
-import com.example.win81version2.orderdrink.search_user.model.SearchStore;
-import com.example.win81version2.orderdrink.search_user.view.SearchStoreActivity;
+import com.example.win81version2.orderdrink.profile_user.view.ProfileUser_Fragment;
+import com.example.win81version2.orderdrink.search_user.model.Search;
+import com.example.win81version2.orderdrink.search_user.view.SearchActivity;
 import com.example.win81version2.orderdrink.store_list.view.Store_List_Fragment;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.example.win81version2.orderdrink.utility.GPSTracker;
@@ -210,32 +210,32 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
             getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user, storeListFragment).commit();
         }
         if (view == R.id.navigation_myprofile){
-            moveToProfileActivity ();
+            onBackPressed();
+            moveToProfileFragment ();
         }
     }
 
-    private void moveToProfileActivity() {
-        Intent intent = new Intent(MainUserActivity.this, ProfileUserActivity.class);
-        intent.putExtra(Constain.ID_USER, idUser);
-        intent.putExtra(Constain.ID_STORE, true);
-        startActivity(intent);
+    private void moveToProfileFragment() {
+        ProfileUser_Fragment profileUserFragment = new ProfileUser_Fragment();
+        setTitle("Trang cá nhân");
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user, profileUserFragment).commit();
     }
 
     private void moveToSearchAcitvity() {
         ArrayList<Store> arrStore = storeListFragment.getArrStore();
-        ArrayList<SearchStore> arrSearch = new ArrayList<>();
+        ArrayList<Search> arrSearch = new ArrayList<>();
         for (int i = 0; i < arrStore.size() - 1; i++) {
             try {
                 double lo = (double) arrStore.get(i).getLocation().get(Constain.LO);
                 double la = (double) arrStore.get(i).getLocation().get(Constain.LA);
-                SearchStore search = new SearchStore(arrStore.get(i).getLinkPhotoStore(), arrStore.get(i).getStoreName(), lo, la);
+                Search search = new Search(arrStore.get(i).getLinkPhotoStore(), arrStore.get(i).getStoreName(), lo, la);
                 arrSearch.add(search);
             }
             catch (Exception ex){
                 ex.printStackTrace();
             }
         }
-        Intent intent = new Intent(this,SearchStoreActivity.class);
+        Intent intent = new Intent(this,SearchActivity.class);
         intent.putExtra("search" , arrSearch);
         intent.putExtra(Constain.LO, lo);
         intent.putExtra(Constain.LA, la);

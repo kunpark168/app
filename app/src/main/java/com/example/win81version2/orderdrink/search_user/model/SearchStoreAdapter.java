@@ -18,18 +18,18 @@ import java.util.ArrayList;
 /**
  * Created by Win 8.1 Version 2 on 5/6/2017.
  */
-public class SearchStoreAdapter extends ArrayAdapter<SearchStore> {
+public class SearchStoreAdapter extends ArrayAdapter<Search> {
     private final String MY_DEBUG_TAG = "SearchStoreAdapter";
-    private ArrayList<SearchStore> items;
-    private ArrayList<SearchStore> itemsAll;
-    private ArrayList<SearchStore> suggestions;
+    private ArrayList<Search> items;
+    private ArrayList<Search> itemsAll;
+    private ArrayList<Search> suggestions;
     private int viewResourceId;
     private double loUser, laUser, distance;
-    public SearchStoreAdapter(Context context, int viewResourceId, ArrayList<SearchStore> items, double loUser, double laUser) {
+    public SearchStoreAdapter(Context context, int viewResourceId, ArrayList<Search> items, double loUser, double laUser) {
         super(context, viewResourceId, items);
         this.items = items;
-        this.itemsAll = (ArrayList<SearchStore>) items.clone();
-        this.suggestions = new ArrayList<SearchStore>();
+        this.itemsAll = (ArrayList<Search>) items.clone();
+        this.suggestions = new ArrayList<Search>();
         this.viewResourceId = viewResourceId;
         this.loUser = loUser;
         this.laUser = laUser;
@@ -41,7 +41,7 @@ public class SearchStoreAdapter extends ArrayAdapter<SearchStore> {
             LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = vi.inflate(viewResourceId, null);
         }
-        SearchStore search = items.get(position);
+        Search search = items.get(position);
         if (search != null) {
             TextView txtStoreName = (TextView) v.findViewById(R.id.txtStoreName_itemsearch);
             TextView txtDistance = (TextView) v.findViewById(R.id.txtDistance_itemsearch);
@@ -79,7 +79,7 @@ public class SearchStoreAdapter extends ArrayAdapter<SearchStore> {
     Filter nameFilter = new Filter() {
         @Override
         public String convertResultToString(Object resultValue) {
-            String str = ((SearchStore) (resultValue)).getName();
+            String str = ((Search) (resultValue)).getName();
             return str;
         }
 
@@ -87,7 +87,7 @@ public class SearchStoreAdapter extends ArrayAdapter<SearchStore> {
         protected FilterResults performFiltering(CharSequence constraint) {
             if (constraint != null) {
                 suggestions.clear();
-                for (SearchStore search : itemsAll) {
+                for (Search search : itemsAll) {
                     if (search.getName().toLowerCase().startsWith(constraint.toString().toLowerCase())) {
                         suggestions.add(search);
                     }
@@ -103,10 +103,10 @@ public class SearchStoreAdapter extends ArrayAdapter<SearchStore> {
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            ArrayList<SearchStore> filteredList = (ArrayList<SearchStore>) results.values;
+            ArrayList<Search> filteredList = (ArrayList<Search>) results.values;
             if (results != null && results.count > 0) {
                 clear();
-                for (SearchStore c : filteredList) {
+                for (Search c : filteredList) {
                     add(c);
                 }
                 notifyDataSetChanged();

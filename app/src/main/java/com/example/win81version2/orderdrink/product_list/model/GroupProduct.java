@@ -1,15 +1,11 @@
 package com.example.win81version2.orderdrink.product_list.model;
 
-import android.os.Parcelable;
-
 
 import com.bignerdranch.expandablerecyclerview.model.Parent;
 import com.example.win81version2.orderdrink.product.model.Product;
-import com.example.win81version2.orderdrink.search_user.model.SearchStore;
 
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by Nhan on 5/9/2017.
