@@ -1,15 +1,12 @@
 package com.example.win81version2.orderdrink.history_ship_store.model;
 
-import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.win81version2.orderdrink.R;
-import com.example.win81version2.orderdrink.category.model.Category;
 import com.example.win81version2.orderdrink.product.model.OrderProduct;
 
 import java.util.ArrayList;
@@ -29,7 +26,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
     @Override
     public ViewHolderOrder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View itemview = inflater.inflate(R.layout.item_flag_product, parent, false);
+        View itemview = inflater.inflate(R.layout.item_order_product, parent, false);
         return new ViewHolderOrder(itemview);
     }
 

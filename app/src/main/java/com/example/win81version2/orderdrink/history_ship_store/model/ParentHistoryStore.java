@@ -1,5 +1,7 @@
 package com.example.win81version2.orderdrink.history_ship_store.model;
 
+import android.support.annotation.NonNull;
+
 import com.bignerdranch.expandablerecyclerview.model.Parent;
 import com.example.win81version2.orderdrink.product.model.OrderProduct;
 
@@ -9,7 +11,7 @@ import java.util.List;
  * Created by Win 8.1 Version 2 on 5/15/2017.
  */
 
-public class ParentHistoryStore implements Parent<ListOrderProduct> {
+public class ParentHistoryStore implements Parent<ListOrderProduct> , Comparable<ParentHistoryStore> {
 
     private List<ListOrderProduct> mChildrenProduct;
 
@@ -37,5 +39,10 @@ public class ParentHistoryStore implements Parent<ListOrderProduct> {
     @Override
     public boolean isInitiallyExpanded() {
         return false;
+    }
+
+    @Override
+    public int compareTo(@NonNull ParentHistoryStore o) {
+        return getInfoUserOrder().getStatus() - o.getInfoUserOrder().getStatus();
     }
 }

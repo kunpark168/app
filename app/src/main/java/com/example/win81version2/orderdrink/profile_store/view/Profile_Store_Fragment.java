@@ -42,10 +42,10 @@ public class Profile_Store_Fragment extends BaseFragment implements View.OnClick
     private String idStore, storeName, phoneNumber, address, email;
     private FrameLayout layoutChangeCover, layoutChangeAvata;
     private TextView txtSumOrdered, txtSumShipped, txtStoreName, txtPhoneNumberStore, txtEmailStore, txtAddressStore;
-    private LinearLayout layoutEditStoreName, layoutEditEmailStore, layoutEditPhoneNumberStore, layoutEditAddressStore, layoutEditPasswordStore;
-    private ImageView imgCover, imgAvata;
+    private LinearLayout layoutEditStoreName, layoutEditEmailStore, layoutEditPhoneNumberStore, layoutEditAddressStore, layoutEditPasswordStore, layoutPassword;
+    private ImageView imgCover, imgAvata, imgEditAvata, imgEditCover;
     private DatabaseReference mData;
-    private boolean isStore = true;
+    private boolean isStore;
     private UpdateStorePresenter presenter;
     private MainStoreActivity view;
     private Bitmap bitmapCover = null;
@@ -60,6 +60,8 @@ public class Profile_Store_Fragment extends BaseFragment implements View.OnClick
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        isStore = getArguments().getBoolean(Constain.IS_STORE);
+        idStore = getArguments().getString(Constain.ID_STORE);
         return inflater.inflate(R.layout.fragment_profile__store_, container, false);
     }
 
@@ -83,8 +85,9 @@ public class Profile_Store_Fragment extends BaseFragment implements View.OnClick
 
     private void initInfo() {
         if (isStore == false){
-            layoutChangeCover.setVisibility(View.INVISIBLE);
-            layoutChangeAvata.setVisibility(View.INVISIBLE);
+            imgEditCover.setVisibility(View.INVISIBLE);
+            imgEditAvata.setVisibility(View.INVISIBLE);
+            layoutPassword.setVisibility(View.INVISIBLE);
             layoutEditStoreName.setVisibility(View.INVISIBLE);
             layoutEditEmailStore.setVisibility(View.INVISIBLE);
             layoutEditPhoneNumberStore.setVisibility(View.INVISIBLE);
@@ -151,8 +154,6 @@ public class Profile_Store_Fragment extends BaseFragment implements View.OnClick
     }
 
     private void addControls() {
-        idStore = getActivity().getIntent().getStringExtra(Constain.ID_STORE);
-        isStore = getActivity().getIntent().getBooleanExtra(Constain.IS_STORE, false);
         mData = FirebaseDatabase.getInstance().getReference();
         view = new MainStoreActivity();
         presenter = new UpdateStorePresenter(view);
@@ -163,6 +164,7 @@ public class Profile_Store_Fragment extends BaseFragment implements View.OnClick
         layoutEditEmailStore = (LinearLayout) getActivity().findViewById(R.id.layoutEditEmailStore);
         layoutEditStoreName = (LinearLayout) getActivity().findViewById(R.id.layoutEditStoreName);
         layoutEditPasswordStore = (LinearLayout) getActivity().findViewById(R.id.layoutEditPasswordStore);
+        layoutPassword = (LinearLayout) getActivity().findViewById(R.id.layoutPasswordStore);
         layoutEditPhoneNumberStore = (LinearLayout) getActivity().findViewById(R.id.layoutEditPhoneNumberStore);
         txtAddressStore = (TextView) getActivity().findViewById(R.id.txtAddress_profileStore);
         txtEmailStore = (TextView) getActivity().findViewById(R.id.txtEmail_profileStore);
@@ -172,6 +174,8 @@ public class Profile_Store_Fragment extends BaseFragment implements View.OnClick
         txtStoreName = (TextView) getActivity().findViewById(R.id.txtStoreName_profileStore);
         imgCover = (ImageView) getActivity().findViewById(R.id.imgCoverStore);
         imgAvata = (ImageView) getActivity().findViewById(R.id.imgAvataStore);
+        imgEditAvata = (ImageView) getActivity().findViewById(R.id.imgEditAvataStore);
+        imgEditCover = (ImageView) getActivity().findViewById(R.id.imgEditCoverStore);
     }
 
     public String getEmail() {

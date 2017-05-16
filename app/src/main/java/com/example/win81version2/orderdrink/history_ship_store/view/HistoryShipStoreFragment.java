@@ -15,9 +15,12 @@ import com.example.win81version2.orderdrink.history_ship_store.model.ListOrderPr
 import com.example.win81version2.orderdrink.history_ship_store.model.OrderListStoreAdapter;
 import com.example.win81version2.orderdrink.history_ship_store.model.ParentHistoryStore;
 import com.example.win81version2.orderdrink.history_ship_store.model.ParentInfoUserOrder;
+import com.example.win81version2.orderdrink.main.view.MainStoreActivity;
+import com.example.win81version2.orderdrink.main.view.MainUser2Activity;
 import com.example.win81version2.orderdrink.oop.BaseFragment;
 import com.example.win81version2.orderdrink.product.model.OrderProduct;
 import com.example.win81version2.orderdrink.product_list.model.GroupProduct;
+import com.example.win81version2.orderdrink.profile_store.presenter.UpdateStorePresenter;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class HistoryShipStoreFragment extends BaseFragment {
@@ -36,6 +40,8 @@ public class HistoryShipStoreFragment extends BaseFragment {
     private OrderListStoreAdapter adapter;
     private RecyclerView recyclerViewShipStore;
     private RecyclerView.LayoutManager mManager;
+    private int sumShipped;
+    private UpdateStorePresenter presenter;
 
     public HistoryShipStoreFragment() {
     }
@@ -52,14 +58,15 @@ public class HistoryShipStoreFragment extends BaseFragment {
         addControls();
     }
 
-
     private void addControls() {
         idStore = getActivity().getIntent().getStringExtra(Constain.ID_STORE);
         mData = FirebaseDatabase.getInstance().getReference();
         recyclerViewShipStore = (RecyclerView) getActivity().findViewById(R.id.recyclerShipStore);
         recyclerViewShipStore.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new OrderListStoreAdapter(getContext(), initData());
+        adapter = new OrderListStoreAdapter(getContext(), idStore, initData());
         adapter.collapseAllParents();
+        MainStoreActivity view = new MainStoreActivity();
+        presenter = new UpdateStorePresenter(view);
         recyclerViewShipStore.setAdapter(adapter);
     }
 
@@ -84,11 +91,12 @@ public class HistoryShipStoreFragment extends BaseFragment {
                                         for (DataSnapshot dt : dataSnapshot.getChildren()) {
                                             try {
                                                 HistoryShipStore historyShipStore = dt.getValue(HistoryShipStore.class);
-                                                ParentInfoUserOrder parentInfoUserOrder = new ParentInfoUserOrder(historyShipStore.getUserName(), historyShipStore.getLinkPhotoUser(), historyShipStore.getPhoneNumber(), historyShipStore.getAddress(), historyShipStore.getTimeOrder());
+                                                ParentInfoUserOrder parentInfoUserOrder = new ParentInfoUserOrder(historyShipStore.getUserName(), historyShipStore.getIdUser(), historyShipStore.getIdHistoryStore(), historyShipStore.getLinkPhotoUser(), historyShipStore.getPhoneNumber(), historyShipStore.getAddress(), historyShipStore.getTimeOrder(), historyShipStore.getStatusOrder());
                                                 List<ListOrderProduct> listOrderProducts = new ArrayList<ListOrderProduct>();
                                                 listOrderProducts.add(new ListOrderProduct(historyShipStore.getArrProduct()));
                                                 ParentHistoryStore parentHistoryStore = new ParentHistoryStore(listOrderProducts, parentInfoUserOrder);
                                                 parentObjectList.add(parentHistoryStore);
+                                                Collections.sort(parentObjectList);
                                                 adapter.notifyParentDataSetChanged(true);
                                             } catch (Exception ex) {
                                                 ex.printStackTrace();
@@ -112,5 +120,7 @@ public class HistoryShipStoreFragment extends BaseFragment {
             }
         });
     }
+
+
 }
 

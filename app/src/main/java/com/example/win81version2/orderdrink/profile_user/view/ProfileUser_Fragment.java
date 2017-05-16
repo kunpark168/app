@@ -156,7 +156,7 @@ public class ProfileUser_Fragment extends BaseFragment implements View.OnClickLi
         layoutEditAddress = (LinearLayout) getActivity().findViewById(R.id.layoutEditAdress);
         layoutEditPhoneNumber = (LinearLayout) getActivity().findViewById(R.id.layoutEditPhoneNumber);
         layoutEditUserName = (LinearLayout) getActivity().findViewById(R.id.layoutEditUserName);
-        layoutEditPassword = (LinearLayout) getActivity().findViewById(R.id.layoutEditPasswordStore);
+        layoutEditPassword = (LinearLayout) getActivity().findViewById(R.id.layoutEditPasswordUser);
         layoutLocation = (LinearLayout) getActivity().findViewById(R.id.layoutLocation);
         //get  Intent
         Intent intent = getActivity().getIntent();

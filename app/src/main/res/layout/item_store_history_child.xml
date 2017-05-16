@@ -61,11 +61,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_textview"
-                tools:listitem="@layout/item_flag_product"></android.support.v7.widget.RecyclerView>
+                tools:listitem="@layout/item_order_product"></android.support.v7.widget.RecyclerView>
         </LinearLayout>
     </android.support.v7.widget.CardView>
     <android.support.v7.widget.CardView
-        android:id="@+id/layoutStatusOrder"
+        android:id="@+id/layoutStatusShipStore"
         android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="50dp">

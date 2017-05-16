@@ -50,7 +50,7 @@ public class MyCartFragment extends BaseFragment {
     private Button btnPay;
     private float sumMoney = 0;
     private int sumOrderUser = 0, sumOrderStore = 0;
-    private String idHistoryOrder, idHistoryShip, idStore, storeName, userName, phoneNumberUser, phoneNumberStore, addressStore, addressUser, linkPhotoStore, linkPhotoUser, timeCreate;
+    private String idHistory, idStore, storeName, userName, phoneNumberUser = "", phoneNumberStore, addressStore, addressUser = "", linkPhotoStore, linkPhotoUser, timeCreate;
     private ArrayList<OrderProduct> arrFlagProduct;
     private HistoryOrderPresenter presenter;
     private HistoryShipPresenter shipPresenter;
@@ -129,9 +129,9 @@ public class MyCartFragment extends BaseFragment {
                                 String number = String.valueOf(ra.nextInt(10));
                                 mBuilder.append(number);
                             }
-                            idHistoryOrder = mBuilder.toString();
+                            idHistory = mBuilder.toString();
                             for (DataSnapshot dt : dataSnapshot.getChildren()) {
-                                if (idHistoryOrder.equals(dt.getKey())) {
+                                if (idHistory.equals(dt.getKey())) {
                                     flag_id = true;
                                     break;
                                 } else {
@@ -139,11 +139,33 @@ public class MyCartFragment extends BaseFragment {
                                 }
                             }
                         }
-                        HistoryOrderUser historyOrderUser = new HistoryOrderUser(idHistoryOrder, idStore, storeName, linkPhotoStore, phoneNumberStore, addressStore, timeCreate, arrFlagProduct, 0);
-                        presenter.createHistoryOrder(idUser, idHistoryOrder, idStore, historyOrderUser);
-                        sumOrderUser += 1;
-                        profilePresenter.updateSumOrderUser(idUser, sumOrderUser);
-                        createHistoryShip();
+                        boolean flag = true;
+                        if (phoneNumberUser.equals("")) {
+                            flag = false;
+                            showToast("Vui lòng cập nhật số điện thoại trước khi đặt hàng");
+                        } else if (addressUser.equals("")) {
+                            flag = false;
+                            showToast("Vui lòng cập nhật địa trước khi đặt hàng");
+                        } else if (phoneNumberUser.equals("") && addressUser.equals("")) {
+                            flag = false;
+                            showToast("Vui lòng cập nhật số điện thoại và trước khi đặt hàng");
+                        }
+                        if (flag == true) {
+                            HistoryOrderUser historyOrderUser = new HistoryOrderUser(idHistory, idStore, storeName, linkPhotoStore, phoneNumberStore, addressStore, timeCreate, arrFlagProduct, 0);
+                            presenter.createHistoryOrder(idUser, idHistory, idStore, historyOrderUser);
+                            sumOrderUser += 1;
+                            profilePresenter.updateSumOrderUser(idUser, sumOrderUser);
+                            //createHistoryShip same ID
+                            HistoryShipStore historyShipStore = new HistoryShipStore(idHistory, idUser, userName, linkPhotoUser, phoneNumberUser, addressUser, timeCreate, arrFlagProduct, 0);
+                            shipPresenter.createHistoryShip(idStore, idUser, idHistory, historyShipStore);
+                            presenter.deleteMyCart(idUser, idStore);
+                            arrMyCart.clear();
+                            txtSumMoney.setText("0");
+                            adapter.notifyDataSetChanged();
+                            sumOrderStore += 1;
+                            storePresenter.updateSumOrderedStore(idStore, sumOrderStore);
+                            showToast("Đặt hàng thành công!, vui lòng đợi điện thoại của cửa hàng trong vòng 5-10p để xác nhận hóa đơn,xin cảm ơn!");
+                        }
                     } else {
                         Random ra = new Random();
                         StringBuilder mBuilder = new StringBuilder();
@@ -151,10 +173,32 @@ public class MyCartFragment extends BaseFragment {
                             String number = String.valueOf(ra.nextInt(10));
                             mBuilder.append(number);
                         }
-                        idHistoryOrder = mBuilder.toString();
-                        HistoryOrderUser historyOrderUser = new HistoryOrderUser(idHistoryOrder, idStore, storeName, linkPhotoStore, phoneNumberStore, addressStore, timeCreate, arrFlagProduct, 0);
-                        presenter.createHistoryOrder(idUser, idHistoryOrder, idStore, historyOrderUser);
-                        createHistoryShip();
+                        idHistory = mBuilder.toString();
+                        boolean flag = true;
+                        if (phoneNumberUser.equals("")) {
+                            flag = false;
+                            showToast("Vui lòng cập nhật số điện thoại trước khi đặt hàng");
+                        } else if (addressUser.equals("")) {
+                            flag = false;
+                            showToast("Vui lòng cập nhật địa trước khi đặt hàng");
+                        } else if (phoneNumberUser.equals("") && addressUser.equals("")) {
+                            flag = false;
+                            showToast("Vui lòng cập nhật số điện thoại và trước khi đặt hàng");
+                        }
+                        if (flag == true) {
+                            HistoryOrderUser historyOrderUser = new HistoryOrderUser(idHistory, idStore, storeName, linkPhotoStore, phoneNumberStore, addressStore, timeCreate, arrFlagProduct, 0);
+                            presenter.createHistoryOrder(idUser, idHistory, idStore, historyOrderUser);
+                            //createHistoryShip same ID
+                            HistoryShipStore historyShipStore = new HistoryShipStore(idHistory, idUser, userName, linkPhotoUser, phoneNumberUser, addressUser, timeCreate, arrFlagProduct, 0);
+                            shipPresenter.createHistoryShip(idStore, idUser, idHistory, historyShipStore);
+                            presenter.deleteMyCart(idUser, idStore);
+                            arrMyCart.clear();
+                            txtSumMoney.setText("0");
+                            adapter.notifyDataSetChanged();
+                            sumOrderStore += 1;
+                            storePresenter.updateSumOrderedStore(idStore, sumOrderStore);
+                            showToast("Đặt hàng thành công!, vui lòng đợi điện thoại của cửa hàng trong vòng 5-10p để xác nhận hóa đơn,xin cảm ơn!");
+                        }
                     }
                 }
 
@@ -166,67 +210,6 @@ public class MyCartFragment extends BaseFragment {
         } catch (Exception ex) {
 
         }
-    }
-
-    private void createHistoryShip() {
-        mData.child(Constain.STORES).child(idStore).child(Constain.HISTORY_SHIP_STORE).child(idUser).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() != null) {
-                    boolean flag_id = true;
-                    while (flag_id == true) {
-                        Random ra = new Random();
-                        StringBuilder mBuilder = new StringBuilder();
-                        for (int i = 0; i <= 10; i++) {
-                            String number = String.valueOf(ra.nextInt(10));
-                            mBuilder.append(number);
-                        }
-                        idHistoryShip = mBuilder.toString();
-                        for (DataSnapshot dt : dataSnapshot.getChildren()) {
-                            if (idHistoryShip.equals(dt.getKey())) {
-                                flag_id = true;
-                                break;
-                            } else {
-                                flag_id = false;
-                            }
-                        }
-                    }
-                    HistoryShipStore historyShipStore = new HistoryShipStore(idHistoryShip, idUser, userName, linkPhotoUser, phoneNumberUser, addressUser, timeCreate, arrFlagProduct, 0);
-                    shipPresenter.createHistoryShip(idStore, idUser, idHistoryShip, historyShipStore);
-                    presenter.deleteMyCart(idUser, idStore);
-                    arrMyCart.clear();
-                    txtSumMoney.setText("0");
-                    adapter.notifyDataSetChanged();
-                    sumOrderStore += 1;
-                    storePresenter.updateSumOrderedStore(idStore, sumOrderStore);
-                    showToast("Đặt hàng thành công!, vui lòng đợi điện thoại của cửa hàng trong vòng 5-10p để xác nhận hóa đơn,xin cảm ơn!");
-
-                } else {
-                    Random ra = new Random();
-                    StringBuilder mBuilder = new StringBuilder();
-                    for (int i = 0; i <= 10; i++) {
-                        String number = String.valueOf(ra.nextInt(10));
-                        mBuilder.append(number);
-                    }
-                    idHistoryShip = mBuilder.toString();
-                    HistoryShipStore historyShipStore = new HistoryShipStore(idHistoryShip, idUser, userName, linkPhotoUser, phoneNumberUser, addressUser, timeCreate, arrFlagProduct, 0);
-                    shipPresenter.createHistoryShip(idStore, idUser, idHistoryShip, historyShipStore);
-                    presenter.deleteMyCart(idUser, idStore);
-                    arrMyCart.clear();
-                    txtSumMoney.setText("0");
-                    adapter.notifyDataSetChanged();
-                    sumOrderStore += 1;
-                    storePresenter.updateSumOrderedStore(idStore, sumOrderStore);
-                    showToast("Đặt hàng thành công!, vui lòng đợi điện thoại của cửa hàng trong vòng 5-10p để xác nhận hóa đơn,xin cảm ơn!");
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     private void initInfo() {
@@ -272,7 +255,7 @@ public class MyCartFragment extends BaseFragment {
                             if (store.getPhoneNumber() != null) {
                                 phoneNumberStore = store.getPhoneNumber();
                             }
-                            if (!store.getLinkPhotoStore().equals("")) {
+                            if (store.getLinkPhotoStore() != null) {
                                 linkPhotoStore = store.getLinkPhotoStore();
                             }
                             if (store.getLocation() != null) {
@@ -294,7 +277,7 @@ public class MyCartFragment extends BaseFragment {
             mData.child(Constain.USERS).child(idUser).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.getValue() != null){
+                    if (dataSnapshot.getValue() != null) {
                         try {
                             User user = dataSnapshot.getValue(User.class);
                             if (user.getUserName() != null) {
@@ -310,8 +293,7 @@ public class MyCartFragment extends BaseFragment {
                                 HashMap<String, Object> location = user.getLocation();
                                 addressUser = (String) location.get(Constain.ADDRESS);
                             }
-                        }
-                        catch (Exception ex){
+                        } catch (Exception ex) {
                             ex.printStackTrace();
                         }
                     }
@@ -326,11 +308,20 @@ public class MyCartFragment extends BaseFragment {
             mData.child(Constain.STORES).child(idStore).child(Constain.HISTORY_SHIP_STORE).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.getValue() != null){
-                        for (DataSnapshot dt : dataSnapshot.getChildren()){
-                            if (dataSnapshot.getValue() != null){
-                                sumOrderStore += dt.getChildrenCount();
-                            }
+                    sumOrderStore = 0;
+                    if (dataSnapshot.getValue() != null) {
+                        for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                            mData.child(Constain.STORES).child(idStore).child(Constain.HISTORY_SHIP_STORE).child(dt.getKey()).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    sumOrderStore += dataSnapshot.getChildrenCount();
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
                         }
                     }
                 }
@@ -344,11 +335,20 @@ public class MyCartFragment extends BaseFragment {
             mData.child(Constain.USERS).child(idUser).child(Constain.HISTORY_ORDER_USER).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.getValue() != null){
-                        for (DataSnapshot dt : dataSnapshot.getChildren()){
-                            if (dataSnapshot.getValue() != null){
-                                sumOrderUser += dt.getChildrenCount();
-                            }
+                    sumOrderUser = 0;
+                    if (dataSnapshot.getValue() != null) {
+                        for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                            mData.child(Constain.USERS).child(idUser).child(Constain.HISTORY_ORDER_USER).child(dt.getKey()).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    sumOrderUser += dataSnapshot.getChildrenCount();
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
                         }
                     }
                 }

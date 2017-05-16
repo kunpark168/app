@@ -6,31 +6,35 @@ package com.example.win81version2.orderdrink.history_ship_store.model;
 
 public class ParentInfoUserOrder {
     private String nameUser;
+    private String idUser;
+    private String idHistoryShip;
     private String linkPhotoUser;
     private String phoneNumberUser;
     private String addressUser;
     private String timeOrder;
-
     public int getStatus() {
-        return status;
+        return statusOrder;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setStatus(int statusOrder) {
+        this.statusOrder = statusOrder;
     }
 
-    private int status;
+    private int statusOrder;
 
     public String getNameUser() {
         return nameUser;
     }
 
-    public ParentInfoUserOrder(String nameUser, String linkPhotoUser, String phoneNumberUser, String addressUser, String timeOrder) {
+    public ParentInfoUserOrder(String nameUser, String idUser, String idHistoryShip, String linkPhotoUser, String phoneNumberUser, String addressUser, String timeOrder, int statusOrder) {
         this.nameUser = nameUser;
+        this.idUser = idUser;
+        this.idHistoryShip = idHistoryShip;
         this.linkPhotoUser = linkPhotoUser;
         this.phoneNumberUser = phoneNumberUser;
         this.addressUser = addressUser;
         this.timeOrder = timeOrder;
+        this.statusOrder = statusOrder;
     }
 
     public void setNameUser(String nameUser) {
@@ -39,6 +43,22 @@ public class ParentInfoUserOrder {
 
     public String getLinkPhotoUser() {
         return linkPhotoUser;
+    }
+
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public String getIdHistoryShip() {
+        return idHistoryShip;
+    }
+
+    public void setIdHistoryShip(String idHistoryShip) {
+        this.idHistoryShip = idHistoryShip;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
     }
 
     public void setLinkPhotoUser(String linkPhotoUser) {

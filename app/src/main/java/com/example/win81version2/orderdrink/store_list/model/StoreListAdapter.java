@@ -294,6 +294,8 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder>{
         holder.btnCallnow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Store store1 = arrStore.get(position);
+                ((MainUserActivity) mContext).moveToProfileStoreFragment(store1.getIdStore());
             }
         });
        //btnView Order click

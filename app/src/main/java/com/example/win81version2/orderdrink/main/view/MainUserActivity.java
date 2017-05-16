@@ -22,6 +22,7 @@ import com.example.win81version2.orderdrink.oop.BaseActivity;
 import com.example.win81version2.orderdrink.product.model.Product;
 import com.example.win81version2.orderdrink.product_list.view.ProductListFragment;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
+import com.example.win81version2.orderdrink.profile_store.view.Profile_Store_Fragment;
 import com.example.win81version2.orderdrink.profile_user.model.User;
 import com.example.win81version2.orderdrink.profile_user.view.ProfileUser_Fragment;
 import com.example.win81version2.orderdrink.search_user.model.Search;
@@ -242,13 +243,14 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
         startActivity(intent);
     }
 
-    public void replaceFragment(String idStore) {
+    public void moveToProfileStoreFragment (String idStore) {
         Bundle bundle = new Bundle();
+        bundle.putBoolean(Constain.IS_STORE, false);
         bundle.putString(Constain.ID_STORE, idStore);
-        ProductListFragment newFragment = new ProductListFragment();
-        newFragment.setArguments(bundle);
+        Profile_Store_Fragment profileStoreFragment = new Profile_Store_Fragment();
+        profileStoreFragment.setArguments(bundle);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content_id_user, newFragment);
+        transaction.replace(R.id.content_id_user, profileStoreFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

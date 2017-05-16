@@ -67,5 +67,7 @@ public class Constain {
     public static final String TIME_ORDER = "timeOrder";
     public static final String COUNT = "count";
     public static final String STATUS_PRODUCTS = "statusProduct";
+    //Anything
+    public static final String TAB_INDEX = "TAB_INDEX";
 
 }

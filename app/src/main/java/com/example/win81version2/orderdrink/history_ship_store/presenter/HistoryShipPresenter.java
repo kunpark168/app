@@ -21,4 +21,16 @@ public class HistoryShipPresenter {
     public void createHistoryShip (String idStore, String idUser, String idHistoryShip, HistoryShipStore historyShipStore){
        submitter.createHistoryShip(idStore, idUser, idHistoryShip, historyShipStore);
     }
+    public void updateStatusOrderStore (String idStore, String idUser, String idHistoryShip, int statusOrder){
+       submitter.updateStatusOrderStore(idStore, idUser, idHistoryShip, statusOrder);
+    }
+    public void updateStatusOrderUser (String idStore, String idUser, String idHistory, int statusOrder){
+        submitter.updateStatusOrderUser(idStore, idUser, idHistory, statusOrder);
+    }
+    public void updateSumShippedStore (String idStore, int sumShipped){
+        submitter.updateSumShippedStore(idStore, sumShipped);
+    }
+    public void updateSumShippedUser (String idUser, int sumShipped){
+        submitter.updateSumShippedUser(idUser, sumShipped);
+    }
 }

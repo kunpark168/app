@@ -1,5 +1,7 @@
 package com.example.win81version2.orderdrink.product_list.view;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -38,7 +41,8 @@ public class ProductListFragment extends Fragment {
     private ArrayList<Product> arrProduct;
     private RecyclerView recyclerProduct;
     private DatabaseReference mData;
-    private String idStore;
+    private String idStore, phoneNumber = "";
+    private Button btnCallNow;
 
     private ScrollView scroll;
     private TextView txtStoreName, txtAddressStore, txtTimeWorkStore;
@@ -61,6 +65,20 @@ public class ProductListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         addControls();
         initInfo();
+        addEvent ();
+    }
+
+    private void addEvent() {
+        btnCallNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!phoneNumber.equals("")) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:" + phoneNumber));
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     private void initInfo() {
@@ -92,6 +110,9 @@ public class ProductListFragment extends Fragment {
                                         .into(imgCoverStore);
                             }
                         }
+                        if (store.getPhoneNumber() != null){
+                            phoneNumber = store.getPhoneNumber();
+                        }
                     }
                 }
 
@@ -107,6 +128,7 @@ public class ProductListFragment extends Fragment {
 
     private void addControls() {
         arrProduct = new ArrayList<>();
+        btnCallNow = (Button) getActivity().findViewById(R.id.btnCallNow);
         scroll = (ScrollView) getActivity().findViewById(R.id.scrollbarP);
         imgCoverStore = (ImageView) getActivity().findViewById(R.id.imgCoverStore_productlist);
         mData = FirebaseDatabase.getInstance().getReference();

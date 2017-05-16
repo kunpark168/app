@@ -25,7 +25,6 @@ import com.example.win81version2.orderdrink.oop.BaseActivity;
 import com.example.win81version2.orderdrink.product.model.Product;
 import com.example.win81version2.orderdrink.product_list.view.ProductListFragment;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
-import com.example.win81version2.orderdrink.profile_store.view.Profile_Store_Fragment;
 import com.example.win81version2.orderdrink.profile_user.model.User;
 import com.example.win81version2.orderdrink.profile_user.view.ProfileUser_Fragment;
 import com.example.win81version2.orderdrink.search_user.model.Search;
@@ -46,7 +45,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MainUser2Activity extends BaseActivity implements View.OnClickListener, Serializable , AHBottomNavigation.OnTabSelectedListener{
+public class MainUser2Activity extends BaseActivity implements View.OnClickListener, Serializable , AHBottomNavigation.OnTabSelectedListener {
 
     private ImageView imgAvata, imgSearch;
     private AHBottomNavigation ahBottomNavigation;
@@ -62,7 +61,7 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
     private LinearLayout layoutSearch, layoutHome, layoutMyfavorite, layoutOrderHistory, layoutRate, layoutShare, layoutMyProfile;
     private Store_List_Fragment storeListFragment;
     private MyCartFragment myCartFragment;
-    private ProductListFragment fragment;
+    private ProductListFragment productListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,8 +104,8 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
                             addressUser = "";
                             if (user.getLocation() != null) {
                                 HashMap<String, Object> flag = new HashMap<>();
-                                    flag = user.getLocation();
-                                    addressUser = String.valueOf(flag.get(Constain.ADDRESS));
+                                flag = user.getLocation();
+                                addressUser = String.valueOf(flag.get(Constain.ADDRESS));
                             }
                             location.put(Constain.LO, lo);
                             location.put(Constain.LA, la);
@@ -135,8 +134,7 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
 
                 }
             });
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
 
         }
 
@@ -158,8 +156,8 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
         Bundle bundle = new Bundle();
         bundle.putString(Constain.ID_STORE, idStore);
         storeListFragment = new Store_List_Fragment();
-        fragment = new ProductListFragment();
-        fragment.setArguments(bundle);
+        productListFragment = new ProductListFragment();
+        productListFragment.setArguments(bundle);
         //Navigation Bottom
         ahBottomNavigation = (AHBottomNavigation) findViewById(R.id.navigation_User);
         initItemNavigation();
@@ -205,15 +203,15 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
             imgSearch.setEnabled(true);
             moveToSearchAcitvity();
         }
-        if (view == R.id.navigation_homeUser2){
+        if (view == R.id.navigation_homeUser2) {
             onBackPressed();
             finish();
-            moveToStoreList ();
+            moveToStoreList();
         }
-        if (view == R.id.navigation_myprofile2){
+        if (view == R.id.navigation_myprofile2) {
             onBackPressed();
             ahBottomNavigation.setCurrentItem(2);
-            moveToProfileFragment ();
+            moveToProfileFragment();
         }
     }
 
@@ -239,13 +237,12 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
                 double la = (double) arrStore.get(i).getLocation().get(Constain.LA);
                 Search search = new Search(arrStore.get(i).getLinkPhotoStore(), arrStore.get(i).getStoreName(), lo, la);
                 arrSearch.add(search);
-            }
-            catch (Exception ex){
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
-        Intent intent = new Intent(this,SearchActivity.class);
-        intent.putExtra("search" , arrSearch);
+        Intent intent = new Intent(this, SearchActivity.class);
+        intent.putExtra("search", arrSearch);
         intent.putExtra(Constain.LO, lo);
         intent.putExtra(Constain.LA, la);
         startActivity(intent);
@@ -282,6 +279,7 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
         });
         alert.show();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -297,12 +295,12 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
             }
         }
     }
+
     @Override
     public void onTabSelected(int position, boolean wasSelected) {
         if (position == 0) {
-            createProductListFragment(idStore);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.content_id_user2, fragment);
+            transaction.replace(R.id.content_id_user2, productListFragment);
             transaction.addToBackStack(null);
             transaction.commit();
 
@@ -315,6 +313,4 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
         }
     }
 
-    public void createProductListFragment(String idStore) {
-    }
 }

@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.win81version2.orderdrink.profile_user.view.ProfileUserActivity">
+    android:orientation="vertical">
     //4
 
     <LinearLayout
@@ -33,6 +32,7 @@
                     android:scaleType="fitXY"
                     android:src="@drawable/shop_dingteashop" />
                 <ImageView
+                    android:id="@+id/imgEditCoverStore"
                     android:src="@drawable/shop_dingteashop_edit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
@@ -53,6 +53,7 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/store" />
                 <ImageView
+                    android:id="@+id/imgEditAvataStore"
                     android:src="@drawable/imgeditphoto"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
@@ -398,6 +399,7 @@
                 android:layout_weight="1">
 
                 <LinearLayout
+                    android:id="@+id/layoutPasswordStore"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"

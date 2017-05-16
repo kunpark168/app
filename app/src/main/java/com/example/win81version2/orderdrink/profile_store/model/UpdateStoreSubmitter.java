@@ -145,5 +145,8 @@ public class UpdateStoreSubmitter {
     public void updateSumOrderedStore (String idStore, int sumOrdered){
         mData.child(Constain.STORES).child(idStore).child(Constain.SUM_ORDERED).setValue(sumOrdered);
     }
+    public void updateSumShippedStore (String idStore, int sumShipped){
+        mData.child(Constain.STORES).child(idStore).child(Constain.SUM_SHIPPED).setValue(sumShipped);
+    }
 
 }

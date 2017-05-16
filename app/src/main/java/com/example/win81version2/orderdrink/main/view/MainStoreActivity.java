@@ -38,6 +38,7 @@ import com.example.win81version2.orderdrink.product_list.view.ProductListFragmen
 import com.example.win81version2.orderdrink.profile_store.model.Store;
 import com.example.win81version2.orderdrink.profile_store.presenter.UpdateStorePresenter;
 import com.example.win81version2.orderdrink.profile_store.view.Profile_Store_Fragment;
+import com.example.win81version2.orderdrink.signup.view.ChooseSignnup;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.example.win81version2.orderdrink.utility.GPSTracker;
 import com.facebook.FacebookSdk;
@@ -66,6 +67,7 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
     private boolean isOpen = true, flagNotify = false;
     private Bitmap bitmap = null;
     private double lo = 0, la = 0;
+    private int tabIndex = 0;
     private CreateProductFragment createProductFragment;
     private UpdateStorePresenter presenter;
     private StorePresenter storePresenter;
@@ -188,6 +190,7 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
 
     private void innitInfo() {
         try {
+            //get Info Store
             mData.child(Constain.STORES).child(idStore).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -263,6 +266,8 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         //get IdStore
         Intent intent = getIntent();
         idStore = intent.getStringExtra(Constain.ID_STORE);
+         tabIndex = intent.getIntExtra(Constain.TAB_INDEX, 0);
+        ahBottomNavigation.setCurrentItem(tabIndex);
         moveToProductFragment(idStore);
         //Notification
         notBuilder = new NotificationCompat.Builder(this);
@@ -278,7 +283,6 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         ahBottomNavigation.addItem(item2);
         ahBottomNavigation.addItem(item3);
         ahBottomNavigation.setOnTabSelectedListener(this);
-        ahBottomNavigation.setCurrentItem(0);
     }
 
     public void onBackPressed() {
@@ -316,9 +320,13 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
             setTitle("Lịch sử giao hàng");
             getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, historyShipStoreFragment).commit();
         } else if (position == 2) {
-            Profile_Store_Fragment profile_store_fragment = new Profile_Store_Fragment();
+            Bundle bundle = new Bundle();
+            bundle.putBoolean(Constain.IS_STORE, true);
+            bundle.putString(Constain.ID_STORE, idStore);
+            Profile_Store_Fragment profileStoreFragment = new Profile_Store_Fragment();
+            profileStoreFragment.setArguments(bundle);
             setTitle("Trang cá nhân");
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, profile_store_fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, profileStoreFragment).commit();
         }
     }
 
@@ -357,7 +365,8 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         notBuilder.setContentText("Click để xem chi tiết!");
 
         // Tạo một Intent
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MainStoreActivity.class);
+        intent.putExtra(Constain.TAB_INDEX, 2);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, MY_REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         notBuilder.setContentIntent(pendingIntent);
         NotificationManager notificationService = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -372,16 +381,6 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         newFragment.setArguments(bundle);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content_id_store, newFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-    public void moveToStoreProfile(String idStore) {
-        Bundle bundle = new Bundle();
-        bundle.putString(Constain.ID_STORE, idStore);
-        Profile_Store_Fragment profileStoreFragment = new Profile_Store_Fragment();
-        profileStoreFragment.setArguments(bundle);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content_id_store, profileStoreFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -401,5 +400,6 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
             }
         }
     }
+
 
 }

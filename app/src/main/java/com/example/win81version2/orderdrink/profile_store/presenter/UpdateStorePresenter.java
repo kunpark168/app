@@ -74,4 +74,7 @@ public class UpdateStorePresenter {
     public void updateSumOrderedStore (String idStore, int sumOrdered){
         submitter.updateSumOrderedStore(idStore, sumOrdered);
     }
+    public void updateSumShippedStore (String idStore, int sumShipped){
+        submitter.updateSumShippedStore(idStore, sumShipped);
+    }
 }
