@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -60,7 +60,7 @@
         <activity
             android:name=".search_user.view.SearchActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".product.view.EditProduct"></activity>
+        <activity android:name=".product.view.EditProductActivity"></activity>
     </application>
 
 </manifest>

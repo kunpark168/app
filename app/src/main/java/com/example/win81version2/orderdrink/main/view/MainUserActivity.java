@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
+import com.example.win81version2.orderdrink.history_order_user.view.HistoryOrderUserFragment;
 import com.example.win81version2.orderdrink.main.presenter.UserPresenter;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
 import com.example.win81version2.orderdrink.product.model.Product;
@@ -84,6 +85,7 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
         layoutSearch.setOnClickListener(this);
         layoutMyProfile.setOnClickListener(this);
         layoutHome.setOnClickListener(this);
+        layoutOrderHistory.setOnClickListener(this);
     }
 
     private void initInfo() {
@@ -214,6 +216,17 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
             onBackPressed();
             moveToProfileFragment ();
         }
+
+        if (view == R.id.navigation_historyorder){
+            onBackPressed();
+            moveToHistoryFragment();
+        }
+    }
+
+    private void moveToHistoryFragment() {
+        HistoryOrderUserFragment profileUserFragment = new HistoryOrderUserFragment();
+        setTitle("Lịch sử order");
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user, profileUserFragment).commit();
     }
 
     private void moveToProfileFragment() {
@@ -241,18 +254,6 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
         intent.putExtra(Constain.LO, lo);
         intent.putExtra(Constain.LA, la);
         startActivity(intent);
-    }
-
-    public void moveToProfileStoreFragment (String idStore) {
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(Constain.IS_STORE, false);
-        bundle.putString(Constain.ID_STORE, idStore);
-        Profile_Store_Fragment profileStoreFragment = new Profile_Store_Fragment();
-        profileStoreFragment.setArguments(bundle);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content_id_user, profileStoreFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
     private void logOut() {
         AlertDialog.Builder alert = new AlertDialog.Builder(MainUserActivity.this);
@@ -288,6 +289,18 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
                 presenter.updateLocation(idUser, location);
             }
         }
+    }
+
+    public void moveToProfileStoreFragment (String idStore){
+        Profile_Store_Fragment profileStoreFragment = new Profile_Store_Fragment();
+            Bundle bundle = new Bundle();
+            bundle.putBoolean(Constain.IS_STORE, false);
+            bundle.putString(Constain.ID_STORE, idStore);
+        profileStoreFragment.setArguments(bundle);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content_id_user, profileStoreFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
     }
 
 }

@@ -35,18 +35,18 @@ public class ProductSubmitter {
         createProductFragment = new CreateProductFragment();
     }
 
-    public void createProduct (Bitmap bitmap, String idStore, String idCategory, String idProduct, String productName, String describeProduct, float price){
+    public void createProduct(Bitmap bitmap, String idStore, String idCategory, String idProduct, String productName, String describeProduct, float price) {
         uploadPhotoProduct(bitmap, idStore, idCategory, idProduct);
-        Product product = new Product(idProduct, productName, linkPhotoProduct, 0, price, describeProduct, true);
+        Product product = new Product(idProduct, idCategory, productName, linkPhotoProduct, 0, price, describeProduct, true);
         if (!linkPhotoProduct.equals("")) {
             HashMap<String, Object> myMap = product.myMap();
             mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).child(idCategory).child(Constain.PRODUCTS).child(idProduct).setValue(myMap);
-        }
-        else {
+        } else {
 
         }
     }
-    public void uploadPhotoProduct (Bitmap bitmap, String idStore, String idCategory, String idProduct){
+
+    public void uploadPhotoProduct(Bitmap bitmap, String idStore, String idCategory, String idProduct) {
         StorageReference mountainsRef = mStorage.child(Constain.STORES).child(idStore).child(idCategory).child(idProduct);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -64,5 +64,47 @@ public class ProductSubmitter {
                 linkPhotoProduct = String.valueOf(downloadUrl);
             }
         });
+    }
+
+    public void updateProductName(String idStore, String idCategory, String idProduct, String productName) {
+        mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).child(idCategory).child(Constain.PRODUCTS).child(idProduct).child(Constain.PRODUCT_NAME).setValue(productName);
+    }
+
+    public void updateDescribe(String idStore, String idCategory, String idProduct, String describe) {
+        mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).child(idCategory).child(Constain.PRODUCTS).child(idProduct).child(Constain.INFO_PRODUCT).setValue(describe);
+    }
+
+    public void updatePrice(String idStore, String idCategory, String idProduct, String price) {
+        mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).child(idCategory).child(Constain.PRODUCTS).child(idProduct).child(Constain.PRICE).setValue(price);
+    }
+
+    public void updateLinkPhotoProduct(String idStore, String idCategory, String idProduct, String linkPhotoProduct) {
+        mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).child(idCategory).child(Constain.PRODUCTS).child(idProduct).child(Constain.PRICE).setValue(linkPhotoProduct);
+    }
+
+    public void updatePhotoProduct(final String idStore, final String idCategory, final String idProduct, Bitmap bitmap) {
+        StorageReference mountainsRef = mStorage.child(Constain.STORES).child(idStore).child(idCategory).child(idProduct);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+        UploadTask uploadTask = mountainsRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                linkPhotoProduct = String.valueOf(downloadUrl);
+                if (!linkPhotoProduct.equals("")) {
+                    updateLinkPhotoProduct(idStore, idCategory, idProduct, linkPhotoProduct);
+                }
+            }
+        });
+    }
+    public void updateStatusProduct (String idStore, String idCategory, String idProduct, boolean status){
+        mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).child(idCategory).child(Constain.PRODUCTS).child(idProduct).child(Constain.STATUS).setValue(status);
     }
 }

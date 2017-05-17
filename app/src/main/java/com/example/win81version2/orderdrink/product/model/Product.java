@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 public class Product implements Serializable {
     private String idProduct;
+    private String idCategory;
     private String productName;
     private String linkPhotoProduct;
     private int rating;
@@ -21,8 +22,9 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(String idProduct, String productName, String linkPhotoProduct, int rating, float price, String infoProduct, boolean status) {
+    public Product(String idProduct, String idCategory, String productName, String linkPhotoProduct, int rating, float price, String infoProduct, boolean status) {
         this.idProduct = idProduct;
+        this.idCategory = idCategory;
         this.productName = productName;
         this.linkPhotoProduct = linkPhotoProduct;
         this.rating = rating;
@@ -34,6 +36,7 @@ public class Product implements Serializable {
     public HashMap<String, Object> myMap() {
         HashMap<String, Object> myMap = new HashMap<>();
         myMap.put(Constain.ID_PRODUCT, idProduct);
+        myMap.put(Constain.ID_CATEGORY, idCategory);
         myMap.put(Constain.PRODUCT_NAME, productName);
         myMap.put(Constain.LINK_PHOTO_PRODUCT, linkPhotoProduct);
         myMap.put(Constain.RATING, rating);
@@ -50,6 +53,14 @@ public class Product implements Serializable {
 
     public void setIdProduct(String idProduct) {
         this.idProduct = idProduct;
+    }
+
+    public String getIdCategory() {
+        return idCategory;
+    }
+
+    public void setIdCategory(String idCategory) {
+        this.idCategory = idCategory;
     }
 
     public String getProductName() {

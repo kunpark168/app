@@ -59,6 +59,8 @@ public class Constain {
     public static final int REQUEST_CODE_LOAD_IMAGE = 4;
     public static final int REQUEST_CODE_LOAD_IMAGE_COVERSTORE = 5;
     public static final int REQUEST_CODE_LOAD_IMAGE_AVATASTORE = 6;
+
+    public static final int REQUEST_CODE_CHANGE_IMAGE_PRODUCT = 7;
     //HistoryOrderUser
     public static final String HISTORY_SHIP_STORE = "historyShip";
     public static final String HISTORY_ORDER_USER = "historyOrder";

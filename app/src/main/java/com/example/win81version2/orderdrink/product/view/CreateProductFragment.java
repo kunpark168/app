@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -40,6 +41,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class CreateProductFragment extends BaseFragment implements View.OnClickListener {
 
@@ -98,10 +100,8 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                idCategory = String.valueOf(position);
-                if (idCategory.length() == 1){
-                    idCategory = "0" +idCategory;
-                }
+                Category category = arrCategory.get(position);
+                idCategory = category.getIdCategory();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -186,32 +186,58 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         try {
                             if (dataSnapshot.getValue() != null) {
-                                boolean isVail = true;
-                                idProduct = String.valueOf(dataSnapshot.getChildrenCount());
-                                if (idProduct.length() == 1){
-                                    idProduct = "0" + idProduct;
-                                }
-                                for (DataSnapshot dt : dataSnapshot.getChildren()) {
-                                    Product product = dt.getValue(Product.class);
-                                    if (productName.equals(product.getProductName())) {
-                                        isVail = false;
-                                        showToast("Tên sản phẩm đã có,vui lòng thử lại");
-                                        hideProgressDialog();
-                                        edtProductName.requestFocus();
+                                boolean flag_id = true;
+                                StringBuilder mBuilder = new StringBuilder();
+                                while (flag_id == true) {
+                                    Random ra = new Random();
+                                    for (int i = 0; i <= 10; i++) {
+                                        String number = String.valueOf(ra.nextInt(10));
+                                        mBuilder.append(number);
+                                    }
+                                    idProduct = mBuilder.toString();
+                                    for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                                        if (idCategory.equals(dt.getKey())) {
+                                            flag_id = true;
+                                            break;
+                                        } else {
+                                            flag_id = false;
+                                        }
                                     }
                                 }
-                                if (isVail) {
-                                    presenter.createProduct(bitmap, idStore, idCategory, idProduct, productName, describeProduct, Float.parseFloat(price));
-                                    hideProgressDialog();
-                                    showToast("Tạo sản phẩm thành công!");
-                                    edtProductName.setText("");
-                                    edtPrice.setText("");
-                                    edtDescribeProduct.setText("");
-                                    bitmap = null;
-                                    imgProduct.setImageResource(R.drawable.store);
+                                try {
+                                    boolean flag_name = true;
+                                    for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                                        Product product = dt.getValue(Product.class);
+                                        if (productName.equals(product.getProductName())) {
+                                            flag_name = false;
+                                            showToast("Tên sản phẩm đã có,vui lòng thử lại");
+                                            hideProgressDialog();
+                                            edtProductName.requestFocus();
+                                            break;
+                                        }
+                                    }
+                                    if (flag_name) {
+                                        presenter.createProduct(bitmap, idStore, idCategory, idProduct, productName, describeProduct, Float.parseFloat(price));
+                                        hideProgressDialog();
+                                        showToast("Tạo sản phẩm thành công!");
+                                        edtProductName.setText("");
+                                        edtPrice.setText("");
+                                        edtDescribeProduct.setText("");
+                                        bitmap = null;
+                                        imgProduct.setImageResource(R.drawable.store);
+                                    }
+                                }
+                                catch (Exception ex){
+
                                 }
                             } else {
-                                idProduct = "00";
+                                StringBuilder mBuilder = new StringBuilder();
+                                Random ra = new Random();
+                                for (int i = 0; i <= 10; i++) {
+                                    String number = String.valueOf(ra.nextInt(10));
+                                    mBuilder.append(number);
+                                }
+                                idProduct = mBuilder.toString();
                                 presenter.createProduct(bitmap, idStore, idCategory, idProduct, productName, describeProduct, Float.parseFloat(price));
                                 hideProgressDialog();
                                 showToast("Tạo sản phẩm thành công!");
@@ -253,14 +279,14 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
         if (requestCode == Constain.REQUEST_CODE_LOAD_IMAGE && resultCode == getActivity().RESULT_OK ){
             if (data.getAction() != null){
                 bitmap = (Bitmap) data.getExtras().get("data");
-                bitmap = cropImage(bitmap);
+                bitmap = getResizedBitmap(bitmap, 190, 140);
                 imgProduct.setImageBitmap(bitmap);
             }
             else {
                 Uri filePath = data.getData();
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
-                    bitmap = cropImage(bitmap);
+                    bitmap = getResizedBitmap(bitmap, 190, 140);
                     imgProduct.setImageBitmap(bitmap);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -281,6 +307,21 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
             );
         }
         return  srcBmp;
+    }
+    public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+        // CREATE A MATRIX FOR THE MANIPULATION
+        Matrix matrix = new Matrix();
+        // RESIZE THE BIT MAP
+        matrix.postScale(scaleWidth, scaleHeight);
+        // "RECREATE" THE NEW BITMAP
+        Bitmap resizedBitmap = Bitmap.createBitmap(
+                bm, 0, 0, width, height, matrix, false);
+        bm.recycle();
+        return resizedBitmap;
     }
 
 }

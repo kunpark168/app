@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -439,7 +440,7 @@ public class Profile_Store_Fragment extends BaseFragment implements View.OnClick
         if (requestCode == Constain.REQUEST_CODE_LOAD_IMAGE_AVATASTORE && resultCode == getActivity().RESULT_OK ){
             if (data.getAction() != null){
                 bitmapAvata = (Bitmap) data.getExtras().get("data");
-                bitmapAvata = cropImage(bitmapAvata);
+                bitmapAvata = getResizedBitmap(cropImage(bitmapAvata), 225, 225);
                 presenter.updateAvataStore(bitmapAvata, idStore);
                 imgAvata.setImageBitmap(bitmapAvata);
             }
@@ -447,7 +448,7 @@ public class Profile_Store_Fragment extends BaseFragment implements View.OnClick
                 Uri filePath = data.getData();
                 try {
                     bitmapAvata = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
-                    bitmapAvata = cropImage(bitmapAvata);
+                    bitmapAvata = getResizedBitmap(cropImage(bitmapAvata), 225, 225);
                     presenter.updateAvataStore(bitmapAvata, idStore);
                     imgAvata.setImageBitmap(bitmapAvata);
                 } catch (IOException e) {
@@ -469,5 +470,20 @@ public class Profile_Store_Fragment extends BaseFragment implements View.OnClick
             );
         }
         return  srcBmp;
+    }
+    public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+        // CREATE A MATRIX FOR THE MANIPULATION
+        Matrix matrix = new Matrix();
+        // RESIZE THE BIT MAP
+        matrix.postScale(scaleWidth, scaleHeight);
+        // "RECREATE" THE NEW BITMAP
+        Bitmap resizedBitmap = Bitmap.createBitmap(
+                bm, 0, 0, width, height, matrix, false);
+        bm.recycle();
+        return resizedBitmap;
     }
 }

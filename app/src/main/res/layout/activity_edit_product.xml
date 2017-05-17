@@ -8,158 +8,204 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:weightSum="10"
-    tools:context="com.example.win81version2.orderdrink.product.view.EditProduct">
+    tools:context="com.example.win81version2.orderdrink.product.view.EditProductActivity">
     //Photo 2
     <LinearLayout
+        android:orientation="horizontal"
         android:layout_weight="2"
+        android:weightSum="10"
         android:layout_width="match_parent"
         android:layout_height="0dp">
+        <FrameLayout
+            android:id="@+id/layoutChangePhotoProduct"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/imgProduct_editProduct"
+                android:src="@drawable/imgproduct"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <ImageView
+                android:scaleType="fitXY"
+                android:src="@drawable/imgeditphoto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+        <android.support.v4.widget.Space
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <android.support.v4.widget.Space
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
     </LinearLayout>
     //Product Name 1
     <android.support.v7.widget.CardView
-        app:cardElevation="1dp"
-        android:layout_weight="1"
+        android:layout_weight="3"
         android:layout_width="match_parent"
         android:layout_height="0dp">
         <LinearLayout
-            android:weightSum="2"
+            android:weightSum="3"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <TextView
-                android:gravity="bottom"
-                android:textColor="@color/item_Active"
-                android:text="Tên sản phẩm"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="0dp" />
             <LinearLayout
-                android:background="@drawable/bg_edittext"
                 android:layout_weight="1"
-                android:paddingLeft="20dp"
-                android:weightSum="10"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
-                <TextView
-                    android:gravity="center_vertical"
-                    android:textSize="18dp"
-                    android:text="Trà Sữa Trà Xanh"
-                    android:layout_weight="8"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent" />
                 <LinearLayout
-                    android:layout_weight="2"
-                    android:layout_width="0dp"
+                    android:weightSum="2"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <ImageView
-                        android:layout_margin="5dp"
-                        android:src="@drawable/icon_edit"
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:gravity="bottom"
+                        android:textColor="@color/item_Active"
+                        android:text="Tên sản phẩm"
+                        android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="0dp" />
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:paddingLeft="20dp"
+                        android:weightSum="10"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp">
+                        <TextView
+                            android:id="@+id/txtProductName_editProduct"
+                            android:gravity="center_vertical"
+                            android:textSize="15dp"
+                            android:text="Trà Sữa Trà Xanh"
+                            android:textColor="@color/black"
+                            android:layout_weight="8"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" />
+                        <LinearLayout
+                            android:id="@+id/layoutEditProductName"
+                            android:layout_weight="2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:layout_margin="5dp"
+                                android:src="@drawable/icon_edit"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            //Describe 1
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+                <LinearLayout
+                    android:weightSum="2"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:gravity="bottom"
+                        android:textColor="@color/item_Active"
+                        android:text="Mô tả chi tiết"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" />
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:paddingLeft="20dp"
+                        android:weightSum="10"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp">
+                        <TextView
+                            android:id="@+id/txtDescribe_editProduct"
+                            android:gravity="center_vertical"
+                            android:textSize="15dp"
+                            android:textColor="@color/black"
+                            android:text="Tốt cho sức khỏe"
+                            android:layout_weight="8"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" />
+                        <LinearLayout
+                            android:id="@+id/layoutEditDescribe"
+                            android:layout_weight="2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:layout_margin="5dp"
+                                android:src="@drawable/icon_edit"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            //Price 1
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+                <LinearLayout
+                    android:weightSum="2"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:gravity="bottom"
+                        android:textColor="@color/item_Active"
+                        android:text="Giá"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" />
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:paddingLeft="20dp"
+                        android:weightSum="10"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp">
+                        <TextView
+                            android:id="@+id/txtPrice_editProduct"
+                            android:gravity="center_vertical"
+                            android:textSize="15dp"
+                            android:textColor="@color/black"
+                            android:text="15000 VND"
+                            android:layout_weight="8"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" />
+                        <LinearLayout
+                            android:id="@+id/layoutEditPrice"
+                            android:layout_weight="2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="5dp"
+                                android:src="@drawable/icon_edit" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
-    //Describe 1
-    <android.support.v7.widget.CardView
-        app:cardElevation="1dp"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
-        <LinearLayout
-            android:weightSum="2"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:gravity="bottom"
-                android:textColor="@color/item_Active"
-                android:text="Tên sản phẩm"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="0dp" />
-            <LinearLayout
-                android:background="@drawable/bg_edittext"
-                android:layout_weight="1"
-                android:paddingLeft="20dp"
-                android:weightSum="10"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="0dp">
-                <TextView
-                    android:gravity="center_vertical"
-                    android:textSize="18dp"
-                    android:text="Trà Sữa Trà Xanh"
-                    android:layout_weight="8"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent" />
-                <LinearLayout
-                    android:layout_weight="2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent">
-                    <ImageView
-                        android:layout_margin="5dp"
-                        android:src="@drawable/icon_edit"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-    //Price 1
-    <android.support.v7.widget.CardView
-        app:cardElevation="1dp"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
-        <LinearLayout
-            android:weightSum="2"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:gravity="bottom"
-                android:textColor="@color/item_Active"
-                android:text="Tên sản phẩm"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="0dp" />
-            <LinearLayout
-                android:background="@drawable/bg_edittext"
-                android:layout_weight="1"
-                android:paddingLeft="20dp"
-                android:weightSum="10"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="0dp">
-                <TextView
-                    android:gravity="center_vertical"
-                    android:textSize="18dp"
-                    android:text="Trà Sữa Trà Xanh"
-                    android:layout_weight="8"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent" />
-                <LinearLayout
-                    android:layout_weight="2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent">
-                    <ImageView
-                        android:layout_margin="5dp"
-                        android:src="@drawable/icon_edit"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-    // Check
+    // Check 1
     <android.support.v7.widget.CardView
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp">
         <android.support.v7.widget.SwitchCompat
-            android:id="@+id/switchCompat_Status"
+            android:id="@+id/switchCompat_StatusProduct"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_width="match_parent"
@@ -167,7 +213,7 @@
             android:text="Trạng thái Sản Phẩm"
             app:theme="@style/ColorSwitchStyle"
             android:checked="true"
-            android:textColor="@color/grey"
+            android:textColor="@color/black"
             android:textSize="18dp"
             android:typeface="serif" />
     </android.support.v7.widget.CardView>

@@ -43,6 +43,7 @@ public class ProductListFragment extends Fragment {
     private DatabaseReference mData;
     private String idStore, phoneNumber = "";
     private Button btnCallNow;
+    private boolean isStore;
 
     private ScrollView scroll;
     private TextView txtStoreName, txtAddressStore, txtTimeWorkStore;
@@ -56,6 +57,7 @@ public class ProductListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        isStore = getArguments().getBoolean(Constain.IS_STORE);
         idStore = getArguments().getString(Constain.ID_STORE);
         return inflater.inflate(R.layout.fragment_list_product, container, false);
     }
@@ -134,7 +136,7 @@ public class ProductListFragment extends Fragment {
         mData = FirebaseDatabase.getInstance().getReference();
         recyclerProduct = (RecyclerView) getActivity().findViewById(R.id.recyclerProducts);
         recyclerProduct.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ProductListAdapter(idStore, getContext(), initData());
+        adapter = new ProductListAdapter(idStore, isStore, getContext(), initData());
         adapter.expandAllParents();
         recyclerProduct.setAdapter(adapter);
         recyclerProduct.addOnScrollListener(new RecyclerView.OnScrollListener() {

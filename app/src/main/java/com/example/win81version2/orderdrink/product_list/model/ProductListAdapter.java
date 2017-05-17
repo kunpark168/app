@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.product.model.Product;
 import com.example.win81version2.orderdrink.my_cart.view.DisplayProduct;
+import com.example.win81version2.orderdrink.product.view.EditProductActivity;
 import com.example.win81version2.orderdrink.utility.Constain;
 
 import java.util.List;
@@ -27,13 +28,15 @@ public class ProductListAdapter extends ExpandableRecyclerAdapter<GroupProduct ,
     private static final int BINH_THUONG = 2;
     private Context mContext;
     private String idStore;
+    private boolean isStore;
     private LayoutInflater inflater;
     private List<GroupProduct> parentList;
 
 
-    public ProductListAdapter(String idStore, Context context , @NonNull List<GroupProduct> parentList) {
+    public ProductListAdapter(String idStore, boolean isStore, Context context , @NonNull List<GroupProduct> parentList) {
         super(parentList);
         this.idStore = idStore;
+        this.isStore = isStore;
         this.mContext = context;
         inflater = LayoutInflater.from(context);
         this.parentList = parentList;
@@ -67,8 +70,13 @@ public class ProductListAdapter extends ExpandableRecyclerAdapter<GroupProduct ,
         childViewHolder.btnGetit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GroupProduct groupProduct = parentList.get(parentPosition);
-                displayProduct(product, groupProduct.getTitle());
+                if (isStore == false) {
+                    GroupProduct groupProduct = parentList.get(parentPosition);
+                    displayProduct(product, groupProduct.getTitle());
+                }
+                else {
+                    editProduct(product);
+                }
             }
         });
         String linkPhoto = child.getLinkPhotoProduct();
@@ -81,6 +89,12 @@ public class ProductListAdapter extends ExpandableRecyclerAdapter<GroupProduct ,
         Intent intent = new Intent(mContext, DisplayProduct.class);
         intent.putExtra(Constain.PRODUCTS, product);
         intent.putExtra(Constain.CATEGORY_NAME, categoryName);
+        intent.putExtra(Constain.ID_STORE, idStore);
+        mContext.startActivity(intent);
+    }
+    private void editProduct (Product product){
+        Intent intent = new Intent(mContext, EditProductActivity.class);
+        intent.putExtra(Constain.PRODUCTS, product);
         intent.putExtra(Constain.ID_STORE, idStore);
         mContext.startActivity(intent);
     }

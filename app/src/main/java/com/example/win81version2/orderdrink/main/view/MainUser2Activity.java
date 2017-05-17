@@ -19,12 +19,14 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
+import com.example.win81version2.orderdrink.history_order_user.view.HistoryOrderUserFragment;
 import com.example.win81version2.orderdrink.main.presenter.UserPresenter;
 import com.example.win81version2.orderdrink.my_cart.view.MyCartFragment;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
 import com.example.win81version2.orderdrink.product.model.Product;
 import com.example.win81version2.orderdrink.product_list.view.ProductListFragment;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
+import com.example.win81version2.orderdrink.profile_store.view.Profile_Store_Fragment;
 import com.example.win81version2.orderdrink.profile_user.model.User;
 import com.example.win81version2.orderdrink.profile_user.view.ProfileUser_Fragment;
 import com.example.win81version2.orderdrink.search_user.model.Search;
@@ -45,7 +47,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MainUser2Activity extends BaseActivity implements View.OnClickListener, Serializable , AHBottomNavigation.OnTabSelectedListener {
+public class MainUser2Activity extends BaseActivity implements View.OnClickListener, Serializable , AHBottomNavigation.OnTabSelectedListener{
 
     private ImageView imgAvata, imgSearch;
     private AHBottomNavigation ahBottomNavigation;
@@ -61,7 +63,7 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
     private LinearLayout layoutSearch, layoutHome, layoutMyfavorite, layoutOrderHistory, layoutRate, layoutShare, layoutMyProfile;
     private Store_List_Fragment storeListFragment;
     private MyCartFragment myCartFragment;
-    private ProductListFragment productListFragment;
+    private ProductListFragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +91,7 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
         layoutSearch.setOnClickListener(this);
         layoutMyProfile.setOnClickListener(this);
         layoutHome.setOnClickListener(this);
+        layoutOrderHistory.setOnClickListener(this);
     }
 
     private void initInfo() {
@@ -104,8 +107,8 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
                             addressUser = "";
                             if (user.getLocation() != null) {
                                 HashMap<String, Object> flag = new HashMap<>();
-                                flag = user.getLocation();
-                                addressUser = String.valueOf(flag.get(Constain.ADDRESS));
+                                    flag = user.getLocation();
+                                    addressUser = String.valueOf(flag.get(Constain.ADDRESS));
                             }
                             location.put(Constain.LO, lo);
                             location.put(Constain.LA, la);
@@ -134,7 +137,8 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
 
                 }
             });
-        } catch (Exception ex) {
+        }
+        catch (Exception ex){
 
         }
 
@@ -155,9 +159,10 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
         myCartFragment = new MyCartFragment();
         Bundle bundle = new Bundle();
         bundle.putString(Constain.ID_STORE, idStore);
+        bundle.putBoolean(Constain.IS_STORE, false);
         storeListFragment = new Store_List_Fragment();
-        productListFragment = new ProductListFragment();
-        productListFragment.setArguments(bundle);
+        fragment = new ProductListFragment();
+        fragment.setArguments(bundle);
         //Navigation Bottom
         ahBottomNavigation = (AHBottomNavigation) findViewById(R.id.navigation_User);
         initItemNavigation();
@@ -203,16 +208,26 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
             imgSearch.setEnabled(true);
             moveToSearchAcitvity();
         }
-        if (view == R.id.navigation_homeUser2) {
+        if (view == R.id.navigation_homeUser2){
             onBackPressed();
             finish();
-            moveToStoreList();
+            moveToStoreList ();
         }
-        if (view == R.id.navigation_myprofile2) {
+        if (view == R.id.navigation_myprofile2){
             onBackPressed();
             ahBottomNavigation.setCurrentItem(2);
-            moveToProfileFragment();
+            moveToProfileFragment ();
+
+        }if (view == R.id.navigation_historyorder2){
+            onBackPressed();
+            moveToHistoryFragment();
         }
+    }
+
+    private void moveToHistoryFragment() {
+        HistoryOrderUserFragment profileUserFragment = new HistoryOrderUserFragment();
+        setTitle("Lịch sử order");
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user2, profileUserFragment).commit();
     }
 
     private void moveToStoreList() {
@@ -237,12 +252,13 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
                 double la = (double) arrStore.get(i).getLocation().get(Constain.LA);
                 Search search = new Search(arrStore.get(i).getLinkPhotoStore(), arrStore.get(i).getStoreName(), lo, la);
                 arrSearch.add(search);
-            } catch (Exception ex) {
+            }
+            catch (Exception ex){
                 ex.printStackTrace();
             }
         }
-        Intent intent = new Intent(this, SearchActivity.class);
-        intent.putExtra("search", arrSearch);
+        Intent intent = new Intent(this,SearchActivity.class);
+        intent.putExtra("search" , arrSearch);
         intent.putExtra(Constain.LO, lo);
         intent.putExtra(Constain.LA, la);
         startActivity(intent);
@@ -279,7 +295,6 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
         });
         alert.show();
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -295,12 +310,12 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
             }
         }
     }
-
     @Override
     public void onTabSelected(int position, boolean wasSelected) {
         if (position == 0) {
+            createProductListFragment(idStore);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.content_id_user2, productListFragment);
+            transaction.replace(R.id.content_id_user2, fragment);
             transaction.addToBackStack(null);
             transaction.commit();
 
@@ -313,4 +328,7 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
         }
     }
 
+    public void createProductListFragment(String idStore) {
+
+    }
 }

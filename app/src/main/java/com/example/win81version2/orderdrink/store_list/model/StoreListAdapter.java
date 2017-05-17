@@ -2,6 +2,9 @@ package com.example.win81version2.orderdrink.store_list.model;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,7 +25,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,9 +81,13 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListViewHolder>{
         //get LinkPhotoStore and Opent with Glide
         linkPhotoStore = store.getLinkPhotoStore();
         if (!linkPhotoStore.equals("")) {
-            Glide.with(store_list_fragment.getActivity())
+            /*Glide.with(store_list_fragment.getActivity())
                     .load(linkPhotoStore)
-                    .fitCenter()
+                    .into(holder.imgPhotoStore);*/
+            Picasso.with(mContext)
+                    .load(linkPhotoStore)
+                    .resize(225, 225)
+                    .centerCrop()
                     .into(holder.imgPhotoStore);
         }
         try {

@@ -268,6 +268,11 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         idStore = intent.getStringExtra(Constain.ID_STORE);
          tabIndex = intent.getIntExtra(Constain.TAB_INDEX, 0);
         ahBottomNavigation.setCurrentItem(tabIndex);
+        if (tabIndex == 1){
+            HistoryShipStoreFragment historyShipStoreFragment = new HistoryShipStoreFragment();
+            setTitle("Lịch sử giao hàng");
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, historyShipStoreFragment).commit();
+        }
         moveToProductFragment(idStore);
         //Notification
         notBuilder = new NotificationCompat.Builder(this);
@@ -366,7 +371,7 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
 
         // Tạo một Intent
         Intent intent = new Intent(this, MainStoreActivity.class);
-        intent.putExtra(Constain.TAB_INDEX, 2);
+        intent.putExtra(Constain.TAB_INDEX, 1);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, MY_REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         notBuilder.setContentIntent(pendingIntent);
         NotificationManager notificationService = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -377,6 +382,7 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
     public void moveToProductFragment(String idStore) {
         Bundle bundle = new Bundle();
         bundle.putString(Constain.ID_STORE, idStore);
+        bundle.putBoolean(Constain.IS_STORE, true);
         ProductListFragment newFragment = new ProductListFragment();
         newFragment.setArguments(bundle);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
