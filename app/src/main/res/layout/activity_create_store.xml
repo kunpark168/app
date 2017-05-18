@@ -150,6 +150,7 @@
             <EditText
                 android:id="@+id/edtpassword_createstore"
                 android:layout_width="0dp"
+                android:inputType="numberPassword"
                 android:layout_height="match_parent"
                 android:layout_weight="3.5"
                 android:background="@drawable/bg_textview"

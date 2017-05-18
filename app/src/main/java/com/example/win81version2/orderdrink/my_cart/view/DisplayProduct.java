@@ -3,6 +3,8 @@ package com.example.win81version2.orderdrink.my_cart.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 import java.util.Random;
@@ -34,7 +37,7 @@ public class DisplayProduct extends BaseActivity {
     private EditText edtCountProduct;
     private MyCartPresenter prsenter;
     private DatabaseReference mData;
-    private String idUser, idStore, categoryName, idMyCart, linkPhotoProduct = "";
+    private String idUser, idStore, categoryName = "", idMyCart, linkPhotoProduct = "";
     private StringBuilder idMyCart_mBuilder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,11 +157,14 @@ public class DisplayProduct extends BaseActivity {
             txtProductName.setText(product.getProductName());
             txtDescribe.setText(product.getInfoProduct());
             txtPrice.setText(Math.round(product.getPrice()) + " VNĐ");
-            String linkPhotoUser = product.getLinkPhotoProduct();
-            if (!linkPhotoUser.equals("")) {
-                Glide.with(DisplayProduct.this)
-                        .load(linkPhotoUser)
-                        .fitCenter()
+            linkPhotoProduct = product.getLinkPhotoProduct();
+            if (!linkPhotoProduct.equals("")) {
+                Picasso.with(this)
+                        .load(linkPhotoProduct)
+                        .resize(225, 225)
+                        .centerCrop()
+                        .placeholder(R.drawable.store)
+                        .error(R.drawable.store)
                         .into(imgPhotoProduct);
             }
         }

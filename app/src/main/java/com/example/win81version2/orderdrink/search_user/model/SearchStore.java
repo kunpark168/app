@@ -7,21 +7,31 @@ import android.os.Parcelable;
  * Created by Win 8.1 Version 2 on 5/6/2017.
  */
 
-public class Search implements Parcelable {
-    String linkPhoto;
+public class SearchStore implements Parcelable {
+    String linkPhotoStore;
+    String idStore;
     String name;
     double lo;
     double la;
 
-    public Search(){
+    public SearchStore(){
         super();
     }
 
-    public Search(String linkPhoto, String name, double lo, double la) {
-        this.linkPhoto = linkPhoto;
+    public SearchStore(String linkPhotoStore, String idStore, String name, double lo, double la) {
+        this.linkPhotoStore = linkPhotoStore;
+        this.idStore = idStore;
         this.name = name;
         this.lo = lo;
         this.la = la;
+    }
+
+    public String getIdStore() {
+        return idStore;
+    }
+
+    public void setIdStore(String idStore) {
+        this.idStore = idStore;
     }
 
     public double getLo() {
@@ -40,12 +50,12 @@ public class Search implements Parcelable {
         this.la = la;
     }
 
-    public String getLinkPhoto() {
-        return linkPhoto;
+    public String getLinkPhotoStore() {
+        return linkPhotoStore;
     }
 
-    public void setLinkPhoto(String linkPhoto) {
-        this.linkPhoto = linkPhoto;
+    public void setLinkPhotoStore(String linkPhotoStore) {
+        this.linkPhotoStore = linkPhotoStore;
     }
 
     public String getName() {
@@ -57,8 +67,8 @@ public class Search implements Parcelable {
     }
 
     //Parceble
-    public Search(Parcel parcel) {
-        this.linkPhoto = parcel.readString();
+    public SearchStore(Parcel parcel) {
+        this.linkPhotoStore = parcel.readString();
         this.name = parcel.readString();
         this.lo = parcel.readDouble();
         this.la = parcel.readDouble();
@@ -71,22 +81,22 @@ public class Search implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(linkPhoto);
+        dest.writeString(linkPhotoStore);
         dest.writeString(name);
         dest.writeDouble(lo);
         dest.writeDouble(la);
 
     }
 
-    public static final Creator<Search> CREATOR = new Creator<Search>() {
+    public static final Creator<SearchStore> CREATOR = new Creator<SearchStore>() {
         @Override
-        public Search createFromParcel(Parcel source) {
-            return new Search(source);
+        public SearchStore createFromParcel(Parcel source) {
+            return new SearchStore(source);
         }
 
         @Override
-        public Search[] newArray(int size) {
-            return new Search[size];
+        public SearchStore[] newArray(int size) {
+            return new SearchStore[size];
         }
     };
 }

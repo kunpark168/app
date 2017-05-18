@@ -5,8 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:openDrawer="start">
+    tools:openDrawer="left">
 
     <LinearLayout
         android:weightSum="10"
@@ -20,47 +19,55 @@
             android:layout_height="0dp">
             <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:theme="@style/AppTheme.AppBarOverlay">
+                android:layout_height="match_parent">
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="?attr/colorPrimaryDark"
-                    app:popupTheme="@style/AppTheme.PopupOverlay" >
+                    android:background="?attr/colorPrimaryDark" >
                     <LinearLayout
-                        android:layout_marginTop="5dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp"
+                        android:id="@+id/layoutSearch"
+                        android:weightSum="10"
+                        android:orientation="horizontal"
+                        android:background="@color/colorPrimaryDark"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-                        <LinearLayout
-                            android:id="@+id/layoutSearch"
-                            android:background="@drawable/bg_edittext"
-                            android:weightSum="10"
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
+                        <android.support.v7.widget.CardView
+                            app:cardElevation="3dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_weight="10"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent">
-                            <ImageView
-                                android:id="@+id/imgSearchLabel"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginBottom="15dp"
-                                android:layout_marginTop="15dp"
-                                android:src="@drawable/search"
-                                android:layout_weight="1"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent" />
-                            <TextView
-                                android:id="@+id/txtSearch"
-                                android:gravity="center_vertical"
-                                android:textSize="15dp"
-                                android:layout_weight="9"
-                                android:hint="Tìm kiếm"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent" />
-                        </LinearLayout>
+                            <LinearLayout
+                                android:weightSum="10"
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                                <ImageView
+                                    android:id="@+id/iconSearchStore"
+                                    android:layout_marginLeft="12dp"
+                                    android:layout_marginBottom="15dp"
+                                    android:layout_marginTop="15dp"
+                                    android:src="@drawable/search_black"
+                                    android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent" />
+                                <AutoCompleteTextView
+                                    android:id="@+id/edtSearch"
+                                    android:completionThreshold= "1"
+                                    android:textSize="12dp"
+                                    android:layout_weight="9"
+                                    android:textColor="@color/black"
+                                    android:hint="Tìm kiếm"
+                                    android:textColorHint="@color/black"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent" />
+                            </LinearLayout>
+                        </android.support.v7.widget.CardView>
                     </LinearLayout>
                 </android.support.v7.widget.Toolbar>
 
@@ -77,6 +84,7 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
     </LinearLayout>
+
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"

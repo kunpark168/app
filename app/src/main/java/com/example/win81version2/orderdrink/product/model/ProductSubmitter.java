@@ -8,8 +8,10 @@ import com.example.win81version2.orderdrink.main.view.MainStoreActivity;
 import com.example.win81version2.orderdrink.main.view.MainUserActivity;
 import com.example.win81version2.orderdrink.product.view.CreateProductFragment;
 import com.example.win81version2.orderdrink.utility.Constain;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -29,24 +31,15 @@ public class ProductSubmitter {
     private MainStoreActivity view;
     private CreateProductFragment createProductFragment;
 
-    public ProductSubmitter(DatabaseReference mData, StorageReference mStorage) {
+    public ProductSubmitter(MainStoreActivity view, DatabaseReference mData, StorageReference mStorage) {
+        this.view = view;
         this.mData = mData;
         this.mStorage = mStorage;
         createProductFragment = new CreateProductFragment();
     }
 
-    public void createProduct(Bitmap bitmap, String idStore, String idCategory, String idProduct, String productName, String describeProduct, float price) {
-        uploadPhotoProduct(bitmap, idStore, idCategory, idProduct);
-        Product product = new Product(idProduct, idCategory, productName, linkPhotoProduct, 0, price, describeProduct, true);
-        if (!linkPhotoProduct.equals("")) {
-            HashMap<String, Object> myMap = product.myMap();
-            mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).child(idCategory).child(Constain.PRODUCTS).child(idProduct).setValue(myMap);
-        } else {
-
-        }
-    }
-
-    public void uploadPhotoProduct(Bitmap bitmap, String idStore, String idCategory, String idProduct) {
+    public void createProduct(Bitmap bitmap, final String idStore, final String idCategory, final String idProduct, final String productName, final String describeProduct, final float price, final int sumProduct) {
+        view.showProgressDialog();
         StorageReference mountainsRef = mStorage.child(Constain.STORES).child(idStore).child(idCategory).child(idProduct);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -62,6 +55,27 @@ public class ProductSubmitter {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 linkPhotoProduct = String.valueOf(downloadUrl);
+                Product product = new Product(idProduct, idCategory, productName, linkPhotoProduct, 0, price, describeProduct, true);
+                if (!linkPhotoProduct.equals("")) {
+                    HashMap<String, Object> myMap = product.myMap();
+                    mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).child(idCategory).child(Constain.PRODUCTS).child(idProduct).setValue(myMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                view.hideProgressDialog();
+                                view.showToast("Tạo sản phẩm thành công");
+                                updateSumProductStore(idStore, sumProduct);
+                            }
+                            else {
+                                view.hideProgressDialog();
+                                view.showToast("Tạo sản phẩm không thành công, vui lòng thử lại");
+                            }
+                        }
+                    });
+                } else {
+                    view.hideProgressDialog();
+                    view.showToast("Tạo sản phẩm không thành công, vui lòng thử lại");
+                }
             }
         });
     }
@@ -106,5 +120,9 @@ public class ProductSubmitter {
     }
     public void updateStatusProduct (String idStore, String idCategory, String idProduct, boolean status){
         mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).child(idCategory).child(Constain.PRODUCTS).child(idProduct).child(Constain.STATUS).setValue(status);
+    }
+
+    public void updateSumProductStore (String idStore, int sumProduct){
+        mData.child(Constain.STORES).child(idStore).child(Constain.SUM_PRODUCT).setValue(sumProduct);
     }
 }

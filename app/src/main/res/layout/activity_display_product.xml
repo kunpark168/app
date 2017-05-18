@@ -1,117 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v7.widget.CardView
     android:id="@+id/activity_display_product"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="10dp"
+    card_view:cardCornerRadius="3dp"
+    card_view:cardElevation="4dp"
+    android:background="@color/white"
     tools:context=".my_cart.view.DisplayProduct">
-
-    <android.support.v7.widget.CardView
+    <LinearLayout
+        android:weightSum="9"
+        android:background="@color/white"
+        android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
-
-        <LinearLayout
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:layout_gravity="top"
+            android:background="@color/white">
             <ImageView
                 android:id="@+id/imgPhotoProduct"
+                android:layout_margin="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/product_dingtea" />
+                android:layout_height="match_parent"
+                android:src="@drawable/drink_default"/>
 
+        </FrameLayout>
+        <LinearLayout
+            android:weightSum="6"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:orientation="vertical"
+            android:background="@color/white">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
-                android:layout_marginRight="60dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:weightSum="4"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/txtProductName_displayproduct"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Tra sua dingtea"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    tools:text="Capuchino sôcola" />
 
                 <TextView
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black"
                     android:id="@+id/txtDescriber"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:text="Mo ta chi tiet"
-                    android:textSize="12sp" />
-
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:layout_weight="2"
+                    android:text="Mô tả: "
+                    android:maxLines="2" />
                 <TextView
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
                     android:id="@+id/txtPrice_displayproduct"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:text="15.000 VND" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:weightSum="11">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Số lượng: "
-                        android:textSize="12sp" />
-
-                    <EditText
-                        android:id="@+id/edtCountProduct"
-                        android:inputType="number"
-                        android:layout_width="30dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="start"
-                        android:layout_weight="10"
-                        android:background="@drawable/test_bg_buttton"
-                        android:gravity="center"
-                        android:text="1" />
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/btnBuyProduct"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/test_bg_btn"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Mua hàng"
-                    android:textColor="@color/white"
-
-                    android:textStyle="bold" />
+                    android:layout_marginBottom="5dp"
+                    tools:text="15000 VNĐ"
+                    android:textColor="#f44336"
+                    />
             </LinearLayout>
-
             <LinearLayout
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="50dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="10">
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="Số lượng: "
+                    android:textSize="10dp"/>
 
+                <EditText
+                    android:id="@+id/edtCountProduct"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start"
+                    android:layout_weight="7"
+                    android:background="@drawable/test_bg_buttton"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:text="1"
+                    />
             </LinearLayout>
+            <Button
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="20dp"
+                android:id="@+id/btnBuyProduct"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/test_bg_btn"
+                android:gravity="center"
+                android:text="Thêm vào giỏ"
+                android:textSize="15sp"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
         </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-</LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

@@ -20,8 +20,7 @@
             android:layout_height="0dp">
             <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:theme="@style/AppTheme.AppBarOverlay">
+                android:layout_height="match_parent">
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar2"
@@ -30,37 +29,47 @@
                     android:background="?attr/colorPrimaryDark"
                     app:popupTheme="@style/AppTheme.PopupOverlay" >
                     <LinearLayout
-                        android:layout_marginTop="5dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp"
+                        android:id="@+id/layoutSearch2"
+                        android:weightSum="10"
+                        android:orientation="horizontal"
+                        android:background="@color/colorPrimaryDark"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-                        <LinearLayout
-                            android:id="@+id/layoutSearch2"
-                            android:background="@drawable/bg_edittext"
-                            android:weightSum="10"
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
+                        <android.support.v7.widget.CardView
+                            app:cardElevation="3dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_weight="10"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent">
-                            <ImageView
-                                android:id="@+id/imgSearchLabel2"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginBottom="15dp"
-                                android:layout_marginTop="15dp"
-                                android:src="@drawable/search"
-                                android:layout_weight="1"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent" />
-                            <TextView
-                                android:id="@+id/txtSearch2"
-                                android:gravity="center_vertical"
-                                android:textSize="15dp"
-                                android:layout_weight="9"
-                                android:hint="Tìm kiếm"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent" />
-                        </LinearLayout>
+                            <LinearLayout
+                                android:weightSum="10"
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                                <ImageView
+                                    android:id="@+id/iconSearchStore2"
+                                    android:layout_marginLeft="12dp"
+                                    android:layout_marginBottom="15dp"
+                                    android:layout_marginTop="15dp"
+                                    android:src="@drawable/search_black"
+                                    android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent" />
+                                <AutoCompleteTextView
+                                    android:id="@+id/edtSearch2"
+                                    android:completionThreshold= "1"
+                                    android:textSize="12dp"
+                                    android:layout_weight="9"
+                                    android:textColor="@color/black"
+                                    android:hint="Tìm kiếm"
+                                    android:textColorHint="@color/black"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent" />
+                            </LinearLayout>
+                        </android.support.v7.widget.CardView>
                     </LinearLayout>
                 </android.support.v7.widget.Toolbar>
 
@@ -68,7 +77,7 @@
         </LinearLayout>
         //content_main 8.3
         <LinearLayout
-            android:layout_weight="8"
+            android:layout_weight="8.1"
             android:layout_width="match_parent"
             android:layout_height="0dp">
             <include
@@ -81,7 +90,7 @@
             app:cardElevation="3dp"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            android:layout_weight="1"
+            android:layout_weight="0.9"
             android:layout_width="match_parent"
             android:layout_height="0dp">
             <com.aurelhubert.ahbottomnavigation.AHBottomNavigation

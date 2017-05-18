@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
+import com.example.win81version2.orderdrink.main.view.MainStoreActivity;
 import com.example.win81version2.orderdrink.product.model.Product;
 import com.example.win81version2.orderdrink.product.model.ProductSubmitter;
 import com.example.win81version2.orderdrink.utility.Constain;
@@ -26,14 +27,16 @@ public class ProductPresenter {
     private DatabaseReference mData;
     private ProductSubmitter submitter;
     private StorageReference mStorage;
+    private MainStoreActivity view;
 
-    public ProductPresenter() {
+    public ProductPresenter(MainStoreActivity view) {
+        this.view = view;
         mData = FirebaseDatabase.getInstance().getReference();
         mStorage = FirebaseStorage.getInstance().getReference();;
-        submitter = new ProductSubmitter(mData, mStorage);
+        submitter = new ProductSubmitter(view, mData, mStorage);
     }
-    public void createProduct (Bitmap bitmap, String idStore, String idCategory, String idProduct, String productName, String describeProduct, float price){
-        submitter.createProduct(bitmap, idStore, idCategory, idProduct, productName, describeProduct, price);
+    public void createProduct (Bitmap bitmap, String idStore, String idCategory, String idProduct, String productName, String describeProduct, float price, int sumProduct){
+        submitter.createProduct(bitmap, idStore, idCategory, idProduct, productName, describeProduct, price, sumProduct);
     }
     public void updateProductName (String idStore, String idCategory, String idProduct, String productName){
         submitter.updateProductName(idStore, idCategory, idProduct, productName);

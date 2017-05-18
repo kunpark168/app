@@ -16,25 +16,26 @@ import com.example.win81version2.orderdrink.R;
 
 public class StoreListViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView txtStoreName, txtSumfavorite, txtSumShipped, txtAddress, txtTimeWork, txtDistance;
+    public TextView txtStoreName, txtSumfavorite, txtSumShipped, txtAddress, txtTimeWork, txtDistance, txtSumProduct, txtStatus;
     public ImageView imgHeart, imgPhotoStore;
     public LinearLayout linearLayout;
     public CardView cardView;
-    public Button btnCallnow, btnViewOrder;
+    public Button btnViewProfileStore, btnViewOrder;
 
     public StoreListViewHolder(View itemView) {
         super(itemView);
         txtStoreName = (TextView) itemView.findViewById(R.id.txtStoreName_itemstore);
         txtSumfavorite = (TextView) itemView.findViewById(R.id.txtHeart);
-        txtSumShipped = (TextView) itemView.findViewById(R.id.txtSumShipped_itemstore);
+        txtSumShipped = (TextView) itemView.findViewById(R.id.txtSumShipped);
         txtAddress = (TextView) itemView.findViewById(R.id.txtAddress_itemstore);
         txtTimeWork = (TextView) itemView.findViewById(R.id.txtTimeWork_itemstore);
         txtDistance = (TextView) itemView.findViewById(R.id.txtDistanceFromUserToStore);
+        txtSumProduct = (TextView) itemView.findViewById(R.id.txtSumProduct);
+        txtStatus = (TextView) itemView.findViewById(R.id.txtStatus_itemStore);
         linearLayout = (LinearLayout) itemView.findViewById(R.id.layoutInfo);
         cardView = (CardView) itemView.findViewById(R.id.cardView);
-        btnCallnow = (Button) itemView.findViewById(R.id.btnCallNow);
+        btnViewProfileStore = (Button) itemView.findViewById(R.id.btnViewProfileStore);
         btnViewOrder = (Button) itemView.findViewById(R.id.btnViewOrder);
-
         imgHeart = (ImageView) itemView.findViewById(R.id.imgHeart);
         imgPhotoStore = (ImageView) itemView.findViewById(R.id.imgPhotoStore_itemStore);
     }

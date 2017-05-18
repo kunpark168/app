@@ -9,7 +9,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,13 +25,12 @@ import com.example.win81version2.orderdrink.history_order_user.view.HistoryOrder
 import com.example.win81version2.orderdrink.main.presenter.UserPresenter;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
 import com.example.win81version2.orderdrink.product.model.Product;
-import com.example.win81version2.orderdrink.product_list.view.ProductListFragment;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
 import com.example.win81version2.orderdrink.profile_store.view.Profile_Store_Fragment;
 import com.example.win81version2.orderdrink.profile_user.model.User;
 import com.example.win81version2.orderdrink.profile_user.view.ProfileUser_Fragment;
-import com.example.win81version2.orderdrink.search_user.model.Search;
-import com.example.win81version2.orderdrink.search_user.view.SearchActivity;
+import com.example.win81version2.orderdrink.search_user.model.SearchStore;
+import com.example.win81version2.orderdrink.search_user.model.SearchStoreAdapter;
 import com.example.win81version2.orderdrink.store_list.view.Store_List_Fragment;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.example.win81version2.orderdrink.utility.GPSTracker;
@@ -44,10 +47,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MainUserActivity extends BaseActivity implements View.OnClickListener, Serializable {
+public class MainUserActivity extends BaseActivity implements View.OnClickListener, Serializable, TextWatcher{
 
-    private ImageView imgAvata, imgSearch;
-    private TextView txtUserName, txtSumOrdered, txtSearch;
+    private ImageView imgAvata, iconSearch;
+    private TextView txtUserName, txtSumOrdered;
     private DatabaseReference mData;
     private String idUser, userName, linkPhotoUser, sumOrdered, addressUser = "";
     private Button btnLogout;
@@ -58,6 +61,10 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
     private double lo = 0, la = 0;
     private LinearLayout layoutSearch, layoutHome, layoutMyfavorite, layoutOrderHistory, layoutRate, layoutShare, layoutMyProfile;
     private Store_List_Fragment storeListFragment;
+    private AutoCompleteTextView edtSearch;
+    private ArrayList<SearchStore> arrSearchStore;
+    private int viewResourceId;
+    private SearchStoreAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +93,18 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
         layoutMyProfile.setOnClickListener(this);
         layoutHome.setOnClickListener(this);
         layoutOrderHistory.setOnClickListener(this);
+        edtSearch.addTextChangedListener(this);
+        edtSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SearchStore searchStore = arrSearchStore.get(position);
+                Intent intent = new Intent(MainUserActivity.this, MainUser2Activity.class);
+                intent.putExtra(Constain.ID_STORE, searchStore.getIdStore());
+                intent.putExtra(Constain.ID_USER, idUser);
+                intent.putExtra(Constain.IS_STORE, false);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initInfo() {
@@ -108,7 +127,9 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
                             location.put(Constain.LO, lo);
                             location.put(Constain.LA, la);
                             location.put(Constain.ADDRESS, addressUser);
-                            presenter.updateLocation(idUser, location);
+                            if (lo != 0 && la != 0) {
+                                presenter.updateLocation(idUser, location);
+                            }
                             linkPhotoUser = user.getLinkPhotoUser();
                             sumOrdered = user.getSumOrdered() + " Ordered";
                             if (!linkPhotoUser.equals("")) {
@@ -151,12 +172,11 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
 
         //View
         imgAvata = (ImageView) findViewById(R.id.imgPhotoUser);
-        imgSearch = (ImageView) findViewById(R.id.imgSearchLabel);
-        txtSearch = (TextView) findViewById(R.id.txtSearch);
         txtUserName = (TextView) findViewById(R.id.txtusername_mainuser);
         txtSumOrdered = (TextView) findViewById(R.id.txtSumOreders_mainuser);
         btnLogout = (Button) findViewById(R.id.btn_logout_user);
         layoutSearch = (LinearLayout) findViewById(R.id.layoutSearch);
+        iconSearch = (ImageView) findViewById(R.id.iconSearchStore);
         layoutHome = (LinearLayout) findViewById(R.id.navigation_homeUser);
         layoutMyProfile = (LinearLayout) findViewById(R.id.navigation_myprofile);
         layoutMyfavorite = (LinearLayout) findViewById(R.id.navigation_myfavorite);
@@ -170,6 +190,11 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
         arrAllProduct = new ArrayList<>();
         storeListFragment = new Store_List_Fragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user, storeListFragment).commit();
+        //search store
+        edtSearch = (AutoCompleteTextView) findViewById(R.id.edtSearch);
+        arrSearchStore = new ArrayList<>();
+        initInfo();
+        getArrSearchStore();
     }
 
     public void onBackPressed() {
@@ -203,10 +228,13 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
         if (view == R.id.btn_logout_user) {
             logOut();
         }
-        if (view == R.id.layoutSearch) {
-            txtSearch.setEnabled(true);
-            imgSearch.setEnabled(true);
-            moveToSearchAcitvity();
+        if (view == R.id.layoutSearch || view == R.id.iconSearchStore) {
+           // moveToSearchAcitvity();
+            if (adapter == null) {
+                viewResourceId = R.layout.item_search_store;
+                adapter = new SearchStoreAdapter(this, viewResourceId, arrSearchStore, lo, la);
+                edtSearch.setAdapter(adapter);
+            }
         }
         if (view == R.id.navigation_homeUser){
             onBackPressed();
@@ -234,26 +262,42 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
         setTitle("Trang cá nhân");
         getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user, profileUserFragment).commit();
     }
+    private void getArrSearchStore() {
+        mData.child(Constain.STORES).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                arrSearchStore.clear();
+                if (dataSnapshot.getValue() != null){
+                    for (DataSnapshot dt : dataSnapshot.getChildren()){
+                        try {
+                            Store store = dt.getValue(Store.class);
+                            HashMap<String, Object> location = new HashMap<String, Object>();
+                            double lo = 0, la = 0;
+                            try {
+                                if (store.getLocation() != null) {
+                                    location = store.getLocation();
+                                    lo = (double) location.get(Constain.LO);
+                                    la = (double) location.get(Constain.LA);
+                                }
+                            }
+                            catch (Exception ex){
+                                ex.printStackTrace();
+                            }
+                            SearchStore searchStore = new SearchStore(store.getLinkPhotoStore(), store.getIdStore(), store.getStoreName(), lo, la);
+                            arrSearchStore.add(searchStore);
+                        }
+                        catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+                    }
+                }
+            }
 
-    private void moveToSearchAcitvity() {
-        ArrayList<Store> arrStore = storeListFragment.getArrStore();
-        ArrayList<Search> arrSearch = new ArrayList<>();
-        for (int i = 0; i < arrStore.size() - 1; i++) {
-            try {
-                double lo = (double) arrStore.get(i).getLocation().get(Constain.LO);
-                double la = (double) arrStore.get(i).getLocation().get(Constain.LA);
-                Search search = new Search(arrStore.get(i).getLinkPhotoStore(), arrStore.get(i).getStoreName(), lo, la);
-                arrSearch.add(search);
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
-            catch (Exception ex){
-                ex.printStackTrace();
-            }
-        }
-        Intent intent = new Intent(this,SearchActivity.class);
-        intent.putExtra("search" , arrSearch);
-        intent.putExtra(Constain.LO, lo);
-        intent.putExtra(Constain.LA, la);
-        startActivity(intent);
+        });
     }
     private void logOut() {
         AlertDialog.Builder alert = new AlertDialog.Builder(MainUserActivity.this);
@@ -303,4 +347,22 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
             transaction.commit();
     }
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        if (adapter == null) {
+            viewResourceId = R.layout.item_search_store;
+            adapter = new SearchStoreAdapter(this, viewResourceId, arrSearchStore, lo, la);
+            edtSearch.setAdapter(adapter);
+        }
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.win81version2.orderdrink.product_list.model;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,5 +22,6 @@ public class ProductViewHolder extends RecyclerView.ViewHolder {
         img = (ImageView) itemView.findViewById(R.id.img);
         txtName = (TextView) itemView.findViewById(R.id.txtName);
         txtPrice = (TextView) itemView.findViewById(R.id.txtPrice);
+
     }
 }

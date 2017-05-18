@@ -39,14 +39,14 @@ public class UpdateStoreSubmitter {
         this.mStorage = mStorage;
     }
 
-    public void updateStatusStore(String idStore, final boolean isOpen) {
+    public void updateStatusStore(final String idStore, final int isOpen) {
         mData.child(Constain.STORES).child(idStore).child(Constain.IS_OPEN).setValue(isOpen).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    if (isOpen == true) {
+                    if (isOpen == 0) {
                         view.showToast("Mở cửa");
-                    } else {
+                    } else if (isOpen == 1){
                         view.showToast("Đóng cửa");
                     }
                 }
@@ -147,6 +147,9 @@ public class UpdateStoreSubmitter {
     }
     public void updateSumShippedStore (String idStore, int sumShipped){
         mData.child(Constain.STORES).child(idStore).child(Constain.SUM_SHIPPED).setValue(sumShipped);
+    }
+    public void updateSumProduct (String idStore, int sumProduct) {
+        mData.child(Constain.STORES).child(idStore).child(Constain.SUM_PRODUCT).setValue(sumProduct);
     }
 
 }

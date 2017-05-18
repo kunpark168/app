@@ -130,7 +130,7 @@ public class ProductListFragment extends Fragment {
 
     private void addControls() {
         arrProduct = new ArrayList<>();
-        btnCallNow = (Button) getActivity().findViewById(R.id.btnCallNow);
+        btnCallNow = (Button) getActivity().findViewById(R.id.btnCallshop);
         scroll = (ScrollView) getActivity().findViewById(R.id.scrollbarP);
         imgCoverStore = (ImageView) getActivity().findViewById(R.id.imgCoverStore_productlist);
         mData = FirebaseDatabase.getInstance().getReference();
@@ -139,6 +139,9 @@ public class ProductListFragment extends Fragment {
         adapter = new ProductListAdapter(idStore, isStore, getContext(), initData());
         adapter.expandAllParents();
         recyclerProduct.setAdapter(adapter);
+        if (isStore == true){
+            btnCallNow.setVisibility(View.INVISIBLE);
+        }
         recyclerProduct.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {

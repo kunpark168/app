@@ -119,6 +119,7 @@
                                     android:layout_weight="1">
 
                                     <TextView
+                                        android:id="@+id/txtSumProduct"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:gravity="bottom"
@@ -133,6 +134,7 @@
                                     android:layout_weight="1">
 
                                     <TextView
+                                        android:id="@+id/txtSumShipped"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:gravity="bottom"
@@ -299,12 +301,14 @@
                             android:weightSum="5">
 
                             <Button
-                                android:id="@+id/btnCallNow"
+                                android:id="@+id/btnViewProfileStore"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_margin="15dp"
                                 android:layout_weight="2.3"
-                                android:background="@drawable/btn_call"
+                                android:text="profile"
+                                android:textSize="12dp"
+                                android:background="@color/colorPrimaryDark"
                                 android:textColor="@color/white" />
 
                             <TextView
@@ -318,7 +322,9 @@
                                 android:layout_height="match_parent"
                                 android:layout_margin="15dp"
                                 android:layout_weight="2.3"
-                                android:background="@drawable/btn_view_order"
+                                android:text="view order"
+                                android:textSize="12dp"
+                                android:background="@color/colorPrimaryDark"
                                 android:textColor="@color/white" />
                         </LinearLayout>
                     </LinearLayout>

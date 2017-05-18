@@ -85,7 +85,6 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         FacebookSdk.sdkInitialize(this);
         setContentView(R.layout.activity_main_store);
         addControls();
-        checkGPS();
         innitInfo();
         checkNotify();
         addEvents();
@@ -134,16 +133,6 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         }
     }
 
-    private void checkGPS() {
-        if (gps.canGetLocation()) {
-            gps.getLocation();
-            lo = gps.getLongitude();
-            la = gps.getLatitude();
-        } else {
-            gps.showSettingsAlert();
-        }
-    }
-
     private void addEvents() {
         //My Category
         layoutMyCategory.setOnClickListener(new View.OnClickListener() {
@@ -167,11 +156,10 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
             @Override
             public void onClick(View v) {
                 if (switchCompatStatus.isChecked() == true) {
-                    isOpen = true;
-                    presenter.updateStatusStore(idStore, isOpen);
+                    presenter.updateStatusStore(idStore, 0);
                 } else {
                     isOpen = false;
-                    presenter.updateStatusStore(idStore, isOpen);
+                    presenter.updateStatusStore(idStore, 1);
                 }
             }
         });
@@ -191,7 +179,7 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
     private void innitInfo() {
         try {
             //get Info Store
-            mData.child(Constain.STORES).child(idStore).addValueEventListener(new ValueEventListener() {
+            mData.child(Constain.STORES).child(idStore).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.getValue() != null) {
@@ -203,14 +191,15 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
                                 flag = store.getLocation();
                                 addressUser = String.valueOf(flag.get(Constain.ADDRESS));
                             }
-                            location.put(Constain.LO, lo);
-                            location.put(Constain.LA, la);
-                            location.put(Constain.ADDRESS, addressUser);
-                            storePresenter.updateLocation(idStore, location);
                             txtStoreName.setText(store.getStoreName().toString());
                             txtSumShipped.setText(String.valueOf(store.getSumShipped()) + " Shipped");
                             linkPhotoStore = store.getLinkPhotoStore().toString();
-                            isOpen = store.isOpen();
+                            if (store.getIsOpen() == 0){
+                                isOpen = true;
+                            }
+                            else if (store.getIsOpen() == 1){
+                                isOpen = false;
+                            }
                             switchCompatStatus.setChecked(isOpen);
                             if (!linkPhotoStore.equals("")) {
                                 Glide.with(MainStoreActivity.this)
@@ -390,22 +379,5 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constain.REQUEST_CODE_GPS) {
-            gps.getLocation();
-            lo = gps.getLongitude();
-            la = gps.getLatitude();
-            if (lo != 0 && la != 0) {
-                location.put(Constain.LO, lo);
-                location.put(Constain.LA, la);
-                location.put(Constain.ADDRESS, addressUser);
-                storePresenter.updateLocation(idStore, location);
-            }
-        }
-    }
-
 
 }

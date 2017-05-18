@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
+import com.example.win81version2.orderdrink.main.view.MainStoreActivity;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
 import com.example.win81version2.orderdrink.product.model.Product;
 import com.example.win81version2.orderdrink.product.presenter.ProductPresenter;
@@ -33,6 +34,7 @@ public class EditProductActivity extends BaseActivity implements View.OnClickLis
     private TextView txtProductName, txtDescribe, txtPrice;
     private ImageView imgProduct;
     private ProductPresenter presenter;
+    private MainStoreActivity view;
     private Product product;
     private String idStore;
     private SwitchCompat statusProduct;
@@ -79,7 +81,8 @@ public class EditProductActivity extends BaseActivity implements View.OnClickLis
         txtPrice = (TextView) findViewById(R.id.txtPrice_editProduct);
         imgProduct = (ImageView) findViewById(R.id.imgProduct_editProduct);
         statusProduct = (SwitchCompat) findViewById(R.id.switchCompat_StatusProduct);
-        presenter = new ProductPresenter();
+        view = new MainStoreActivity();
+        presenter = new ProductPresenter(view);
         //get Product
         product = (Product) getIntent().getSerializableExtra(Constain.PRODUCTS);
         idStore = getIntent().getStringExtra(Constain.ID_STORE);
@@ -125,14 +128,14 @@ public class EditProductActivity extends BaseActivity implements View.OnClickLis
     private void updatePrice() {
         AlertDialog.Builder aler = new AlertDialog.Builder(this);
         aler.setTitle("Cập nhật thông tin");
-        EditText edtPrice = new EditText(this);
+        final EditText edtPrice = new EditText(this);
         edtPrice.setHint("Enter your price");
-        final String price = edtPrice.getText().toString().trim();
         aler.setView(edtPrice);
         aler.setCancelable(false);
         aler.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                String price = edtPrice.getText().toString().trim();
                 if (TextUtils.isEmpty(price)){
                     showToast("Giá sản phẩm không được trống!");
                 }
@@ -154,14 +157,14 @@ public class EditProductActivity extends BaseActivity implements View.OnClickLis
     private void updateDescribe() {
         AlertDialog.Builder aler = new AlertDialog.Builder(this);
         aler.setTitle("Cập nhật thông tin");
-        EditText edtDescribe = new EditText(this);
+        final EditText edtDescribe = new EditText(this);
         edtDescribe.setHint("Enter your describe");
-        final String describe = edtDescribe.getText().toString().trim();
         aler.setView(edtDescribe);
         aler.setCancelable(false);
         aler.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                String describe = edtDescribe.getText().toString().trim();
                 if (TextUtils.isEmpty(describe)){
                     showToast("TMô tả không được trống!");
                 }
@@ -183,14 +186,14 @@ public class EditProductActivity extends BaseActivity implements View.OnClickLis
     private void updateProductName() {
         AlertDialog.Builder aler = new AlertDialog.Builder(this);
         aler.setTitle("Cập nhật thông tin");
-        EditText edtProductName = new EditText(this);
+        final EditText edtProductName = new EditText(this);
         edtProductName.setHint("Enter your product name");
-        final String productName = edtProductName.getText().toString().trim();
         aler.setView(edtProductName);
         aler.setCancelable(false);
         aler.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                String productName = edtProductName.getText().toString().trim();
                  if (TextUtils.isEmpty(productName)){
                      showToast("Tên sản phẩm không được trống!");
                  }

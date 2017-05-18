@@ -6,6 +6,8 @@
     android:layout_marginBottom="10dp"
     android:layout_height="match_parent">
     <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:weightSum="10"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
@@ -13,9 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <ImageView
-            android:id="@+id/imgPhotoStore_itemsearch"
+            android:id="@+id/imgPhotoProduct_itemsearchProduct"
             android:src="@drawable/store"
-            android:layout_weight="1.7"
+            android:layout_weight="2.5"
             android:layout_width="0dp"
             android:layout_height="match_parent" />
         <LinearLayout
@@ -25,7 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/txtStoreName_itemsearch"
+                android:id="@+id/txtProductName_itemsearchProduct"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
                 android:textColor="@color/black"
@@ -40,8 +42,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp" >
                 <TextView
-                    android:id="@+id/txtDistance_itemsearch"
+                    android:id="@+id/txtPrice_itemsearchProduct"
                     android:maxLines="1"
+                    android:textSize="12dp"
+                    android:text="15000 VND"
+                    android:textColor="@color/item_Active"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </LinearLayout>

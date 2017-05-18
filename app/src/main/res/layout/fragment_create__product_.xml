@@ -52,7 +52,7 @@
                     android:textSize="15sp"
                     android:gravity="center"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="70dp" />
             </FrameLayout>
 
             <Space
@@ -60,13 +60,18 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"/>
 
-            <ImageView
-                android:id="@+id/imgProduct"
-                android:src="@drawable/store"
+            <FrameLayout
                 android:layout_weight="3.5"
                 android:layout_width="0dp"
-                android:scaleType="fitXY"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_gravity="center"
+                    android:id="@+id/imgProduct"
+                    android:src="@drawable/store"
+                    android:layout_width="150dp"
+                    android:scaleType="fitXY"
+                    android:layout_height="150dp" />
+            </FrameLayout>
         </LinearLayout>
 
 

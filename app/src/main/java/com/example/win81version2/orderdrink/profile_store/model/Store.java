@@ -16,7 +16,7 @@ public class Store {
     private String storeName;
     private String email;
     private boolean isStore;
-    private boolean isOpen;
+    private int isOpen; //0 mở của 1 đóng cửa
     private String phoneNumber;
     private String linkPhotoStore;
     private String linkCoverStore;
@@ -33,7 +33,7 @@ public class Store {
     public Store() {
     }
 
-    public Store(String idStore, String storeName, String email, boolean isStore, boolean isOpen, String phoneNumber, String linkPhotoStore, String linkCoverStore, int sumShipped, int sumOrdered, int sumProduct, String timeWork, HashMap<String, Object> location, HashMap<String, Object> favorite_list, HashMap<String, Object> products, HashMap<String, Object> orderSchedule) {
+    public Store(String idStore, String storeName, String email, boolean isStore, int isOpen, String phoneNumber, String linkPhotoStore, String linkCoverStore, int sumShipped, int sumOrdered, int sumProduct, String timeWork, HashMap<String, Object> location, HashMap<String, Object> favorite_list, HashMap<String, Object> products, HashMap<String, Object> orderSchedule) {
         this.idStore = idStore;
         this.storeName = storeName;
         this.email = email;
@@ -106,12 +106,12 @@ public class Store {
         isStore = store;
     }
 
-    public boolean isOpen() {
+    public int getIsOpen() {
         return isOpen;
     }
 
-    public void setOpen(boolean open) {
-        isOpen = open;
+    public void setIsOpen(int isOpen) {
+        this.isOpen = isOpen;
     }
 
     public String getPhoneNumber() {

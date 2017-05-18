@@ -32,6 +32,7 @@ import com.example.win81version2.orderdrink.oop.BaseFragment;
 import com.example.win81version2.orderdrink.product.model.Product;
 import com.example.win81version2.orderdrink.product.model.SpinnerAdapter;
 import com.example.win81version2.orderdrink.product.presenter.ProductPresenter;
+import com.example.win81version2.orderdrink.profile_store.presenter.UpdateStorePresenter;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,7 +50,9 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
     private Button btnChooseimg, btnCreateProduct;
     public ImageView imgProduct;
     private Spinner spinnerCategory;
+    private  int sumProduct;
     private ProductPresenter presenter;
+    private UpdateStorePresenter storePresenter;
 
     private SpinnerAdapter adapter;
     private ArrayList<Category> arrCategory;
@@ -77,6 +80,39 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
                                 Category category = dt.getValue(Category.class);
                                 arrCategory.add(category);
                                 adapter.notifyDataSetChanged();
+                            }
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+            //get sumProduct
+            mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    sumProduct = 0;
+                    if (dataSnapshot.getValue() != null) {
+                        try {
+                            for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                                mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).child(dt.getKey()).child(Constain.PRODUCTS).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.getValue() != null){
+                                            sumProduct += dataSnapshot.getChildrenCount();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
                             }
                         } catch (Exception ex) {
                             ex.printStackTrace();
@@ -119,11 +155,13 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
         imgProduct = (ImageView) getActivity().findViewById(R.id.imgProduct);
         spinnerCategory = (Spinner) getActivity().findViewById(R.id.spinnerCategory);
         mData = FirebaseDatabase.getInstance().getReference();
-        presenter = new ProductPresenter();
+        presenter = new ProductPresenter((MainStoreActivity) (this.getActivity()));
         idStore = getActivity().getIntent().getStringExtra(Constain.ID_STORE);
         arrCategory = new ArrayList<>();
         adapter = new SpinnerAdapter(arrCategory, getActivity());
         spinnerCategory.setAdapter(adapter);
+        MainStoreActivity view = new MainStoreActivity();
+        storePresenter = new UpdateStorePresenter(view);
     }
 
     @Override
@@ -172,7 +210,6 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
             showToast("Bạn chưa chọn hình!");
         }
         if (isVail) {
-            showProgressDialog();
             String[] tu = flag_nameProduct.trim().split(" ");
             String flag_nameProduct2 = "";
             for (int i = 0; i < tu.length; i++) {
@@ -217,9 +254,8 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
                                         }
                                     }
                                     if (flag_name) {
-                                        presenter.createProduct(bitmap, idStore, idCategory, idProduct, productName, describeProduct, Float.parseFloat(price));
-                                        hideProgressDialog();
-                                        showToast("Tạo sản phẩm thành công!");
+                                        sumProduct += 1;
+                                        presenter.createProduct(bitmap, idStore, idCategory, idProduct, productName, describeProduct, Float.parseFloat(price), sumProduct);
                                         edtProductName.setText("");
                                         edtPrice.setText("");
                                         edtDescribeProduct.setText("");
@@ -238,9 +274,8 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
                                     mBuilder.append(number);
                                 }
                                 idProduct = mBuilder.toString();
-                                presenter.createProduct(bitmap, idStore, idCategory, idProduct, productName, describeProduct, Float.parseFloat(price));
-                                hideProgressDialog();
-                                showToast("Tạo sản phẩm thành công!");
+                                sumProduct += 1;
+                                presenter.createProduct(bitmap, idStore, idCategory, idProduct, productName, describeProduct, Float.parseFloat(price), sumProduct);
                                 edtProductName.setText("");
                                 edtPrice.setText("");
                                 edtDescribeProduct.setText("");
@@ -248,6 +283,8 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
                                 imgProduct.setImageResource(R.drawable.store);
                             }
                         } catch (Exception ex) {
+                            hideProgressDialog();
+                            showToast("Tạo sản phẩm không thành công,vui lòng thử lại");
                             ex.printStackTrace();
                         }
                     }
@@ -279,14 +316,14 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
         if (requestCode == Constain.REQUEST_CODE_LOAD_IMAGE && resultCode == getActivity().RESULT_OK ){
             if (data.getAction() != null){
                 bitmap = (Bitmap) data.getExtras().get("data");
-                bitmap = getResizedBitmap(bitmap, 190, 140);
+                bitmap = cropImage(bitmap);
                 imgProduct.setImageBitmap(bitmap);
             }
             else {
                 Uri filePath = data.getData();
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
-                    bitmap = getResizedBitmap(bitmap, 190, 140);
+                    bitmap = cropImage(bitmap);
                     imgProduct.setImageBitmap(bitmap);
                 } catch (IOException e) {
                     e.printStackTrace();

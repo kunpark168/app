@@ -7,7 +7,7 @@ import android.text.TextWatcher;
 import android.widget.AutoCompleteTextView;
 
 import com.example.win81version2.orderdrink.R;
-import com.example.win81version2.orderdrink.search_user.model.Search;
+import com.example.win81version2.orderdrink.search_user.model.SearchStore;
 import com.example.win81version2.orderdrink.search_user.model.SearchStoreAdapter;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.google.firebase.database.DatabaseReference;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class SearchActivity extends AppCompatActivity implements TextWatcher, Serializable {
 
     private AutoCompleteTextView edtSearch;
-    private ArrayList<Search> arrSearch;
+    private ArrayList<SearchStore> arrSearchStore;
     private int viewResourceId;
     private DatabaseReference mData;
     private SearchStoreAdapter adapter;
@@ -38,14 +38,14 @@ public class SearchActivity extends AppCompatActivity implements TextWatcher, Se
     private void addControls() {
         mData = FirebaseDatabase.getInstance().getReference();
         edtSearch = (AutoCompleteTextView) findViewById(R.id.edtSearch);
-        arrSearch = new ArrayList<>();
+        arrSearchStore = new ArrayList<>();
         initInfo();
-        viewResourceId = R.layout.item_search;
-        adapter = new SearchStoreAdapter(this, viewResourceId, arrSearch, loUser, laUser);
+        viewResourceId = R.layout.item_search_product;
+        adapter = new SearchStoreAdapter(this, viewResourceId, arrSearchStore, loUser, laUser);
         edtSearch.setAdapter(adapter);
     }
     private void initInfo() {
-        arrSearch = getIntent().getParcelableArrayListExtra("search");
+        arrSearchStore = getIntent().getParcelableArrayListExtra("search");
         loUser = getIntent().getDoubleExtra(Constain.LO, 0);
         laUser = getIntent().getDoubleExtra(Constain.LA, 0);
     }

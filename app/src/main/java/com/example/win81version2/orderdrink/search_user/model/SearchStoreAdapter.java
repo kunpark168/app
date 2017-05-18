@@ -15,21 +15,23 @@ import com.example.win81version2.orderdrink.R;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+
 /**
  * Created by Win 8.1 Version 2 on 5/6/2017.
  */
-public class SearchStoreAdapter extends ArrayAdapter<Search> {
+public class SearchStoreAdapter extends ArrayAdapter<SearchStore> {
     private final String MY_DEBUG_TAG = "SearchStoreAdapter";
-    private ArrayList<Search> items;
-    private ArrayList<Search> itemsAll;
-    private ArrayList<Search> suggestions;
+    private ArrayList<SearchStore> items;
+    private ArrayList<SearchStore> itemsAll;
+    private ArrayList<SearchStore> suggestions;
     private int viewResourceId;
     private double loUser, laUser, distance;
-    public SearchStoreAdapter(Context context, int viewResourceId, ArrayList<Search> items, double loUser, double laUser) {
+
+    public SearchStoreAdapter(Context context, int viewResourceId, ArrayList<SearchStore> items, double loUser, double laUser) {
         super(context, viewResourceId, items);
         this.items = items;
-        this.itemsAll = (ArrayList<Search>) items.clone();
-        this.suggestions = new ArrayList<Search>();
+        this.itemsAll = (ArrayList<SearchStore>) items.clone();
+        this.suggestions = new ArrayList<SearchStore>();
         this.viewResourceId = viewResourceId;
         this.loUser = loUser;
         this.laUser = laUser;
@@ -41,29 +43,28 @@ public class SearchStoreAdapter extends ArrayAdapter<Search> {
             LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = vi.inflate(viewResourceId, null);
         }
-        Search search = items.get(position);
-        if (search != null) {
+        SearchStore searchStore = items.get(position);
+        if (searchStore != null) {
             TextView txtStoreName = (TextView) v.findViewById(R.id.txtStoreName_itemsearch);
             TextView txtDistance = (TextView) v.findViewById(R.id.txtDistance_itemsearch);
             ImageView imgPhoto = (ImageView) v.findViewById(R.id.imgPhotoStore_itemsearch);
-            if (search.getName() != null) {
-                txtStoreName.setText(search.getName());
+            if (searchStore.getName() != null) {
+                txtStoreName.setText(searchStore.getName());
             }
             //Caculator Distance
             try {
-                double loStore = search.getLo();
-                double laStore = search.getLa();
-                if (loUser != 0 && laUser != 0 && loStore != 0 && laStore != 0){
-                    distance = calculationByDistance(laUser, loUser, loStore, laStore);
-                    txtDistance.setText("Cách đây " + String.valueOf(distance) + "Km");
+                double loStore = searchStore.getLo();
+                double laStore = searchStore.getLa();
+                if (loUser != 0 && laUser != 0 && loStore != 0 && laStore != 0) {
+                    distance = calculationByDistance(laUser, loUser, laStore, loStore);
+                    txtDistance.setText("Cách đây " + Math.round(distance) + "Km");
                 }
-            }
-            catch (Exception ex){
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
-            if (!search.getLinkPhoto().equals("")) {
+            if (!searchStore.getLinkPhotoStore().equals("")) {
                 Glide.with(getContext())
-                        .load(search.getLinkPhoto().toString())
+                        .load(searchStore.getLinkPhotoStore().toString())
                         .fitCenter()
                         .into(imgPhoto);
             }
@@ -79,7 +80,7 @@ public class SearchStoreAdapter extends ArrayAdapter<Search> {
     Filter nameFilter = new Filter() {
         @Override
         public String convertResultToString(Object resultValue) {
-            String str = ((Search) (resultValue)).getName();
+            String str = ((SearchStore) (resultValue)).getName();
             return str;
         }
 
@@ -87,9 +88,9 @@ public class SearchStoreAdapter extends ArrayAdapter<Search> {
         protected FilterResults performFiltering(CharSequence constraint) {
             if (constraint != null) {
                 suggestions.clear();
-                for (Search search : itemsAll) {
-                    if (search.getName().toLowerCase().startsWith(constraint.toString().toLowerCase())) {
-                        suggestions.add(search);
+                for (SearchStore searchStore : itemsAll) {
+                    if (searchStore.getName().toLowerCase().startsWith(constraint.toString().toLowerCase())) {
+                        suggestions.add(searchStore);
                     }
                 }
                 FilterResults filterResults = new FilterResults();
@@ -103,10 +104,10 @@ public class SearchStoreAdapter extends ArrayAdapter<Search> {
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            ArrayList<Search> filteredList = (ArrayList<Search>) results.values;
+            ArrayList<SearchStore> filteredList = (ArrayList<SearchStore>) results.values;
             if (results != null && results.count > 0) {
                 clear();
-                for (Search c : filteredList) {
+                for (SearchStore c : filteredList) {
                     add(c);
                 }
                 notifyDataSetChanged();

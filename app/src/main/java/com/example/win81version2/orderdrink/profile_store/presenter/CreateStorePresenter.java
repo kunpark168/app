@@ -3,6 +3,7 @@ package com.example.win81version2.orderdrink.profile_store.presenter;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
+import com.example.win81version2.orderdrink.main.view.MainActivity;
 import com.example.win81version2.orderdrink.main.view.MainAdminActivity;
 import com.example.win81version2.orderdrink.profile_store.model.CreateStoreSubmitter;
 import com.example.win81version2.orderdrink.profile_store.view.CreateStoreActivity;
@@ -28,6 +29,7 @@ public class CreateStorePresenter {
     private FirebaseAuth mAuth;
 
     public CreateStorePresenter(CreateStoreActivity view, FirebaseAuth mAuth) {
+        this.view = view;
         this.mAuth = mAuth;
         mData = FirebaseDatabase.getInstance().getReference();
         submitter = new CreateStoreSubmitter(mData, view);
@@ -46,16 +48,16 @@ public class CreateStorePresenter {
                     HashMap<String, Object> products = new HashMap<>();
                     HashMap<String, Object> orderSchedule = new HashMap<>();
                     String timework = from + "-" + to;
-                    addNewStore(task.getResult().getUser().getUid().toString(), storeName, task.getResult().getUser().getEmail(), true, true, phoneNumber, "", timework, location, favoriteList, products, orderSchedule);
+                    addNewStore(task.getResult().getUser().getUid().toString(), storeName, task.getResult().getUser().getEmail(), true, 0, phoneNumber, "", timework, location, favoriteList, products, orderSchedule);
                     view.hideProgressDialog();
                     view.showToast("Create new store successful");
-                    view.startActivity(new Intent(view, MainAdminActivity.class));
+                    view.startActivity(new Intent(view, MainActivity.class));
                 }
             }
         });
     }
 
-    public void addNewStore(String idStore, String storeName, String email, boolean isStore, boolean isOpen, String phoneNumber, String linkPhotoStore, String timeWork, HashMap<String, Object>location, HashMap<String, Object> favoriteList, HashMap<String, Object> products, HashMap<String, Object> orderSchedule) {
+    public void addNewStore(String idStore, String storeName, String email, boolean isStore, int isOpen, String phoneNumber, String linkPhotoStore, String timeWork, HashMap<String, Object>location, HashMap<String, Object> favoriteList, HashMap<String, Object> products, HashMap<String, Object> orderSchedule) {
         submitter.addNewStore(idStore, storeName, email, isStore, isOpen, phoneNumber, linkPhotoStore, timeWork,location, favoriteList, products, orderSchedule);
     }
 }

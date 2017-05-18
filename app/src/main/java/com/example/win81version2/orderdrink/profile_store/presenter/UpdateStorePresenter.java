@@ -41,7 +41,7 @@ public class UpdateStorePresenter {
         submitter = new UpdateStoreSubmitter(mData, this.view, mAuth, mStorage);
     }
 
-    public void updateStatusStore(String idStore, final boolean isOpen) {
+    public void updateStatusStore(String idStore, int isOpen) {
         submitter.updateStatusStore(idStore, isOpen);
     }
 
@@ -76,5 +76,8 @@ public class UpdateStorePresenter {
     }
     public void updateSumShippedStore (String idStore, int sumShipped){
         submitter.updateSumShippedStore(idStore, sumShipped);
+    }
+    public void updateSumProduct (String idStore, int sumProduct) {
+        submitter.updateSumProduct(idStore, sumProduct);
     }
 }

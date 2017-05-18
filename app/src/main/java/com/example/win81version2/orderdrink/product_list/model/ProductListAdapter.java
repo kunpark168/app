@@ -22,7 +22,7 @@ import java.util.List;
  * Created by Nhan on 5/8/2017.
  */
 
-public class ProductListAdapter extends ExpandableRecyclerAdapter<GroupProduct , Product ,GroupProductViewHolder , ViewHolders> {
+public class ProductListAdapter extends ExpandableRecyclerAdapter <GroupProduct , Product ,GroupProductViewHolder , ViewHolders> {
 
     private static final int NOI_BAT = 1;
     private static final int BINH_THUONG = 2;
@@ -67,6 +67,14 @@ public class ProductListAdapter extends ExpandableRecyclerAdapter<GroupProduct ,
         final Product product = child;
         childViewHolder.setTxtPriceName(Math.round(child.getPrice()) + " VNĐ");
         childViewHolder.setTxtNameName(child.getProductName());
+        if (isStore == true){
+            childViewHolder.btnGetit.setVisibility(View.INVISIBLE);
+            childViewHolder.txtEdit.setVisibility(View.VISIBLE);
+        }
+        else {
+            childViewHolder.btnGetit.setVisibility(View.VISIBLE);
+            childViewHolder.txtEdit.setVisibility(View.INVISIBLE);
+        }
         childViewHolder.btnGetit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,6 +91,19 @@ public class ProductListAdapter extends ExpandableRecyclerAdapter<GroupProduct ,
         if(!linkPhoto.equals("")){
             Glide.with(mContext).load(linkPhoto).into(childViewHolder.getImg());
         }
+        //set event itemclick
+        childViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isStore == false) {
+                    GroupProduct groupProduct = parentList.get(parentPosition);
+                    displayProduct(product, groupProduct.getTitle());
+                }
+                else {
+                    editProduct(product);
+                }
+            }
+        });
     }
 
     private void displayProduct(Product product, String categoryName){

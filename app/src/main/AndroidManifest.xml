@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.view.MainActivity">
+        <activity android:name=".main.view.MainActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,14 +27,18 @@
             </intent-filter>
         </activity>
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".Login.view.LoginActivity"
             android:theme="@style/NoActionBar" />
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".signup.view.SignupUserActivity"
-            android:label="................................................................................"
+            android:label=""
             android:theme="@style/DialogNoActionBar" />
-        <activity android:name=".main.view.MainUserActivity" />
-        <activity android:name=".main.view.MainUser2Activity" />
+        <activity android:name=".main.view.MainUserActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".main.view.MainUser2Activity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".signup.view.ChooseSignnup" />
         <activity android:name=".profile_store.view.CreateStoreActivity" />
 
@@ -51,16 +56,20 @@
         <activity android:name=".main.view.MainStoreActivity" />
         <activity
             android:name=".my_cart.view.DisplayProduct"
+            android:windowSoftInputMode="adjustPan"
             android:label=""
-            android:theme="@style/DialogNoActionBar" />
+            android:theme="@style/AppTheme.CustomTheme" />
         <activity
             android:name=".category.view.CreateCategory"
-            android:label="----------------------------------------"
+            android:label=""
             android:theme="@style/DialogNoActionBar" />
         <activity
             android:name=".search_user.view.SearchActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".product.view.EditProductActivity"></activity>
+        <activity android:name=".product.view.EditProductActivity"
+            android:label=""
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/Base.V7.Theme.AppCompat.Light.Dialog"></activity>
     </application>
 
 </manifest>

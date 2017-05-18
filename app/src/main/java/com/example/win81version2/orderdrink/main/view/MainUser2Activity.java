@@ -9,7 +9,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,17 +25,15 @@ import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.history_order_user.view.HistoryOrderUserFragment;
 import com.example.win81version2.orderdrink.main.presenter.UserPresenter;
+import com.example.win81version2.orderdrink.my_cart.view.DisplayProduct;
 import com.example.win81version2.orderdrink.my_cart.view.MyCartFragment;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
 import com.example.win81version2.orderdrink.product.model.Product;
 import com.example.win81version2.orderdrink.product_list.view.ProductListFragment;
-import com.example.win81version2.orderdrink.profile_store.model.Store;
-import com.example.win81version2.orderdrink.profile_store.view.Profile_Store_Fragment;
 import com.example.win81version2.orderdrink.profile_user.model.User;
 import com.example.win81version2.orderdrink.profile_user.view.ProfileUser_Fragment;
-import com.example.win81version2.orderdrink.search_user.model.Search;
-import com.example.win81version2.orderdrink.search_user.view.SearchActivity;
-import com.example.win81version2.orderdrink.store_list.view.Store_List_Fragment;
+import com.example.win81version2.orderdrink.search_user.model.SearchProduct;
+import com.example.win81version2.orderdrink.search_user.model.SearchProductAdapter;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.example.win81version2.orderdrink.utility.GPSTracker;
 import com.facebook.FacebookSdk;
@@ -47,11 +49,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MainUser2Activity extends BaseActivity implements View.OnClickListener, Serializable , AHBottomNavigation.OnTabSelectedListener{
+public class MainUser2Activity extends BaseActivity implements View.OnClickListener, Serializable , AHBottomNavigation.OnTabSelectedListener, TextWatcher{
 
     private ImageView imgAvata, imgSearch;
     private AHBottomNavigation ahBottomNavigation;
-    private TextView txtUserName, txtSumOrdered, txtSearch;
+    private TextView txtUserName, txtSumOrdered;
     private DatabaseReference mData;
     private String idUser, idStore, userName, linkPhotoUser, sumOrdered, addressUser = "";
     private Button btnLogout;
@@ -61,9 +63,12 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
     private ArrayList<Product> arrAllProduct;
     private double lo = 0, la = 0;
     private LinearLayout layoutSearch, layoutHome, layoutMyfavorite, layoutOrderHistory, layoutRate, layoutShare, layoutMyProfile;
-    private Store_List_Fragment storeListFragment;
     private MyCartFragment myCartFragment;
     private ProductListFragment fragment;
+    private AutoCompleteTextView edtSearch;
+    private ArrayList<SearchProduct> arrSearchProduct;
+    private int viewResourceId;
+    private SearchProductAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +97,18 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
         layoutMyProfile.setOnClickListener(this);
         layoutHome.setOnClickListener(this);
         layoutOrderHistory.setOnClickListener(this);
+        edtSearch.addTextChangedListener(this);
+        edtSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SearchProduct searchProduct = arrSearchProduct.get(position);
+                Product product = searchProduct.getProduct();
+                Intent intent = new Intent(MainUser2Activity.this, DisplayProduct.class);
+                intent.putExtra(Constain.PRODUCTS, product);
+                intent.putExtra(Constain.ID_STORE, idStore);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initInfo() {
@@ -160,7 +177,6 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
         Bundle bundle = new Bundle();
         bundle.putString(Constain.ID_STORE, idStore);
         bundle.putBoolean(Constain.IS_STORE, false);
-        storeListFragment = new Store_List_Fragment();
         fragment = new ProductListFragment();
         fragment.setArguments(bundle);
         //Navigation Bottom
@@ -169,8 +185,7 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
 
         //View
         imgAvata = (ImageView) findViewById(R.id.imgPhotoUser2);
-        imgSearch = (ImageView) findViewById(R.id.imgSearchLabel2);
-        txtSearch = (TextView) findViewById(R.id.txtSearch2);
+        imgSearch = (ImageView) findViewById(R.id.iconSearchStore2);
         txtUserName = (TextView) findViewById(R.id.txtusername_mainuser2);
         txtSumOrdered = (TextView) findViewById(R.id.txtSumOreders_mainuser2);
         btnLogout = (Button) findViewById(R.id.btn_logout_user2);
@@ -186,6 +201,55 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
         presenter = new UserPresenter();
         gps = new GPSTracker(this);
         arrAllProduct = new ArrayList<>();
+        //search Product
+        edtSearch = (AutoCompleteTextView) findViewById(R.id.edtSearch2);
+        arrSearchProduct = new ArrayList<>();
+        viewResourceId = R.layout.item_search_product;
+        getArrSearchProduct ();
+    }
+
+    private void getArrSearchProduct() {
+        try {
+            mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null){
+                       for (DataSnapshot dt : dataSnapshot.getChildren()){
+                           mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).child(dt.getKey()).child(Constain.PRODUCTS).addValueEventListener(new ValueEventListener() {
+                               @Override
+                               public void onDataChange(DataSnapshot dataSnapshot) {
+                                   if (dataSnapshot.getValue() != null){
+                                       for (DataSnapshot dt : dataSnapshot.getChildren()){
+                                           try {
+                                               Product product = dt.getValue(Product.class);
+                                               SearchProduct searchProduct = new SearchProduct(product);
+                                               arrSearchProduct.add(searchProduct);
+                                           }
+                                           catch (Exception ex){
+                                               ex.printStackTrace();
+                                           }
+                                       }
+                                   }
+                               }
+
+                               @Override
+                               public void onCancelled(DatabaseError databaseError) {
+
+                               }
+                           });
+                       }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     public void onBackPressed() {
@@ -203,10 +267,11 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
         if (view == R.id.btn_logout_user2) {
             logOut();
         }
-        if (view == R.id.layoutSearch2) {
-            txtSearch.setEnabled(true);
-            imgSearch.setEnabled(true);
-            moveToSearchAcitvity();
+        if (view == R.id.layoutSearch2 || view == R.id.iconSearchStore2) {
+           if (adapter == null){
+               adapter = new SearchProductAdapter(MainUser2Activity.this, viewResourceId, arrSearchProduct);
+               edtSearch.setAdapter(adapter);
+           }
         }
         if (view == R.id.navigation_homeUser2){
             onBackPressed();
@@ -243,31 +308,10 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
         getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user2, profileUserFragment).commit();
     }
 
-    private void moveToSearchAcitvity() {
-        ArrayList<Store> arrStore = storeListFragment.getArrStore();
-        ArrayList<Search> arrSearch = new ArrayList<>();
-        for (int i = 0; i < arrStore.size() - 1; i++) {
-            try {
-                double lo = (double) arrStore.get(i).getLocation().get(Constain.LO);
-                double la = (double) arrStore.get(i).getLocation().get(Constain.LA);
-                Search search = new Search(arrStore.get(i).getLinkPhotoStore(), arrStore.get(i).getStoreName(), lo, la);
-                arrSearch.add(search);
-            }
-            catch (Exception ex){
-                ex.printStackTrace();
-            }
-        }
-        Intent intent = new Intent(this,SearchActivity.class);
-        intent.putExtra("search" , arrSearch);
-        intent.putExtra(Constain.LO, lo);
-        intent.putExtra(Constain.LA, la);
-        startActivity(intent);
-    }
-
     private void initItemNavigation() {
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Product", R.drawable.icon_coffe, R.color.ahbottom);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem("History", R.drawable.icon_history, R.color.ahbottom);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Infomation", R.drawable.icon_info, R.color.ahbottom);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Product", R.drawable.icon_coffe);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem("History", R.drawable.icon_history);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Infomation", R.drawable.icon_info);
         ahBottomNavigation.addItem(item1);
         ahBottomNavigation.addItem(item2);
         ahBottomNavigation.addItem(item3);
@@ -329,6 +373,24 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
     }
 
     public void createProductListFragment(String idStore) {
+
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        if (adapter == null){
+            adapter = new SearchProductAdapter(MainUser2Activity.this, viewResourceId, arrSearchProduct);
+            edtSearch.setAdapter(adapter);
+        }
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
 
     }
 }
