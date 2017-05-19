@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,11 +45,10 @@ public class Profile_Store_Fragment extends BaseFragment implements View.OnClick
     private FrameLayout layoutChangeCover, layoutChangeAvata;
     private TextView txtSumOrdered, txtSumShipped, txtStoreName, txtPhoneNumberStore, txtEmailStore, txtAddressStore;
     private LinearLayout layoutEditStoreName, layoutEditEmailStore, layoutEditPhoneNumberStore, layoutEditAddressStore, layoutEditPasswordStore, layoutPassword;
-    private ImageView imgCover, imgAvata, imgEditAvata, imgEditCover;
+    public ImageView imgCover, imgAvata, imgEditAvata, imgEditCover;
     private DatabaseReference mData;
     private boolean isStore;
     private UpdateStorePresenter presenter;
-    private MainStoreActivity view;
     private Bitmap bitmapCover = null;
     private Bitmap bitmapAvata = null;
     public Profile_Store_Fragment() {
@@ -156,8 +156,7 @@ public class Profile_Store_Fragment extends BaseFragment implements View.OnClick
 
     private void addControls() {
         mData = FirebaseDatabase.getInstance().getReference();
-        view = new MainStoreActivity();
-        presenter = new UpdateStorePresenter(view);
+        presenter = new UpdateStorePresenter((MainStoreActivity) getContext(), this);
         //Ánh xạ
         layoutChangeAvata = (FrameLayout) getActivity().findViewById(R.id.layoutChangeAvataStore);
         layoutChangeCover = (FrameLayout) getActivity().findViewById(R.id.layoutChangeCoverStore);
@@ -213,46 +212,49 @@ public class Profile_Store_Fragment extends BaseFragment implements View.OnClick
         AlertDialog.Builder aler = new AlertDialog.Builder(getContext());
         aler.setTitle("Chỉnh Sửa Thông Tin");
         final EditText edtPassword = new EditText(getContext());
+        final EditText edtnewPassword = new EditText(getContext());
         final EditText edtConfirmPassword = new EditText(getContext());
-        edtConfirmPassword.setHint("Confirm New Password");
-        edtPassword.setHint("New Password ");
+        edtPassword.setHint("Enter your Password");
+        edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        edtPassword.setHintTextColor(R.color.black);
+        edtPassword.setTextColor(R.color.black);
+        edtnewPassword.setHint("Enter your new password");
+        edtnewPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        edtnewPassword.setHintTextColor(R.color.black);
+        edtnewPassword.setTextColor(R.color.black);
+        edtConfirmPassword.setHint("Confirm your new password");
+        edtConfirmPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        edtConfirmPassword.setHintTextColor(R.color.black);
+        edtConfirmPassword.setTextColor(R.color.black);
         LinearLayout layout = new LinearLayout(getContext());
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.setPadding(10, 0, 10, 0);
-        TextView txtOldPass = new TextView(getContext());
-        txtOldPass.setText("Password hiện tại");
-        txtOldPass.setTextColor(R.color.item_Active);
-        txtOldPass.setTextSize(12);
-        final EditText edtOldPass = new EditText(getContext());
-        edtOldPass.setHint("Enter your current password");
-        TextView txtNewPass = new TextView(getContext());
-        txtNewPass.setText("Password mới");
-        txtNewPass.setTextColor(R.color.item_Active);
-        txtNewPass.setTextSize(12);
-        layout.addView(txtOldPass);
-        layout.addView(edtOldPass);
-        layout.addView(txtNewPass);
         layout.addView(edtPassword);
+        layout.addView(edtnewPassword);
         layout.addView(edtConfirmPassword);
         aler.setView(layout);
         aler.setCancelable(false);
         aler.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                String password = edtPassword.getText().toString().trim();
+                String newPassword = edtnewPassword.getText().toString().trim();
+                String confirmPasswrod = edtConfirmPassword.getText().toString().trim();
                 boolean flag = true;
-                String password = edtOldPass.getText().toString().trim();
-                String passwrord = edtPassword.getText().toString().trim();
-                String confirmPassword = edtConfirmPassword.getText().toString().trim();
-                if (!passwrord.equals(confirmPassword)){
+                if (TextUtils.isEmpty(password) || TextUtils.isEmpty(newPassword) || TextUtils.isEmpty(confirmPasswrod)){
+                    showToast("Password không được trống");
                     flag = false;
-                    showToast("Mật khẩu không trùng khớp, vui lòng thử lại!");
                 }
-                if (passwrord.length() >0 && passwrord.length() < 6){
+                if (newPassword.length() > 0 && newPassword.length() < 6){
                     flag = false;
-                    showToast("Mật khẩu phải ít nhất 6 ký, vui lòng thử lại!");
+                    showToast("Mật khẩu mới phải lớn hơn 6 ký tự");
                 }
-                if (flag == true ){
-                    presenter.updatePasswordStore(email, password, passwrord);
+                if (!newPassword.equals(confirmPasswrod)){
+                    flag = false;
+                    showToast("Mật khẩu mới không trùng khớp, vui lòng thử lại!");
+                }
+                if (flag){
+                    presenter.updatePasswordStore(email, password, newPassword);
                 }
             }
         });
@@ -269,6 +271,7 @@ public class Profile_Store_Fragment extends BaseFragment implements View.OnClick
         AlertDialog.Builder aler = new AlertDialog.Builder(getContext());
         aler.setTitle("Chỉnh Sửa Thông Tin");
         final EditText edtAddress = new EditText(getContext());
+        edtAddress.setText(address);
         edtAddress.setHint("Enter your Address store ");
         aler.setView(edtAddress);
         aler.setCancelable(false);
@@ -280,8 +283,6 @@ public class Profile_Store_Fragment extends BaseFragment implements View.OnClick
                 }
                 else {
                     presenter.updateAddressStore(idStore, edtAddress.getText().toString());
-                    txtAddressStore.setText(edtAddress.getText());
-                    showToast("Cập nhật địa chỉ thành công!");
                 }
             }
         });
@@ -298,6 +299,7 @@ public class Profile_Store_Fragment extends BaseFragment implements View.OnClick
         AlertDialog.Builder aler = new AlertDialog.Builder(getContext());
         aler.setTitle("Chỉnh Sửa Thông Tin");
         final EditText edtPhoneNumber = new EditText(getContext());
+        edtPhoneNumber.setText(phoneNumber);
         edtPhoneNumber.setHint("Enter your phonenumber store ");
         aler.setView(edtPhoneNumber);
         aler.setCancelable(false);
@@ -309,8 +311,6 @@ public class Profile_Store_Fragment extends BaseFragment implements View.OnClick
                 }
                 else {
                     presenter.updatephoneNumberStore(idStore, edtPhoneNumber.getText().toString());
-                    txtPhoneNumberStore.setText(edtPhoneNumber.getText());
-                    showToast("Cập nhật số điện thoại thành công!");
                 }
             }
         });
@@ -324,35 +324,33 @@ public class Profile_Store_Fragment extends BaseFragment implements View.OnClick
     }
 
     private void updateEmailStore() {
-        final AlertDialog.Builder aler = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder aler = new AlertDialog.Builder(getContext());
         aler.setTitle("Chỉnh Sửa Thông Tin");
+        final EditText edtEmail = new EditText(getContext());
+        edtEmail.setText(email);
+        edtEmail.setHint("Enter your Email");
+        final EditText edtPassword = new EditText(getContext());
+        edtPassword.setHint("Enter your password");
+        edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        edtPassword.setHintTextColor(R.color.black);
+        edtPassword.setTextColor(R.color.black);
         LinearLayout layout = new LinearLayout(getContext());
         layout.setOrientation(LinearLayout.VERTICAL);
-        final EditText edtEmail = new EditText(getContext());
-        edtEmail.setHint("Enter your email store ");
-        layout.addView(edtEmail);
         layout.setPadding(10, 0, 10, 0);
+        layout.addView(edtEmail);
+        layout.addView(edtPassword);
         aler.setView(layout);
         aler.setCancelable(false);
         aler.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                boolean flag = true;
-                if(!isEmailVail(edtEmail.getText().toString())){
-                   flag = false;
-                    showToast("Email không hợp lệ ,vui lòng thử lại");
-                }
-                if (TextUtils.isEmpty(edtEmail.getText().toString())){
-                    showToast("email không được trống!");
-                }
-                if (flag) {
-                    try {
-                        presenter.updateEmailStore(idStore, edtEmail.getText().toString());
-                            showToast("Cập nhật Email khong thành công");
-                    }
-                    catch (Exception ex){
-                        ex.printStackTrace();
-                    }
+                String newEmail = edtEmail.getText().toString().trim();
+                String password = edtPassword.getText().toString().trim();
+                if (TextUtils.isEmpty(newEmail) || TextUtils.isEmpty(password)) {
+                    showToast("email hoặc password trống!");
+                } else {
+
+                    presenter.updateEmailStore(idStore, email, password, newEmail);
                 }
             }
         });
@@ -369,6 +367,7 @@ public class Profile_Store_Fragment extends BaseFragment implements View.OnClick
         AlertDialog.Builder aler = new AlertDialog.Builder(getContext());
         aler.setTitle("Chỉnh Sửa Thông Tin");
         final EditText edtStoreName = new EditText(getContext());
+        edtStoreName.setText(storeName);
         edtStoreName.setHint("Enter your store name ");
         aler.setView(edtStoreName);
         aler.setCancelable(false);
@@ -380,8 +379,6 @@ public class Profile_Store_Fragment extends BaseFragment implements View.OnClick
                 }
                 else {
                     presenter.updateStoreName(idStore, edtStoreName.getText().toString());
-                    txtStoreName.setText(edtStoreName.getText());
-                    showToast("Cập nhật Tên cửa hàng thành công!");
                 }
             }
         });
@@ -442,7 +439,6 @@ public class Profile_Store_Fragment extends BaseFragment implements View.OnClick
                 bitmapAvata = (Bitmap) data.getExtras().get("data");
                 bitmapAvata = getResizedBitmap(cropImage(bitmapAvata), 225, 225);
                 presenter.updateAvataStore(bitmapAvata, idStore);
-                imgAvata.setImageBitmap(bitmapAvata);
             }
             else {
                 Uri filePath = data.getData();
@@ -450,7 +446,6 @@ public class Profile_Store_Fragment extends BaseFragment implements View.OnClick
                     bitmapAvata = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
                     bitmapAvata = getResizedBitmap(cropImage(bitmapAvata), 225, 225);
                     presenter.updateAvataStore(bitmapAvata, idStore);
-                    imgAvata.setImageBitmap(bitmapAvata);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

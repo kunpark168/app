@@ -33,6 +33,7 @@ import com.example.win81version2.orderdrink.product.model.Product;
 import com.example.win81version2.orderdrink.product.model.SpinnerAdapter;
 import com.example.win81version2.orderdrink.product.presenter.ProductPresenter;
 import com.example.win81version2.orderdrink.profile_store.presenter.UpdateStorePresenter;
+import com.example.win81version2.orderdrink.profile_store.view.Profile_Store_Fragment;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -161,7 +162,8 @@ public class CreateProductFragment extends BaseFragment implements View.OnClickL
         adapter = new SpinnerAdapter(arrCategory, getActivity());
         spinnerCategory.setAdapter(adapter);
         MainStoreActivity view = new MainStoreActivity();
-        storePresenter = new UpdateStorePresenter(view);
+        Profile_Store_Fragment fragment = new Profile_Store_Fragment();
+        storePresenter = new UpdateStorePresenter(view, fragment);
     }
 
     @Override

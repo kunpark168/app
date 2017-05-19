@@ -18,12 +18,14 @@ import com.example.win81version2.orderdrink.history_order_user.presenter.History
 import com.example.win81version2.orderdrink.history_ship_store.model.HistoryShipStore;
 import com.example.win81version2.orderdrink.history_ship_store.presenter.HistoryShipPresenter;
 import com.example.win81version2.orderdrink.main.view.MainStoreActivity;
+import com.example.win81version2.orderdrink.main.view.MainUser2Activity;
 import com.example.win81version2.orderdrink.my_cart.model.MyCart;
 import com.example.win81version2.orderdrink.my_cart.model.MyCartAdapter;
 import com.example.win81version2.orderdrink.oop.BaseFragment;
 import com.example.win81version2.orderdrink.product.model.OrderProduct;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
 import com.example.win81version2.orderdrink.profile_store.presenter.UpdateStorePresenter;
+import com.example.win81version2.orderdrink.profile_store.view.Profile_Store_Fragment;
 import com.example.win81version2.orderdrink.profile_user.model.User;
 import com.example.win81version2.orderdrink.profile_user.presenter.UserProfilePresenter;
 import com.example.win81version2.orderdrink.utility.Constain;
@@ -377,8 +379,9 @@ public class MyCartFragment extends BaseFragment {
         presenter = new HistoryOrderPresenter();
         shipPresenter = new HistoryShipPresenter();
         MainStoreActivity view = new MainStoreActivity();
-        storePresenter = new UpdateStorePresenter(view);
-        profilePresenter = new UserProfilePresenter();
+        Profile_Store_Fragment fragment = new Profile_Store_Fragment();
+        storePresenter = new UpdateStorePresenter(view, fragment);
+        profilePresenter = new UserProfilePresenter(getContext());
         arrFlagProduct = new ArrayList<>();
         idStore = getActivity().getIntent().getStringExtra(Constain.ID_STORE);
     }

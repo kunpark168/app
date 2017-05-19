@@ -3,10 +3,12 @@ package com.example.win81version2.orderdrink.profile_store.presenter;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.win81version2.orderdrink.main.view.MainStoreActivity;
 import com.example.win81version2.orderdrink.profile_store.model.UpdateStoreSubmitter;
+import com.example.win81version2.orderdrink.profile_store.view.Profile_Store_Fragment;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,13 +34,15 @@ public class UpdateStorePresenter {
     private UpdateStoreSubmitter submitter;
     private StorageReference mStorage;
     private FirebaseAuth mAuth;
+    private Profile_Store_Fragment fragment;
 
-    public UpdateStorePresenter(MainStoreActivity view) {
+    public UpdateStorePresenter(MainStoreActivity view, Profile_Store_Fragment fragment) {
         this.view = view;
+        this.fragment = fragment;
         mData = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         mStorage = FirebaseStorage.getInstance().getReference();
-        submitter = new UpdateStoreSubmitter(mData, this.view, mAuth, mStorage);
+        submitter = new UpdateStoreSubmitter(fragment, mData, this.view, mAuth, mStorage);
     }
 
     public void updateStatusStore(String idStore, int isOpen) {
@@ -57,27 +61,32 @@ public class UpdateStorePresenter {
         submitter.updateAddressStore(idStore, addressStore);
     }
 
-    public void updateEmailStore(String idStore, String emailStore) {
-        submitter.updateEmailStore(idStore, emailStore);
+    public void updateEmailStore(final String idStore, final String email, String password, final String newEmail) {
+        submitter.updateEmailStore(idStore, email, password, newEmail);
     }
 
-    public void updatePasswordStore(String email, String password, final String newPassword) {
-        submitter.updatePasswordStore(email, password, newPassword);
-    }
-    public void updateCoverStore (Bitmap bitmap, final String idStore){
-       submitter.updateCoverStore(bitmap, idStore);
+
+    public void updatePasswordStore(final String email, String password, final String newPassword) {
+       submitter.updatePasswordStore(email, password, newPassword);
     }
 
-    public void updateAvataStore (Bitmap bitmap, final String idStore){
-       submitter.updateAvataStore(bitmap, idStore);
+    public void updateCoverStore(Bitmap bitmap, final String idStore) {
+        submitter.updateCoverStore(bitmap, idStore);
     }
-    public void updateSumOrderedStore (String idStore, int sumOrdered){
+
+    public void updateAvataStore(Bitmap bitmap, final String idStore) {
+        submitter.updateAvataStore(bitmap, idStore);
+    }
+
+    public void updateSumOrderedStore(String idStore, int sumOrdered) {
         submitter.updateSumOrderedStore(idStore, sumOrdered);
     }
-    public void updateSumShippedStore (String idStore, int sumShipped){
+
+    public void updateSumShippedStore(String idStore, int sumShipped) {
         submitter.updateSumShippedStore(idStore, sumShipped);
     }
-    public void updateSumProduct (String idStore, int sumProduct) {
+
+    public void updateSumProduct(String idStore, int sumProduct) {
         submitter.updateSumProduct(idStore, sumProduct);
     }
 }

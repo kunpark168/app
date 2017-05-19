@@ -250,7 +250,8 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         gps = new GPSTracker(this);
         location = new HashMap<>();
         //Presenter
-        presenter = new UpdateStorePresenter(this);
+        Profile_Store_Fragment fragment = new Profile_Store_Fragment();
+        presenter = new UpdateStorePresenter(this, fragment);
         storePresenter = new StorePresenter();
         //get IdStore
         Intent intent = getIntent();

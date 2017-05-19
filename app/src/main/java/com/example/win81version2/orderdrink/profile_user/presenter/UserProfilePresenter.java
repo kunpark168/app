@@ -1,25 +1,20 @@
 package com.example.win81version2.orderdrink.profile_user.presenter;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
-import com.example.win81version2.orderdrink.main.model.UserSubmitter;
 import com.example.win81version2.orderdrink.profile_user.model.UserProfileSubmitter;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
-import java.io.ByteArrayOutputStream;
 
 /**
  * Created by Win 8.1 Version 2 on 5/11/2017.
@@ -30,12 +25,16 @@ public class UserProfilePresenter {
     private FirebaseAuth mAuth;
     private StorageReference mStorage;
     private UserProfileSubmitter submitter;
+    private Context mContext;
+    private ProgressDialog mProgress;
 
-    public UserProfilePresenter() {
+    public UserProfilePresenter(Context mContext) {
+        this.mContext = mContext;
         mData = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         mStorage = FirebaseStorage.getInstance().getReference();
-        submitter = new UserProfileSubmitter(mData, mAuth, mStorage);
+        mProgress = new ProgressDialog(mContext);
+        submitter = new UserProfileSubmitter(mContext, mProgress, mData, mAuth, mStorage);
     }
 
     public void updateUserName(String idUser, String userName) {
@@ -46,8 +45,12 @@ public class UserProfilePresenter {
         submitter.updatePhoneNumber(idUser, phoneNumber);
     }
 
-    public void updateEmail(String idUser, String email) {
-        submitter.updateEmail(idUser, email);
+    public void updatePassword (String email, String password, String newPassword) {
+        submitter.updatePassword(email, password, newPassword);
+    }
+
+    public void updateEmail (final String idUser, final String email, String password, final String newEmail) {
+        submitter.updateEmail(idUser, email, password, newEmail);
     }
 
     public void updatePhoto(Bitmap bitmap, final String idUser) {

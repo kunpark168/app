@@ -21,6 +21,7 @@ import com.example.win81version2.orderdrink.oop.BaseFragment;
 import com.example.win81version2.orderdrink.product.model.OrderProduct;
 import com.example.win81version2.orderdrink.product_list.model.GroupProduct;
 import com.example.win81version2.orderdrink.profile_store.presenter.UpdateStorePresenter;
+import com.example.win81version2.orderdrink.profile_store.view.Profile_Store_Fragment;
 import com.example.win81version2.orderdrink.utility.Constain;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -66,7 +67,8 @@ public class HistoryShipStoreFragment extends BaseFragment {
         adapter = new OrderListStoreAdapter(getContext(), idStore, initData());
         adapter.collapseAllParents();
         MainStoreActivity view = new MainStoreActivity();
-        presenter = new UpdateStorePresenter(view);
+        Profile_Store_Fragment fragment = new Profile_Store_Fragment();
+        presenter = new UpdateStorePresenter(view, fragment);
         recyclerViewShipStore.setAdapter(adapter);
     }
 

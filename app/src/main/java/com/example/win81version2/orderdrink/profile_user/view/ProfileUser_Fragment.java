@@ -10,7 +10,9 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.win81version2.orderdrink.R;
+import com.example.win81version2.orderdrink.main.view.MainUser2Activity;
 import com.example.win81version2.orderdrink.oop.BaseFragment;
 import com.example.win81version2.orderdrink.profile_user.model.User;
 import com.example.win81version2.orderdrink.profile_user.presenter.UserProfilePresenter;
@@ -34,18 +37,21 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class ProfileUser_Fragment extends BaseFragment implements View.OnClickListener{
+public class ProfileUser_Fragment extends BaseFragment implements View.OnClickListener {
 
     private TextView txtSumOrder, txtSumShipped, txtUserName, txtEmail, txtPhoneNumber, txtAddress;
     private ImageView imgPhotoUser, imgBlur;
     private LinearLayout layoutChangePhoto, layoutEditUserName, layoutEditPhoneNumber, layoutEditEmail, layoutEditAddress, layoutEditPassword, layoutLocation;
-    private String idUser;
+    private String idUser, userName, email, phoneNumber, address;
     private boolean isStore;
     private DatabaseReference mData;
     private Bitmap bitmap;
+    private boolean flag;
     private UserProfilePresenter presenter;
+
     public ProfileUser_Fragment() {
     }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,6 +66,7 @@ public class ProfileUser_Fragment extends BaseFragment implements View.OnClickLi
         initInfo();
         addEvents();
     }
+
     private void initInfo() {
         if (isStore == true) {
             layoutChangePhoto.setVisibility(View.GONE);
@@ -73,22 +80,25 @@ public class ProfileUser_Fragment extends BaseFragment implements View.OnClickLi
         }
         //getInfo User
         try {
-            mData.child(Constain.USERS).child(idUser).addListenerForSingleValueEvent(new ValueEventListener() {
+            mData.child(Constain.USERS).child(idUser).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.getValue() != null){
+                    if (dataSnapshot.getValue() != null) {
                         try {
                             User user = dataSnapshot.getValue(User.class);
                             if (user.getUserName() != null) {
                                 txtUserName.setText(user.getUserName());
+                                userName = user.getUserName();
                             }
                             if (user.getPhoneNumber() != null) {
                                 txtPhoneNumber.setText(user.getPhoneNumber());
+                                phoneNumber = user.getPhoneNumber();
                             }
                             if (user.getEmail() != null) {
                                 txtEmail.setText(user.getEmail());
+                                email = user.getEmail();
                             }
-                            if (!user.getLinkPhotoUser().equals(" ")){
+                            if (!user.getLinkPhotoUser().equals(" ")) {
                                 Glide.with(getContext())
                                         .load(user.getLinkPhotoUser())
                                         .fitCenter()
@@ -96,15 +106,14 @@ public class ProfileUser_Fragment extends BaseFragment implements View.OnClickLi
                             }
                             txtSumShipped.setText(String.valueOf(user.getSumShipped()));
                             txtSumOrder.setText(String.valueOf(user.getSumOrdered()));
-                            if (user.getLocation() != null){
+                            if (user.getLocation() != null) {
                                 HashMap<String, Object> location = user.getLocation();
-                                String address = (String) location.get(Constain.ADDRESS);
+                                address = (String) location.get(Constain.ADDRESS);
                                 if (address != null) {
                                     txtAddress.setText(address);
                                 }
                             }
-                        }
-                        catch (Exception ex){
+                        } catch (Exception ex) {
                             ex.printStackTrace();
                         }
                     }
@@ -115,8 +124,7 @@ public class ProfileUser_Fragment extends BaseFragment implements View.OnClickLi
 
                 }
             });
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -130,8 +138,7 @@ public class ProfileUser_Fragment extends BaseFragment implements View.OnClickLi
             layoutEditAddress.setOnClickListener(null);
             layoutEditPassword.setOnClickListener(null);
             layoutLocation.setOnClickListener(this);
-        }
-        else {
+        } else {
             layoutChangePhoto.setOnClickListener(this);
             layoutEditUserName.setOnClickListener(this);
             layoutEditEmail.setOnClickListener(this);
@@ -162,38 +169,95 @@ public class ProfileUser_Fragment extends BaseFragment implements View.OnClickLi
         Intent intent = getActivity().getIntent();
         idUser = intent.getStringExtra(Constain.ID_USER);
         isStore = intent.getBooleanExtra(Constain.IS_STORE, false);
+        flag = intent.getBooleanExtra("FLAG", false);
         mData = FirebaseDatabase.getInstance().getReference();
-        presenter = new UserProfilePresenter();
+        presenter = new UserProfilePresenter(getContext());
+
     }
 
     @Override
     public void onClick(View v) {
         int view = v.getId();
-        if (view == R.id.layoutChangePhotoUser){
-            changePhoto ();
+        if (view == R.id.layoutChangePhotoUser) {
+            changePhoto();
         }
-        if (view == R.id.layoutEditUserName){
-            editUserName ();
+        if (view == R.id.layoutEditUserName) {
+            editUserName();
         }
-        if (view == R.id.layoutEditEmail){
-            editEmail ();
+        if (view == R.id.layoutEditEmail) {
+            editEmail();
         }
-        if (view == R.id.layoutEditPhoneNumber){
-            editPhoneNumber ();
+        if (view == R.id.layoutEditPhoneNumber) {
+            editPhoneNumber();
         }
-        if (view == R.id.layoutEditAdress){
-            editAddress ();
+        if (view == R.id.layoutEditAdress) {
+            editAddress();
         }
-        if (view == R.id.layoutLocation){
-            showGoogleMap ();
+        if (view == R.id.layoutLocation) {
+            showGoogleMap();
         }
-        if (view == R.id.layoutEditPasswordUser){
-            editPassword ();
+        if (view == R.id.layoutEditPasswordUser) {
+            editPassword();
         }
     }
 
     private void editPassword() {
-
+        AlertDialog.Builder aler = new AlertDialog.Builder(getContext());
+        aler.setTitle("Chỉnh Sửa Thông Tin");
+        final EditText edtPassword = new EditText(getContext());
+        final EditText edtnewPassword = new EditText(getContext());
+        final EditText edtConfirmPassword = new EditText(getContext());
+        edtPassword.setHint("Enter your Password");
+        edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        edtPassword.setHintTextColor(R.color.black);
+        edtPassword.setTextColor(R.color.black);
+        edtnewPassword.setHint("Enter your new password");
+        edtnewPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        edtnewPassword.setHintTextColor(R.color.black);
+        edtnewPassword.setTextColor(R.color.black);
+        edtConfirmPassword.setHint("Confirm your new password");
+        edtConfirmPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        edtConfirmPassword.setHintTextColor(R.color.black);
+        edtConfirmPassword.setTextColor(R.color.black);
+        LinearLayout layout = new LinearLayout(getContext());
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setPadding(10, 0, 10, 0);
+        layout.addView(edtPassword);
+        layout.addView(edtnewPassword);
+        layout.addView(edtConfirmPassword);
+        aler.setView(layout);
+        aler.setCancelable(false);
+        aler.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String password = edtPassword.getText().toString().trim();
+                String newPassword = edtnewPassword.getText().toString().trim();
+                String confirmPasswrod = edtConfirmPassword.getText().toString().trim();
+                boolean flag = true;
+                if (TextUtils.isEmpty(password) || TextUtils.isEmpty(newPassword) || TextUtils.isEmpty(confirmPasswrod)){
+                    showToast("Password không được trống");
+                    flag = false;
+                }
+                if (newPassword.length() > 0 && newPassword.length() < 6){
+                    flag = false;
+                    showToast("Mật khẩu mới phải lớn hơn 6 ký tự");
+                }
+                if (!newPassword.equals(confirmPasswrod)){
+                    flag = false;
+                    showToast("Mật khẩu mới không trùng khớp, vui lòng thử lại!");
+                }
+                if (flag){
+                    presenter.updatePassword(email, password, newPassword);
+                }
+            }
+        });
+        aler.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        aler.create().show();
     }
 
     private void showGoogleMap() {
@@ -203,19 +267,18 @@ public class ProfileUser_Fragment extends BaseFragment implements View.OnClickLi
         AlertDialog.Builder aler = new AlertDialog.Builder(getContext());
         aler.setTitle("Chỉnh Sửa Thông Tin");
         final EditText edtAddress = new EditText(getContext());
+        edtAddress.setText(address);
         edtAddress.setHint("Enter your address");
         aler.setView(edtAddress);
         aler.setCancelable(false);
         aler.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (TextUtils.isEmpty(edtAddress.getText().toString())){
+                if (TextUtils.isEmpty(edtAddress.getText().toString())) {
                     showToast("username không được trống!");
-                }
-                else {
+                } else {
                     presenter.updateAdress(idUser, edtAddress.getText().toString());
                     txtAddress.setText(edtAddress.getText());
-                    showToast("Cập nhật thành công!");
                 }
             }
         });
@@ -232,19 +295,18 @@ public class ProfileUser_Fragment extends BaseFragment implements View.OnClickLi
         AlertDialog.Builder aler = new AlertDialog.Builder(getContext());
         aler.setTitle("Chỉnh Sửa Thông Tin");
         final EditText edtPhoneNumber = new EditText(getContext());
+        edtPhoneNumber.setText(phoneNumber);
         edtPhoneNumber.setHint("Enter your Phonenumber");
         aler.setView(edtPhoneNumber);
         aler.setCancelable(false);
         aler.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (TextUtils.isEmpty(edtPhoneNumber.getText().toString())){
+                if (TextUtils.isEmpty(edtPhoneNumber.getText().toString())) {
                     showToast("Phonenumber không được trống!");
-                }
-                else {
+                } else {
                     presenter.updatePhoneNumber(idUser, edtPhoneNumber.getText().toString());
                     txtPhoneNumber.setText(edtPhoneNumber.getText());
-                    showToast("Cập nhật thành công!");
                 }
             }
         });
@@ -261,19 +323,30 @@ public class ProfileUser_Fragment extends BaseFragment implements View.OnClickLi
         AlertDialog.Builder aler = new AlertDialog.Builder(getContext());
         aler.setTitle("Chỉnh Sửa Thông Tin");
         final EditText edtEmail = new EditText(getContext());
+        edtEmail.setText(email);
         edtEmail.setHint("Enter your Email");
-        aler.setView(edtEmail);
+        final EditText edtPassword = new EditText(getContext());
+        edtPassword.setHint("Enter your password");
+        edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        edtPassword.setHintTextColor(R.color.black);
+        edtPassword.setTextColor(R.color.black);
+        LinearLayout layout = new LinearLayout(getContext());
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setPadding(10, 0, 10, 0);
+        layout.addView(edtEmail);
+        layout.addView(edtPassword);
+        aler.setView(layout);
         aler.setCancelable(false);
         aler.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (TextUtils.isEmpty(edtEmail.getText().toString())){
-                    showToast("email không được trống!");
-                }
-                else {
-                    presenter.updateEmail(idUser, edtEmail.getText().toString());
-                    txtEmail.setText(edtEmail.getText());
-                    showToast("Cập nhật thành công!");
+                String newEmail = edtEmail.getText().toString().trim();
+                String password = edtPassword.getText().toString().trim();
+                if (TextUtils.isEmpty(newEmail) || TextUtils.isEmpty(password)) {
+                    showToast("email hoặc password trống!");
+                } else {
+
+                    presenter.updateEmail(idUser, email, password, newEmail);
                 }
             }
         });
@@ -290,19 +363,18 @@ public class ProfileUser_Fragment extends BaseFragment implements View.OnClickLi
         AlertDialog.Builder aler = new AlertDialog.Builder(getContext());
         aler.setTitle("Chỉnh Sửa Thông Tin");
         final EditText edtUserName = new EditText(getContext());
+        edtUserName.setText(userName);
         edtUserName.setHint("Enter your name");
         aler.setView(edtUserName);
         aler.setCancelable(false);
         aler.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (TextUtils.isEmpty(edtUserName.getText().toString())){
+                if (TextUtils.isEmpty(edtUserName.getText().toString())) {
                     showToast("username không được trống!");
-                }
-                else {
+                } else {
                     presenter.updateUserName(idUser, edtUserName.getText().toString());
                     txtUserName.setText(edtUserName.getText());
-                    showToast("Cập nhật thành công!");
                 }
             }
         });
@@ -322,21 +394,20 @@ public class ProfileUser_Fragment extends BaseFragment implements View.OnClickLi
         Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         String pickTitle = "Take or select a photo";
         Intent chooserIntent = Intent.createChooser(pickIntent, pickTitle);
-        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] { takePhotoIntent });
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{takePhotoIntent});
         startActivityForResult(chooserIntent, Constain.REQUEST_CODE_LOAD_IMAGE);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constain.REQUEST_CODE_LOAD_IMAGE && resultCode == getActivity().RESULT_OK ){
-            if (data.getAction() != null){
+        if (requestCode == Constain.REQUEST_CODE_LOAD_IMAGE && resultCode == getActivity().RESULT_OK) {
+            if (data.getAction() != null) {
                 bitmap = (Bitmap) data.getExtras().get("data");
                 bitmap = cropImage(bitmap);
                 presenter.updatePhoto(bitmap, idUser);
                 imgPhotoUser.setImageBitmap(bitmap);
-            }
-            else {
+            } else {
                 Uri filePath = data.getData();
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
@@ -351,7 +422,7 @@ public class ProfileUser_Fragment extends BaseFragment implements View.OnClickLi
         }
     }
 
-    public Bitmap cropImage (Bitmap dstBmp) {
+    public Bitmap cropImage(Bitmap dstBmp) {
         Bitmap srcBmp = null;
         if (dstBmp.getWidth() >= dstBmp.getHeight()) {
 
@@ -361,6 +432,6 @@ public class ProfileUser_Fragment extends BaseFragment implements View.OnClickLi
             srcBmp = Bitmap.createBitmap(dstBmp, 0, dstBmp.getHeight() / 2 - dstBmp.getWidth() / 2, dstBmp.getWidth(), dstBmp.getWidth()
             );
         }
-        return  srcBmp;
+        return srcBmp;
     }
 }
