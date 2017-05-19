@@ -35,15 +35,11 @@ public class CreateStorePresenter {
         submitter = new CreateStoreSubmitter(mData, view);
     }
 
-    public void createNewStore(String email, String password, final String storeName, final String phoneNumber, final String address, final String from, final String to) {
+    public void createNewStore(String email, String password, final String storeName, final String phoneNumber, final HashMap<String, Object> location, final String from, final String to) {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(view, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    HashMap<String, Object> location = new HashMap<>();
-                    location.put(Constain.ADDRESS, address);
-                    location.put(Constain.LO, 0);
-                    location.put(Constain.LA, 0);
                     HashMap<String, Object> favoriteList = new HashMap<>();
                     HashMap<String, Object> products = new HashMap<>();
                     HashMap<String, Object> orderSchedule = new HashMap<>();

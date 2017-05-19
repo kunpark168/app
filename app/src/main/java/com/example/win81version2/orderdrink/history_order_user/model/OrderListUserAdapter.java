@@ -63,6 +63,17 @@ public class OrderListUserAdapter extends ExpandableRecyclerAdapter<ParentHistor
         if(!linkPhotoUser.equals("")){
             Glide.with(mContext).load(linkPhotoUser).into(parentViewHolder.getImgAvataShopItemOrderHistory());
         }
+        if (parent.getInfoShopOrder().getStatusShop() == 0){
+            parentViewHolder.getImgStatusUser().setVisibility(View.INVISIBLE);
+        }
+        if (parent.getInfoShopOrder().getStatusShop() == 1){
+            parentViewHolder.getImgStatusUser().setVisibility(View.VISIBLE);
+            parentViewHolder.getImgStatusUser().setImageResource(R.drawable.imgshipped);
+        }
+        if (parent.getInfoShopOrder().getStatusShop() == 2){
+            parentViewHolder.getImgStatusUser().setVisibility(View.VISIBLE);
+            parentViewHolder.getImgStatusUser().setImageResource(R.drawable.imgcanceled);
+        }
     }
 
     @Override

@@ -21,6 +21,7 @@ import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.category.model.Category;
 import com.example.win81version2.orderdrink.main.view.MainStoreActivity;
 import com.example.win81version2.orderdrink.product.model.Product;
+import com.example.win81version2.orderdrink.product_list.model.AdapterRecycleGallery;
 import com.example.win81version2.orderdrink.product_list.model.GroupProduct;
 import com.example.win81version2.orderdrink.product_list.model.ProductListAdapter;
 import com.example.win81version2.orderdrink.profile_store.model.Store;
@@ -37,9 +38,10 @@ import java.util.List;
 
 public class ProductListFragment extends Fragment {
 
+    private AdapterRecycleGallery adapterAllProduct;
     private ProductListAdapter adapter;
     private ArrayList<Product> arrProduct;
-    private RecyclerView recyclerProduct;
+    private RecyclerView recyclerProduct , recyclerAllProduct;
     private DatabaseReference mData;
     private String idStore, phoneNumber = "";
     private Button btnCallNow;
@@ -136,11 +138,16 @@ public class ProductListFragment extends Fragment {
         mData = FirebaseDatabase.getInstance().getReference();
         recyclerProduct = (RecyclerView) getActivity().findViewById(R.id.recyclerProducts);
         recyclerProduct.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerAllProduct = (RecyclerView) getActivity().findViewById(R.id.productSpecial);
+        recyclerAllProduct.setLayoutManager(new LinearLayoutManager(getContext() , LinearLayoutManager.HORIZONTAL , false));
         adapter = new ProductListAdapter(idStore, isStore, getContext(), initData());
+        adapterAllProduct = new AdapterRecycleGallery(idStore, isStore, getContext() , arrProduct);
+
         adapter.expandAllParents();
+        recyclerAllProduct.setAdapter(adapterAllProduct);
         recyclerProduct.setAdapter(adapter);
         if (isStore == true){
-            btnCallNow.setVisibility(View.INVISIBLE);
+            btnCallNow.setVisibility(View.GONE);
         }
         recyclerProduct.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -196,6 +203,7 @@ public class ProductListFragment extends Fragment {
                                                         Product product = dt.getValue(Product.class);
                                                         childList.add(product);
                                                         arrProduct.add(product);
+                                                        adapterAllProduct.notifyDataSetChanged();
                                                     }
                                                     GroupProduct category = new GroupProduct(cate.getCategoryName(), childList);
                                                     parentObjectList.add(category);

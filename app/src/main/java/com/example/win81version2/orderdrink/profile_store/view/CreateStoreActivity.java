@@ -1,5 +1,6 @@
 package com.example.win81version2.orderdrink.profile_store.view;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,10 +13,13 @@ import android.widget.TextView;
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
 import com.example.win81version2.orderdrink.profile_store.presenter.CreateStorePresenter;
+import com.example.win81version2.orderdrink.utility.Constain;
+import com.example.win81version2.orderdrink.utility.GPSTracker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class CreateStoreActivity extends BaseActivity implements View.OnClickListener{
 
@@ -23,7 +27,9 @@ public class CreateStoreActivity extends BaseActivity implements View.OnClickLis
     private TextView txtFrom, txtTo;
     private Button btnCreateStore;
     private CreateStorePresenter presenter;
+    private GPSTracker gps;
     private FirebaseAuth mAuth;
+    private double lo = 0, la = 0;
     private String startTime, endTime;
     private int hourStart = 0, hourEnd = 23;
 
@@ -33,6 +39,7 @@ public class CreateStoreActivity extends BaseActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_store);
         addControls ();
+        checkGPS();
         addEvents ();
     }
 
@@ -40,6 +47,15 @@ public class CreateStoreActivity extends BaseActivity implements View.OnClickLis
         btnCreateStore.setOnClickListener(this);
         txtFrom.setOnClickListener(this);
         txtTo.setOnClickListener(this);
+    }
+    private void checkGPS() {
+        if (gps.canGetLocation()) {
+            gps.getLocation();
+            lo = gps.getLongitude();
+            la = gps.getLatitude();
+        } else {
+            gps.showSettingsAlert();
+        }
     }
 
     private void createStore() {
@@ -104,7 +120,11 @@ public class CreateStoreActivity extends BaseActivity implements View.OnClickLis
         if (isVaild){
             //Create new store
             showProgressDialog();
-            presenter.createNewStore(email, password, storeName, phoneNumber, adddress, from, to);
+            HashMap<String, Object> location = new HashMap<>();
+            location.put(Constain.LO, lo);
+            location.put(Constain.LA, la);
+            location.put(Constain.ADDRESS, adddress);
+            presenter.createNewStore(email, password, storeName, phoneNumber, location, from, to);
 
         }
     }
@@ -123,6 +143,7 @@ public class CreateStoreActivity extends BaseActivity implements View.OnClickLis
         //presenter
         mAuth = FirebaseAuth.getInstance();
         presenter = new CreateStorePresenter(this, mAuth);
+        gps = new GPSTracker(this);
     }
 
     @Override
@@ -175,5 +196,14 @@ public class CreateStoreActivity extends BaseActivity implements View.OnClickLis
         TimePickerDialog timePicker = TimePickerDialog.newInstance(callBack, hour, minute, second, true);
         timePicker.setMaxTime(hourEnd, 59, 59);
         timePicker.show(getFragmentManager(), "TimeStartPickerDialog");
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constain.REQUEST_CODE_GPS) {
+            gps.getLocation();
+            lo = gps.getLongitude();
+            la = gps.getLatitude();
+        }
     }
 }
