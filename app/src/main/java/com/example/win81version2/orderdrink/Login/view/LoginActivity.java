@@ -14,6 +14,7 @@ import com.example.win81version2.orderdrink.Login.presenter.LoginPresenter;
 import com.example.win81version2.orderdrink.R;
 import com.example.win81version2.orderdrink.main.view.MainActivity;
 import com.example.win81version2.orderdrink.oop.BaseActivity;
+import com.example.win81version2.orderdrink.reset_password.view.ResetPassword;
 import com.example.win81version2.orderdrink.signup.view.ChooseSignnup;
 import com.facebook.CallbackManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -118,6 +119,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void progressForgotPassword() {
+        startActivity(new Intent(this, ResetPassword.class));
     }
 
     private void sign_Up() {

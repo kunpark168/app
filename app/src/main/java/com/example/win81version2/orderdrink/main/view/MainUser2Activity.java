@@ -49,7 +49,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MainUser2Activity extends BaseActivity implements View.OnClickListener, Serializable , AHBottomNavigation.OnTabSelectedListener, TextWatcher{
+public class MainUser2Activity extends BaseActivity implements View.OnClickListener, Serializable, AHBottomNavigation.OnTabSelectedListener, TextWatcher {
 
     private ImageView imgAvata, imgSearch;
     private AHBottomNavigation ahBottomNavigation;
@@ -69,6 +69,7 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
     private ArrayList<SearchProduct> arrSearchProduct;
     private int viewResourceId;
     private SearchProductAdapter adapter;
+    private boolean flag_exit = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +115,7 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
     private void initInfo() {
         try {
             //get Info User
-            mData.child(Constain.USERS).child(idUser).addValueEventListener(new ValueEventListener() {
+            mData.child(Constain.USERS).child(idUser).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.getValue() != null) {
@@ -124,8 +125,8 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
                             addressUser = "";
                             if (user.getLocation() != null) {
                                 HashMap<String, Object> flag = new HashMap<>();
-                                    flag = user.getLocation();
-                                    addressUser = String.valueOf(flag.get(Constain.ADDRESS));
+                                flag = user.getLocation();
+                                addressUser = String.valueOf(flag.get(Constain.ADDRESS));
                             }
                             location.put(Constain.LO, lo);
                             location.put(Constain.LA, la);
@@ -154,8 +155,7 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
 
                 }
             });
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
 
         }
 
@@ -205,7 +205,7 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
         edtSearch = (AutoCompleteTextView) findViewById(R.id.edtSearch2);
         arrSearchProduct = new ArrayList<>();
         viewResourceId = R.layout.item_search_product;
-        getArrSearchProduct ();
+        getArrSearchProduct();
     }
 
     private void getArrSearchProduct() {
@@ -213,31 +213,30 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
             mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.getValue() != null){
-                       for (DataSnapshot dt : dataSnapshot.getChildren()){
-                           mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).child(dt.getKey()).child(Constain.PRODUCTS).addValueEventListener(new ValueEventListener() {
-                               @Override
-                               public void onDataChange(DataSnapshot dataSnapshot) {
-                                   if (dataSnapshot.getValue() != null){
-                                       for (DataSnapshot dt : dataSnapshot.getChildren()){
-                                           try {
-                                               Product product = dt.getValue(Product.class);
-                                               SearchProduct searchProduct = new SearchProduct(product);
-                                               arrSearchProduct.add(searchProduct);
-                                           }
-                                           catch (Exception ex){
-                                               ex.printStackTrace();
-                                           }
-                                       }
-                                   }
-                               }
+                    if (dataSnapshot.getValue() != null) {
+                        for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                            mData.child(Constain.STORES).child(idStore).child(Constain.CATEGORY).child(dt.getKey()).child(Constain.PRODUCTS).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.getValue() != null) {
+                                        for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                                            try {
+                                                Product product = dt.getValue(Product.class);
+                                                SearchProduct searchProduct = new SearchProduct(product);
+                                                arrSearchProduct.add(searchProduct);
+                                            } catch (Exception ex) {
+                                                ex.printStackTrace();
+                                            }
+                                        }
+                                    }
+                                }
 
-                               @Override
-                               public void onCancelled(DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-                               }
-                           });
-                       }
+                                }
+                            });
+                        }
                     }
                 }
 
@@ -246,8 +245,7 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
 
                 }
             });
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -257,7 +255,30 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            finish();
+            if (flag_exit == true) {
+                AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                aler.setMessage("Bạn có chắc chắn muốn thoát?");
+                aler.setCancelable(false);
+                aler.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        moveTaskToBack(true);
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                        System.exit(1);
+                    }
+                });
+                aler.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                aler.create().show();
+            } else {
+                flag_exit = true;
+                createProductListFragment();
+                ahBottomNavigation.setCurrentItem(0);
+            }
         }
     }
 
@@ -268,28 +289,30 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
             logOut();
         }
         if (view == R.id.layoutSearch2 || view == R.id.iconSearchStore2) {
-           if (adapter == null){
-               adapter = new SearchProductAdapter(MainUser2Activity.this, viewResourceId, arrSearchProduct);
-               edtSearch.setAdapter(adapter);
-           }
+            if (adapter == null) {
+                adapter = new SearchProductAdapter(MainUser2Activity.this, viewResourceId, arrSearchProduct);
+                edtSearch.setAdapter(adapter);
+            }
         }
-        if (view == R.id.navigation_homeUser2){
+        if (view == R.id.navigation_homeUser2) {
             onBackPressed();
             finish();
-            moveToStoreList ();
+            moveToStoreList();
         }
-        if (view == R.id.navigation_myprofile2){
+        if (view == R.id.navigation_myprofile2) {
             onBackPressed();
             ahBottomNavigation.setCurrentItem(2);
-            moveToProfileFragment ();
+            moveToProfileFragment();
 
-        }if (view == R.id.navigation_historyorder2){
+        }
+        if (view == R.id.navigation_historyorder2) {
             onBackPressed();
             moveToHistoryFragment();
         }
     }
 
     private void moveToHistoryFragment() {
+        flag_exit = false;
         HistoryOrderUserFragment profileUserFragment = new HistoryOrderUserFragment();
         setTitle("Lịch sử order");
         getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user2, profileUserFragment).commit();
@@ -303,6 +326,7 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
     }
 
     private void moveToProfileFragment() {
+        flag_exit = false;
         ProfileUser_Fragment profileUserFragment = new ProfileUser_Fragment();
         setTitle("Trang cá nhân");
         getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user2, profileUserFragment).commit();
@@ -339,6 +363,7 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
         });
         alert.show();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -346,23 +371,17 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
             gps.getLocation();
             lo = gps.getLongitude();
             la = gps.getLatitude();
-            if (lo != 0 && la != 0) {
-                location.put(Constain.LO, lo);
-                location.put(Constain.LA, la);
-                location.put(Constain.ADDRESS, addressUser);
-                presenter.updateLocation(idUser, location);
-            }
+            location.put(Constain.LO, lo);
+            location.put(Constain.LA, la);
+            location.put(Constain.ADDRESS, addressUser);
+            presenter.updateLocation(idUser, location);
         }
     }
+
     @Override
     public void onTabSelected(int position, boolean wasSelected) {
         if (position == 0) {
-            createProductListFragment(idStore);
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.content_id_user2, fragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
-
+            createProductListFragment();
         } else if (position == 1) {
             getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user2, myCartFragment).commit();
 
@@ -372,13 +391,16 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
         }
     }
 
-    public void createProductListFragment(String idStore) {
-
+    public void createProductListFragment() {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_id_user2, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        if (adapter == null){
+        if (adapter == null) {
             adapter = new SearchProductAdapter(MainUser2Activity.this, viewResourceId, arrSearchProduct);
             edtSearch.setAdapter(adapter);
         }

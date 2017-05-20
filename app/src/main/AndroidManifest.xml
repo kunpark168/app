@@ -18,27 +18,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.view.MainActivity"
+        <activity
+            android:name=".main.view.MainActivity"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".Login.view.LoginActivity"
-            android:theme="@style/NoActionBar" />
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".signup.view.SignupUserActivity"
             android:label=""
-            android:theme="@style/DialogNoActionBar" />
-        <activity android:name=".main.view.MainUserActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".main.view.MainUser2Activity"
-            android:windowSoftInputMode="adjustPan"/>
+            android:theme="@style/DialogNoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".main.view.MainUserActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".main.view.MainUser2Activity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".signup.view.ChooseSignnup" />
         <activity android:name=".profile_store.view.CreateStoreActivity" />
 
@@ -56,9 +58,9 @@
         <activity android:name=".main.view.MainStoreActivity" />
         <activity
             android:name=".my_cart.view.DisplayProduct"
-            android:windowSoftInputMode="adjustPan"
             android:label=""
-            android:theme="@style/AppTheme.CustomTheme" />
+            android:theme="@style/AppTheme.CustomTheme"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".category.view.CreateCategory"
             android:label=""
@@ -66,10 +68,16 @@
         <activity
             android:name=".search_user.view.SearchActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".product.view.EditProductActivity"
+        <activity
+            android:name=".product.view.EditProductActivity"
             android:label=""
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/Base.V7.Theme.AppCompat.Light.Dialog"></activity>
+            android:theme="@style/Base.V7.Theme.AppCompat.Light.Dialog"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:label=""
+            android:theme="@style/Base.V7.Theme.AppCompat.Dialog"
+            android:name=".reset_password.view.ResetPassword">
+        </activity>
     </application>
 
 </manifest>

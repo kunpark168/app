@@ -2,6 +2,7 @@ package com.example.win81version2.orderdrink.main.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -47,7 +48,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MainUserActivity extends BaseActivity implements View.OnClickListener, Serializable, TextWatcher{
+public class MainUserActivity extends BaseActivity implements View.OnClickListener, Serializable, TextWatcher {
 
     private ImageView imgAvata, iconSearch;
     private TextView txtUserName, txtSumOrdered;
@@ -65,6 +66,7 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
     private ArrayList<SearchStore> arrSearchStore;
     private int viewResourceId;
     private SearchStoreAdapter adapter;
+    private boolean flag_exit = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,15 +123,13 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
                             addressUser = "";
                             if (user.getLocation() != null) {
                                 HashMap<String, Object> flag = new HashMap<>();
-                                    flag = user.getLocation();
-                                    addressUser = String.valueOf(flag.get(Constain.ADDRESS));
+                                flag = user.getLocation();
+                                addressUser = String.valueOf(flag.get(Constain.ADDRESS));
                             }
                             location.put(Constain.LO, lo);
                             location.put(Constain.LA, la);
                             location.put(Constain.ADDRESS, addressUser);
-                            if (lo != 0 && la != 0) {
-                                presenter.updateLocation(idUser, location);
-                            }
+                            presenter.updateLocation(idUser, location);
                             linkPhotoUser = user.getLinkPhotoUser();
                             sumOrdered = user.getSumOrdered() + " Ordered";
                             if (!linkPhotoUser.equals("")) {
@@ -153,8 +153,7 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
 
                 }
             });
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
 
         }
 
@@ -201,24 +200,30 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else if (getSupportFragmentManager().getFragments() == storeListFragment){
-            AlertDialog.Builder aler = new AlertDialog.Builder(this);
-            aler.setMessage("Bạn có muốn thoát app ?");
-            aler.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    moveTaskToBack(true);
-                    android.os.Process.killProcess(android.os.Process.myPid());
-                    System.exit(1);
-                }
-            });
-            aler.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            aler.show();
+        } else {
+            if (flag_exit == true) {
+                AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                aler.setMessage("Bạn có chắc chắn muốn thoát?");
+                aler.setCancelable(false);
+                aler.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        moveTaskToBack(true);
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                        System.exit(1);
+                    }
+                });
+                aler.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                aler.create().show();
+            } else {
+                flag_exit = true;
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user, storeListFragment).commit();
+            }
         }
     }
 
@@ -229,46 +234,50 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
             logOut();
         }
         if (view == R.id.layoutSearch || view == R.id.iconSearchStore) {
-           // moveToSearchAcitvity();
+            // moveToSearchAcitvity();
             if (adapter == null) {
                 viewResourceId = R.layout.item_search_store;
                 adapter = new SearchStoreAdapter(this, viewResourceId, arrSearchStore, lo, la);
                 edtSearch.setAdapter(adapter);
             }
         }
-        if (view == R.id.navigation_homeUser){
+        if (view == R.id.navigation_homeUser) {
             onBackPressed();
+            flag_exit = true;
             getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user, storeListFragment).commit();
         }
-        if (view == R.id.navigation_myprofile){
+        if (view == R.id.navigation_myprofile) {
             onBackPressed();
-            moveToProfileFragment ();
+            moveToProfileFragment();
         }
 
-        if (view == R.id.navigation_historyorder){
+        if (view == R.id.navigation_historyorder) {
             onBackPressed();
             moveToHistoryFragment();
         }
     }
 
     private void moveToHistoryFragment() {
-        HistoryOrderUserFragment profileUserFragment = new HistoryOrderUserFragment();
+        flag_exit = false;
+        HistoryOrderUserFragment historyOrderUserFragment = new HistoryOrderUserFragment();
         setTitle("Lịch sử order");
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user, profileUserFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user, historyOrderUserFragment).commit();
     }
 
     private void moveToProfileFragment() {
+        flag_exit = false;
         ProfileUser_Fragment profileUserFragment = new ProfileUser_Fragment();
         setTitle("Trang cá nhân");
         getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user, profileUserFragment).commit();
     }
+
     private void getArrSearchStore() {
         mData.child(Constain.STORES).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 arrSearchStore.clear();
-                if (dataSnapshot.getValue() != null){
-                    for (DataSnapshot dt : dataSnapshot.getChildren()){
+                if (dataSnapshot.getValue() != null) {
+                    for (DataSnapshot dt : dataSnapshot.getChildren()) {
                         try {
                             Store store = dt.getValue(Store.class);
                             HashMap<String, Object> location = new HashMap<String, Object>();
@@ -279,14 +288,12 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
                                     lo = (double) location.get(Constain.LO);
                                     la = (double) location.get(Constain.LA);
                                 }
-                            }
-                            catch (Exception ex){
+                            } catch (Exception ex) {
                                 ex.printStackTrace();
                             }
                             SearchStore searchStore = new SearchStore(store.getLinkPhotoStore(), store.getIdStore(), store.getStoreName(), lo, la);
                             arrSearchStore.add(searchStore);
-                        }
-                        catch (Exception ex){
+                        } catch (Exception ex) {
                             ex.printStackTrace();
                         }
                     }
@@ -299,6 +306,7 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
             }
         });
     }
+
     private void logOut() {
         AlertDialog.Builder alert = new AlertDialog.Builder(MainUserActivity.this);
         alert.setMessage("Do you want to logout?");
@@ -319,6 +327,7 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
         });
         alert.show();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -326,25 +335,23 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
             gps.getLocation();
             lo = gps.getLongitude();
             la = gps.getLatitude();
-            if (lo != 0 && la != 0) {
-                location.put(Constain.LO, lo);
-                location.put(Constain.LA, la);
-                location.put(Constain.ADDRESS, addressUser);
-                presenter.updateLocation(idUser, location);
-            }
+            location.put(Constain.LO, lo);
+            location.put(Constain.LA, la);
+            location.put(Constain.ADDRESS, addressUser);
+            presenter.updateLocation(idUser, location);
         }
     }
 
-    public void moveToProfileStoreFragment (String idStore){
+    public void moveToProfileStoreFragment(String idStore) {
         Profile_Store_Fragment profileStoreFragment = new Profile_Store_Fragment();
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(Constain.IS_STORE, false);
-            bundle.putString(Constain.ID_STORE, idStore);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(Constain.IS_STORE, false);
+        bundle.putString(Constain.ID_STORE, idStore);
         profileStoreFragment.setArguments(bundle);
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.content_id_user, profileStoreFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_id_user, profileStoreFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override

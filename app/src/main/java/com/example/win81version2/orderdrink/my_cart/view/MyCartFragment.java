@@ -326,6 +326,9 @@ public class MyCartFragment extends BaseFragment {
                             });
                         }
                     }
+                    else {
+                        sumOrderStore = 0;
+                    }
                 }
 
                 @Override
@@ -352,6 +355,9 @@ public class MyCartFragment extends BaseFragment {
                                 }
                             });
                         }
+                    }
+                    else {
+                        sumOrderUser = 0;
                     }
                 }
 

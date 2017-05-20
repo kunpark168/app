@@ -71,6 +71,7 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
     private CreateProductFragment createProductFragment;
     private UpdateStorePresenter presenter;
     private StorePresenter storePresenter;
+    private boolean flag_exit = true;
     //Notification
     private NotificationCompat.Builder notBuilder;
     private static final int MY_NOTIFICATION_ID = 12345;
@@ -139,6 +140,7 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
             @Override
             public void onClick(View v) {
                 onBackPressed();
+                flag_exit = false;
                 setTitle("My Category");
                 CategoryListFragment categoryListFragment = new CategoryListFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, categoryListFragment).commit();
@@ -168,6 +170,7 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
             @Override
             public void onClick(View v) {
                 onBackPressed();
+                flag_exit = false;
                 setTitle("Create Product");
                 createProductFragment = new CreateProductFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, createProductFragment).commit();
@@ -284,37 +287,48 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_store);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            AlertDialog.Builder aler = new AlertDialog.Builder(this);
-            aler.setMessage("Bạn có muốn thoát app ?");
-            aler.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    moveTaskToBack(true);
-                    android.os.Process.killProcess(android.os.Process.myPid());
-                    System.exit(1);
-                }
-            });
-            aler.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            aler.show();
+        } else{
+            if (flag_exit == true ) {
+                AlertDialog.Builder aler = new AlertDialog.Builder(this);
+                aler.setMessage("Bạn có chắc chắn muốn thoát?");
+                aler.setCancelable(false);
+                aler.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        moveTaskToBack(true);
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                        System.exit(1);
+                    }
+                });
+                aler.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                aler.create().show();
+            }
+            else {
+                flag_exit = true;
+                moveToProductFragment(idStore);
+                ahBottomNavigation.setCurrentItem(0);
+            }
         }
     }
 
     @Override
     public void onTabSelected(int position, boolean wasSelected) {
         if (position == 0) {
+            flag_exit = true;
             moveToProductFragment(idStore);
             setTitle("Danh sách sản phẩm");
         } else if (position == 1) {
+            flag_exit = false;
             HistoryShipStoreFragment historyShipStoreFragment = new HistoryShipStoreFragment();
             setTitle("Lịch sử giao hàng");
             getSupportFragmentManager().beginTransaction().replace(R.id.content_id_store, historyShipStoreFragment).commit();
         } else if (position == 2) {
+            flag_exit = false;
             Bundle bundle = new Bundle();
             bundle.putBoolean(Constain.IS_STORE, true);
             bundle.putString(Constain.ID_STORE, idStore);

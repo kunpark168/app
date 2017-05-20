@@ -34,7 +34,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
     public void onBindViewHolder(ViewHolderOrder holder, int position) {
         holder.txtNameOrderItem.setText(orderProducts.get(position).getProductName());
         holder.txtCountOrderItem.setText(String.valueOf(orderProducts.get(position).getCount()));
-        holder.txtPriceOrderItem.setText(String.valueOf(orderProducts.get(position).getPrice()));
+        holder.txtPriceOrderItem.setText(Math.round(orderProducts.get(position).getPrice()) + " Vnd");
     }
 
     @Override
