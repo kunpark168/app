@@ -182,7 +182,7 @@ public class MainStoreActivity extends BaseActivity implements AHBottomNavigatio
     private void innitInfo() {
         try {
             //get Info Store
-            mData.child(Constain.STORES).child(idStore).addListenerForSingleValueEvent(new ValueEventListener() {
+            mData.child(Constain.STORES).child(idStore).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.getValue() != null) {

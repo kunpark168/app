@@ -1,5 +1,7 @@
 package com.example.win81version2.orderdrink.profile_store.presenter;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -30,19 +32,21 @@ import java.io.ByteArrayOutputStream;
 
 public class UpdateStorePresenter {
     private DatabaseReference mData;
-    private MainStoreActivity view;
+    private Context mContext;
+    private ProgressDialog mProgress;
     private UpdateStoreSubmitter submitter;
     private StorageReference mStorage;
     private FirebaseAuth mAuth;
     private Profile_Store_Fragment fragment;
 
-    public UpdateStorePresenter(MainStoreActivity view, Profile_Store_Fragment fragment) {
-        this.view = view;
+    public UpdateStorePresenter(Context mContext, Profile_Store_Fragment fragment) {
+        this.mContext = mContext;
         this.fragment = fragment;
         mData = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         mStorage = FirebaseStorage.getInstance().getReference();
-        submitter = new UpdateStoreSubmitter(fragment, mData, this.view, mAuth, mStorage);
+        mProgress = new ProgressDialog(mContext);
+        submitter = new UpdateStoreSubmitter(mData, mContext, mProgress, mAuth, mStorage, fragment);
     }
 
     public void updateStatusStore(String idStore, int isOpen) {

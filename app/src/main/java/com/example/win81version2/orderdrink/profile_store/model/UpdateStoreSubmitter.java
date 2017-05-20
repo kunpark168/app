@@ -1,5 +1,7 @@
 package com.example.win81version2.orderdrink.profile_store.model;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -28,17 +30,19 @@ import java.io.ByteArrayOutputStream;
 
 public class UpdateStoreSubmitter {
     private DatabaseReference mData;
-    private MainStoreActivity view;
+    private Context mContext;
+    private ProgressDialog mProgress;
     private FirebaseAuth mAuth;
     private StorageReference mStorage;
     private Profile_Store_Fragment fragment;
 
-    public UpdateStoreSubmitter(Profile_Store_Fragment fragment, DatabaseReference mData, MainStoreActivity view, FirebaseAuth mAuth, StorageReference mStorage) {
-        this.fragment = fragment;
+    public UpdateStoreSubmitter(DatabaseReference mData, Context mContext, ProgressDialog mProgress, FirebaseAuth mAuth, StorageReference mStorage, Profile_Store_Fragment fragment) {
         this.mData = mData;
-        this.view = view;
+        this.mContext = mContext;
+        this.mProgress = mProgress;
         this.mAuth = mAuth;
         this.mStorage = mStorage;
+        this.fragment = fragment;
     }
 
     public void updateStatusStore(final String idStore, final int isOpen) {
@@ -47,9 +51,9 @@ public class UpdateStoreSubmitter {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     if (isOpen == 0) {
-                        view.showToast("Mở cửa");
+                        showToast("Mở cửa");
                     } else if (isOpen == 1){
-                        view.showToast("Đóng cửa");
+                        showToast("Đóng cửa");
                     }
                 }
 
@@ -58,58 +62,58 @@ public class UpdateStoreSubmitter {
     }
 
     public void updateStoreName(String idStore, String storeName) {
-        view.showProgressDialog();
+        showProgressDialog();
         mData.child(Constain.STORES).child(idStore).child(Constain.STORE_NAME).setValue(storeName).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
-                    view.hideProgressDialog();
-                    view.showToast("Cập nhật tên cửa hàng thành công!");
+                    hideProgressDialog();
+                    showToast("Cập nhật tên cửa hàng thành công!");
                 }
                 else {
-                    view.hideProgressDialog();
-                    view.showToast("Cập nhật tên cửa hàng không thành công!");
+                    hideProgressDialog();
+                    showToast("Cập nhật tên cửa hàng không thành công!");
                 }
             }
         });
     }
 
     public void updatephoneNumberStore(String idStore, String phoneNumber) {
-        view.showProgressDialog();
+        showProgressDialog();
         mData.child(Constain.STORES).child(idStore).child(Constain.PHONENUMBER).setValue(phoneNumber).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
-                    view.hideProgressDialog();
-                    view.showToast("Cập nhật số điện thoại thành công!");
+                    hideProgressDialog();
+                    showToast("Cập nhật số điện thoại thành công!");
                 }
                 else {
-                    view.hideProgressDialog();
-                    view.showToast("Cập nhật số điện thoại không thành công!");
+                    hideProgressDialog();
+                    showToast("Cập nhật số điện thoại không thành công!");
                 }
             }
         });
     }
 
     public void updateAddressStore(String idStore, String addressStore) {
-        view.showProgressDialog();
+        showProgressDialog();
         mData.child(Constain.STORES).child(idStore).child(Constain.LOCATION).child(Constain.ADDRESS).setValue(addressStore).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
-                    view.hideProgressDialog();
-                    view.showToast("Cập nhật địa chỉ thành công!");
+                    hideProgressDialog();
+                    showToast("Cập nhật địa chỉ thành công!");
                 }
                 else {
-                    view.hideProgressDialog();
-                    view.showToast("Cập nhật địa chỉ không thành công!");
+                    hideProgressDialog();
+                    showToast("Cập nhật địa chỉ không thành công!");
                 }
             }
         });
     }
 
     public void updateEmailStore (final String idStore, final String email, String password, final String newEmail) {
-        view.showProgressDialog();
+        showProgressDialog();
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -122,19 +126,19 @@ public class UpdateStoreSubmitter {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()){
-                                            view.hideProgressDialog();
-                                            view.showToast("Cập nhật Email thành công!");
+                                            hideProgressDialog();
+                                            showToast("Cập nhật Email thành công!");
                                         }
                                         else {
-                                            view.hideProgressDialog();
-                                            view.showToast("Cập nhật Email không thành công!, vui lòng thử lại");
+                                            hideProgressDialog();
+                                            showToast("Cập nhật Email không thành công!, vui lòng thử lại");
                                         }
                                     }
                                 });
                             }
                             else {
-                                view.hideProgressDialog();
-                                view.showToast("Email đã tồn tại, vui lòng chọn Email khác");
+                                hideProgressDialog();
+                                showToast("Email đã tồn tại, vui lòng chọn Email khác");
                             }
                         }
                     });
@@ -144,10 +148,10 @@ public class UpdateStoreSubmitter {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                view.hideProgressDialog();
+                hideProgressDialog();
                 e.getMessage();
                 if (e.getMessage().equals("The password is invalid or the user does not have a password.")){
-                    view.showToast("Password không chính xác vui lòng thử lại");
+                    showToast("Password không chính xác vui lòng thử lại");
                 }
                 Log.d("Error", e.getMessage().toString());
             }
@@ -155,7 +159,7 @@ public class UpdateStoreSubmitter {
     }
 
     public void updatePasswordStore (final String email, String password, final String newPassword) {
-        view.showProgressDialog();
+       showProgressDialog();
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -164,26 +168,26 @@ public class UpdateStoreSubmitter {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
-                                view.hideProgressDialog();
-                                view.showToast("Cập nhật mật khẩu thành công!");
+                                hideProgressDialog();
+                                showToast("Cập nhật mật khẩu thành công!");
                             }
                             else {
-                                view.hideProgressDialog();
-                                view.showToast("Vui lòng chọn mật khẩu khác mật khẩu cũ");
+                                hideProgressDialog();
+                                showToast("Vui lòng chọn mật khẩu khác mật khẩu cũ");
                             }
                         }
                     });
 
                 }
                 else {
-                    view.hideProgressDialog();
-                    view.showToast("Password không chính xác vui lòng thử lại!");
+                    hideProgressDialog();
+                    showToast("Password không chính xác vui lòng thử lại!");
                 }
             }
         });
     }
     public void updateCoverStore(final Bitmap bitmap, final String idStore) {
-        view.showProgressDialog();
+        showProgressDialog();
         StorageReference mountainsRef = mStorage.child(Constain.STORES).child(idStore).child(Constain.LINKCOVERSTORE);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -203,15 +207,15 @@ public class UpdateStoreSubmitter {
                     updateLinkCoverStore(idStore, linkCoverStore, bitmap);
                 }
                 else {
-                    view.hideProgressDialog();
-                    view.showToast("Cập nhật ảnh bìa không thành công!");
+                    hideProgressDialog();
+                    showToast("Cập nhật ảnh bìa không thành công!");
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                view.hideProgressDialog();
-                view.showToast("Cập nhật ảnh bìa không thành công!");
+                hideProgressDialog();
+                showToast("Cập nhật ảnh bìa không thành công!");
             }
         });
     }
@@ -221,20 +225,20 @@ public class UpdateStoreSubmitter {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
-                    view.hideProgressDialog();
-                    view.showToast("Cập nhật ảnh bìa thành công!");
+                    hideProgressDialog();
+                    showToast("Cập nhật ảnh bìa thành công!");
                     fragment.imgCover.setImageBitmap(bitmap);
                 }
                 else {
-                    view.hideProgressDialog();
-                    view.showToast("Cập nhật ảnh bìa không thành công!");
+                    hideProgressDialog();
+                    showToast("Cập nhật ảnh bìa không thành công!");
                 }
             }
         });
     }
 
     public void updateAvataStore(final Bitmap bitmap, final String idStore) {
-        view.showProgressDialog();
+        showProgressDialog();
         StorageReference mountainsRef = mStorage.child(Constain.STORES).child(idStore).child(Constain.LINKPHOTOSTORE);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -254,15 +258,15 @@ public class UpdateStoreSubmitter {
                     updateLinkPhotoStore(idStore, linkPhotoStore, bitmap);
                 }
                 else {
-                    view.hideProgressDialog();
-                    view.showToast("Câp nhật ảnh đại diện không thành công, vui lòng thử lại");
+                    hideProgressDialog();
+                    showToast("Câp nhật ảnh đại diện không thành công, vui lòng thử lại");
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                view.hideProgressDialog();
-                view.showToast("Câp nhật ảnh đại diện không thành công, vui lòng thử lại");
+                hideProgressDialog();
+                showToast("Câp nhật ảnh đại diện không thành công, vui lòng thử lại");
             }
         });
     }
@@ -272,13 +276,13 @@ public class UpdateStoreSubmitter {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
-                    view.hideProgressDialog();
-                    view.showToast("Cập nhật ảnh đại diện thành công");
+                    hideProgressDialog();
+                    showToast("Cập nhật ảnh đại diện thành công");
                     fragment.imgAvata.setImageBitmap(bitmap);
                 }
                 else {
-                    view.hideProgressDialog();
-                    view.showToast("Câp nhật ảnh đại diện không thành công, vui lòng thử lại");
+                    hideProgressDialog();
+                    showToast("Câp nhật ảnh đại diện không thành công, vui lòng thử lại");
                 }
             }
         });
@@ -291,6 +295,18 @@ public class UpdateStoreSubmitter {
     }
     public void updateSumProduct (String idStore, int sumProduct) {
         mData.child(Constain.STORES).child(idStore).child(Constain.SUM_PRODUCT).setValue(sumProduct);
+    }
+    public void showProgressDialog (){
+        mProgress.setMessage("Loading...");
+        mProgress.setCancelable(false);
+        mProgress.create();
+        mProgress.show();
+    }
+    public void hideProgressDialog (){
+        mProgress.dismiss();
+    }
+    public void showToast (String s){
+        Toast.makeText(mContext, s, Toast.LENGTH_SHORT).show();
     }
 
 }

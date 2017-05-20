@@ -113,7 +113,7 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
         Intent intent = getIntent();
         idUser = intent.getStringExtra(Constain.ID_USER);
         try {
-            mData.child(Constain.USERS).child(idUser).addValueEventListener(new ValueEventListener() {
+            mData.child(Constain.USERS).child(idUser).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.getValue() != null) {
@@ -343,6 +343,7 @@ public class MainUserActivity extends BaseActivity implements View.OnClickListen
     }
 
     public void moveToProfileStoreFragment(String idStore) {
+        flag_exit = false;
         Profile_Store_Fragment profileStoreFragment = new Profile_Store_Fragment();
         Bundle bundle = new Bundle();
         bundle.putBoolean(Constain.IS_STORE, false);

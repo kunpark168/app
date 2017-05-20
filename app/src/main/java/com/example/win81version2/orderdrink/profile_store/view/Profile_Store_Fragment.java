@@ -156,7 +156,7 @@ public class Profile_Store_Fragment extends BaseFragment implements View.OnClick
 
     private void addControls() {
         mData = FirebaseDatabase.getInstance().getReference();
-        presenter = new UpdateStorePresenter((MainStoreActivity) getContext(), this);
+        presenter = new UpdateStorePresenter(getContext(), this);
         //Ánh xạ
         layoutChangeAvata = (FrameLayout) getActivity().findViewById(R.id.layoutChangeAvataStore);
         layoutChangeCover = (FrameLayout) getActivity().findViewById(R.id.layoutChangeCoverStore);

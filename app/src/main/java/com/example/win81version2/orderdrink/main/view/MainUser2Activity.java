@@ -256,24 +256,7 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
             drawer.closeDrawer(GravityCompat.START);
         } else {
             if (flag_exit == true) {
-                AlertDialog.Builder aler = new AlertDialog.Builder(this);
-                aler.setMessage("Bạn có chắc chắn muốn thoát?");
-                aler.setCancelable(false);
-                aler.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        moveTaskToBack(true);
-                        android.os.Process.killProcess(android.os.Process.myPid());
-                        System.exit(1);
-                    }
-                });
-                aler.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                aler.create().show();
+                moveToStoreList();
             } else {
                 flag_exit = true;
                 createProductListFragment();
@@ -383,6 +366,7 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
         if (position == 0) {
             createProductListFragment();
         } else if (position == 1) {
+            flag_exit = false;
             getSupportFragmentManager().beginTransaction().replace(R.id.content_id_user2, myCartFragment).commit();
 
         } else if (position == 2) {
@@ -392,6 +376,7 @@ public class MainUser2Activity extends BaseActivity implements View.OnClickListe
     }
 
     public void createProductListFragment() {
+        flag_exit = true;
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content_id_user2, fragment);
         transaction.addToBackStack(null);

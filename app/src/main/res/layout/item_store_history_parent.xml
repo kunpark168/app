@@ -2,141 +2,154 @@
 
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
-app:cardElevation="3dp"
-app:cardCornerRadius="1dp"
-android:layout_width="match_parent"
-android:layout_height="100dp">
-<LinearLayout
-    android:orientation="horizontal"
-    android:weightSum="10"
-    android:padding="5dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <FrameLayout
-        android:id="@+id/layoutAvataUser"
-        android:layout_weight="2.8"
-        android:layout_width="0dp"
-        android:layout_height="match_parent" >
-        <ImageView
-            android:id="@+id/imgAvataUser_itemOrderHistory"
-            android:src="@drawable/avatar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-        <ImageView
-            android:id="@+id/imgStatusShip"
-            android:src="@drawable/imgshipped"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </FrameLayout>
+    android:layout_height="100dp"
+    android:layout_marginBottom="10dp"
+    app:cardCornerRadius="1dp"
+    app:cardElevation="3dp">
+
     <LinearLayout
-        android:id="@+id/layoutInfor_itemOrderHistory"
-        android:orientation="vertical"
-        android:weightSum="4"
-        android:layout_weight="7.2"
-        android:layout_width="0dp"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:paddingLeft="5dp"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:weightSum="10">
 
-            <TextView
-                android:id="@+id/userNameOrder"
-                android:textColor="@color/black"
-                android:layout_width="wrap_content"
+        <FrameLayout
+            android:id="@+id/layoutAvataUser"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.8">
+
+            <ImageView
+                android:id="@+id/imgAvataUser_itemOrderHistory"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="User name : "
-                android:typeface="serif"
-                android:textSize="13dp" />
+                android:src="@drawable/avatar" />
 
-            <TextView
-                android:id="@+id/txtUserName_itemOrderList"
-                android:textColor="@color/grey"
-                android:textSize="13dp"
-                android:gravity="center"
-                android:text="Kunpark"
+            <ImageView
+                android:id="@+id/imgStatusShip"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:src="@drawable/imgshipped" />
+        </FrameLayout>
+
         <LinearLayout
-            android:paddingLeft="5dp"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:id="@+id/layoutInfor_itemOrderHistory"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7.2"
+            android:orientation="vertical"
+            android:weightSum="4">
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Phone Number : "
-                android:textColor="@color/black"
-                android:textSize="13dp"
-                android:typeface="serif" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingLeft="5dp">
 
-            <TextView
-                android:id="@+id/txtPhoneNumber_itemOrderList"
-                android:textSize="13dp"
-                android:gravity="center"
-                android:text="01675225146"
-                android:textColor="@color/grey"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-        <LinearLayout
-            android:paddingLeft="5dp"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
-            <TextView
-                android:id="@+id/txtProductName_itemOrderList"
-                android:textColor="@color/black"
-                android:text="Địa chỉ : "
-                android:typeface="serif"
-                android:textSize="13dp"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
-            <TextView
-                android:id="@+id/txtAddress_itemOrderList"
-                android:maxLines="1"
-                android:textSize="13dp"
-                android:textColor="@color/grey"
-                android:gravity="center"
-                android:text="Tân Lập - Dĩ An - Bình Dương"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-        <LinearLayout
-            android:paddingLeft="5dp"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
-            <TextView
-                android:text="Time Order : "
-                android:textColor="@color/black"
-                android:typeface="serif"
-                android:textSize="13dp"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
-            <TextView
-                android:id="@+id/txtTimeOrder"
-                android:text="11h:20p:24s 12/2/2017"
-                android:textColor="@color/grey"
-                android:textSize="13dp"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/userNameOrder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="User name : "
+                    android:textColor="@color/black"
+                    android:textSize="13dp"
+                    android:typeface="serif" />
 
+                <TextView
+                    android:id="@+id/txtUserName_itemOrderList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Kunpark"
+                    android:textColor="@color/grey"
+                    android:textSize="13dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingLeft="5dp">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Phone Number : "
+                    android:textColor="@color/black"
+                    android:textSize="13dp"
+                    android:typeface="serif" />
+
+                <TextView
+                    android:id="@+id/txtPhoneNumber_itemOrderList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="01675225146"
+                    android:textColor="@color/grey"
+                    android:textSize="13dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingLeft="5dp">
+
+                <TextView
+                    android:id="@+id/txtProductName_itemOrderList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Địa chỉ : "
+                    android:textColor="@color/black"
+                    android:textSize="13dp"
+                    android:typeface="serif" />
+
+                <TextView
+                    android:id="@+id/txtAddress_itemOrderList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="Tân Lập - Dĩ An - Bình Dương"
+                    android:textColor="@color/grey"
+                    android:textSize="13dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingLeft="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Time Order : "
+                    android:textColor="@color/black"
+                    android:textSize="13dp"
+                    android:typeface="serif" />
+
+                <TextView
+                    android:id="@+id/txtTimeOrder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="11h:20p:24s 12/2/2017"
+                    android:textColor="@color/grey"
+                    android:textSize="13dp" />
+            </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
 </android.support.v7.widget.CardView>

@@ -384,9 +384,8 @@ public class MyCartFragment extends BaseFragment {
         btnPay = (Button) getActivity().findViewById(R.id.btnPay);
         presenter = new HistoryOrderPresenter();
         shipPresenter = new HistoryShipPresenter();
-        MainStoreActivity view = new MainStoreActivity();
         Profile_Store_Fragment fragment = new Profile_Store_Fragment();
-        storePresenter = new UpdateStorePresenter(view, fragment);
+        storePresenter = new UpdateStorePresenter(getContext(), fragment);
         profilePresenter = new UserProfilePresenter(getContext());
         arrFlagProduct = new ArrayList<>();
         idStore = getActivity().getIntent().getStringExtra(Constain.ID_STORE);

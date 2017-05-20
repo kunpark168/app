@@ -66,9 +66,8 @@ public class HistoryShipStoreFragment extends BaseFragment {
         recyclerViewShipStore.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new OrderListStoreAdapter(getContext(), idStore, initData());
         adapter.collapseAllParents();
-        MainStoreActivity view = new MainStoreActivity();
         Profile_Store_Fragment fragment = new Profile_Store_Fragment();
-        presenter = new UpdateStorePresenter(view, fragment);
+        presenter = new UpdateStorePresenter(getContext(), fragment);
         recyclerViewShipStore.setAdapter(adapter);
     }
 
