@@ -6,7 +6,7 @@
     android:weightSum="3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.win81version2.orderdrink.main.view.MainAdminActivity">
+    tools:context="com.nht.uit.orderdrink.main.view.MainAdminActivity">
     <LinearLayout
         android:layout_weight="1"
         android:layout_width="match_parent"

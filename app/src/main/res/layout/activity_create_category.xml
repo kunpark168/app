@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:orientation="vertical"
-    tools:context="com.example.win81version2.orderdrink.category.view.CreateCategory">
+    tools:context="com.nht.uit.orderdrink.category.view.CreateCategory">
     //50
     <LinearLayout
         android:background="@color/colorPrimaryDark"

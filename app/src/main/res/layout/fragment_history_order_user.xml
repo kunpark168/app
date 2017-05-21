@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.win81version2.orderdrink.history_order_user.view.HistoryOrderUserFragment">
+    tools:context="com.nht.uit.orderdrink.history_order_user.view.HistoryOrderUserFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.RecyclerView

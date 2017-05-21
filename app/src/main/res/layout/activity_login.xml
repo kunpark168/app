@@ -7,7 +7,7 @@
     android:background="@drawable/bg_login_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.win81version2.orderdrink.Login.view.LoginActivity">
+    tools:context="com.nht.uit.orderdrink.Login.view.LoginActivity">
     //Logo 4
     <RelativeLayout
         android:layout_weight="3.6"

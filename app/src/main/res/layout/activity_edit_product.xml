@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    tools:context="com.example.win81version2.orderdrink.product.view.EditProductActivity">
+    tools:context="com.nht.uit.orderdrink.product.view.EditProductActivity">
     //Photo 2
     <LinearLayout
         android:orientation="horizontal"

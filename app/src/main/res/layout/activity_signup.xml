@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.win81version2.orderdrink.signup.view.SignupUserActivity">
+    tools:context="com.nht.uit.orderdrink.signup.view.SignupUserActivity">
     //Logo 4
     <LinearLayout
         android:orientation="horizontal"

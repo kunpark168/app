@@ -9,7 +9,7 @@
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     android:paddingTop="10dp"
-    tools:context="com.example.win81version2.orderdrink.profile_user.view.ProfileUser_Fragment">
+    tools:context="com.nht.uit.orderdrink.profile_user.view.ProfileUser_Fragment">
 
     <LinearLayout
         android:layout_width="match_parent"
